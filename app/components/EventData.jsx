@@ -15,8 +15,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-//var ref = firebase.database().ref('events');
-
 var EventData = React.createClass({
     getInitialState: function () {
         return {
@@ -24,27 +22,27 @@ var EventData = React.createClass({
         }
     },
     componentWillMount: function () {
-        console.log('hello');
         var allevents = [];
         var events = [];
         var test;
         
     },
     componentDidMount: function () {
-            //var tits = [];
             var ref = firebase.database().ref('events');
 
             ref.on('value', snapshot => {
                 var tits = snapshot.val();
                 var hotvents = [];
-                //console.log(tits["0"].title);
                 var that = this;
 
                 snapshot.forEach(function (data) {
                     var newtits = data.val();
-                    console.log(newtits.date);
-
-                    hotvents.push(newtits);
+                    var eventDate = new Date(newtits.date);     //get event date
+                    var currentDate = new Date();               //get current date
+                    
+                    if (currentDate < eventDate) {              //push only future events
+                        hotvents.push(newtits);  
+                    }
                     that.setState({hot: hotvents});
                 });
             });
@@ -52,7 +50,7 @@ var EventData = React.createClass({
     },
     
    render: function () {
-        console.log(this.state.hot);
+        
         if (!this.state.hot) {
                 return <div><Halogen className = "halogen" color="#5F7187" size="72px" margin="48px"/></div>
             }
@@ -65,8 +63,8 @@ var EventData = React.createClass({
                 transitionName="fade"
                 transitionEnterTimeout={500}
                 transitionLeaveTimeout={500}>
-                {this.state.hot.map(card=>{
-                    return <div className="small-3 columns end">
+                {this.state.hot.map((card,index)=>{
+                    return <div className="small-3 columns end" key={index}>
                                 <div className="profile-card slideRight">
                                     <div className="image-wrapper overlay-fade-in">
                                          <img src={card.img} className="thumbnail" alt />

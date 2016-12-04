@@ -104,15 +104,13 @@
 	    hashHistory = _require.hashHistory;
 
 	var Main = __webpack_require__(222);
-	var Weather = __webpack_require__(231);
-	var About = __webpack_require__(275);
-	var Examples = __webpack_require__(276);
-	var Card = __webpack_require__(277);
-	var EventData = __webpack_require__(260);
+	var About = __webpack_require__(231);
+	var Card = __webpack_require__(232);
+	var EventData = __webpack_require__(247);
 
-	__webpack_require__(279);
-	__webpack_require__(283);
-	__webpack_require__(285);
+	__webpack_require__(249);
+	__webpack_require__(253);
+	__webpack_require__(255);
 
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -25796,63 +25794,104 @@
 	'use strict';
 
 	var React = __webpack_require__(7);
-	var WeatherForm = __webpack_require__(232);
-	var WeatherMessage = __webpack_require__(233);
-	var openWeatherMap = __webpack_require__(234);
-	var EventData = __webpack_require__(260);
+	var ReactCSSTransitionGroup = __webpack_require__(224);
+	var About = React.createClass({
+	    displayName: 'About',
 
-	/*var firebase = require('firebase');
+	    render: function render() {
 
-	  var config = {
-	    apiKey: "AIzaSyBQpgPVjQScAtAbgxZZ_BIs3jZhLD38SJY",
-	    authDomain: "events-558cd.firebaseapp.com",
-	    databaseURL: "https://events-558cd.firebaseio.com",
-	    storageBucket: "events-558cd.appspot.com",
-	    messagingSenderId: "81048302603"
-	  };
-	firebase.initializeApp(config);
-
-	var ref = firebase.database().ref('events');
-
-	ref.once('value').then(function (snap) {
-	   snap.forEach(function (data) {
-	       var events = [];
-	       //events.push(data.val());
-	       //console.log(data.val());
-	       var event = data.val();
-	       console.log(event[0].title);
-	   });
-	});*/
-
-	var Weather = React.createClass({
-	  displayName: 'Weather',
-
-
-	  render: function render() {
-
-	    return React.createElement(
-	      'div',
-	      { className: 'row small-up-1 medium-up-2 large-up-4' },
-	      React.createElement(
-	        'div',
-	        { className: 'column' },
-	        React.createElement('img', { src: '//placehold.it/418x600', className: 'thumbnail', alt: true }),
-	        React.createElement(
-	          'h3',
-	          null,
-	          'UFC 206'
-	        ),
-	        React.createElement(
-	          'h6',
-	          null,
-	          'Toronto, Ontario, Canada'
-	        )
-	      )
-	    );
-	  }
+	        return React.createElement(
+	            'div',
+	            { className: 'row buffer slideRight' },
+	            React.createElement(
+	                'div',
+	                { className: 'small-2 large-2 columns' },
+	                React.createElement('p', null)
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'small-8 large-8 columns' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'row faq ' },
+	                    React.createElement(
+	                        'h5',
+	                        null,
+	                        'What is MMA Momentum Gauge?'
+	                    ),
+	                    React.createElement(
+	                        'p',
+	                        null,
+	                        'This app analyzes UFC events to determine its\' Dwyer Score based upon the fighters who are scheduled to fight on the card.'
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'row faq ' },
+	                    React.createElement(
+	                        'h5',
+	                        null,
+	                        'What is the Dwyer Score?'
+	                    ),
+	                    React.createElement(
+	                        'p',
+	                        null,
+	                        'The purpose of the Dwyer Score is to gauge the magnitude, or importance, of an event.'
+	                    ),
+	                    React.createElement(
+	                        'p',
+	                        null,
+	                        'Analyzing each fighter\'s record to determine their current win or loss streak and adding it to the total for the event.  For example, if a fighter has a 3 fight win streak, they contribute +3 to the total Dwyer Score for the event.  If a fighter has lost their last two contests, they contribute -2.  Other fight results such as draws and no contests are ignored.  The Dwyer Score was originally created by Nick Dwyer.'
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'row faq' },
+	                    React.createElement(
+	                        'h5',
+	                        null,
+	                        'Why develop MMA Momentum Guage?'
+	                    ),
+	                    React.createElement(
+	                        'p',
+	                        null,
+	                        'Calculating a Dwyer Score for an event by hand can be a time consuming experience as you have to look at each individual fighters\' record.  By nature, fight cards can routinely change based upon injuries and replacement fighters causing the Dwyer Score to fluctuate.  This app is designed to generate Dwyer Scores as events are announced.'
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'row faq' },
+	                    React.createElement(
+	                        'h5',
+	                        null,
+	                        'What is the goal for MMA Momentum Guage?'
+	                    ),
+	                    React.createElement(
+	                        'p',
+	                        null,
+	                        'Initially designed to forumalte Dwyer Scores for future events, other plans for this app are to generate Dwyer Scores for past events.  Additionally, in the sports world where data and statistics are more looked at than ever, an API service will be developed to provide the unique data gathering capabilities of this app to be used by other developers.'
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'row faq' },
+	                    React.createElement(
+	                        'h6',
+	                        null,
+	                        'MMA Momentum Guage developed and designed by Eric Page.'
+	                    )
+	                )
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'small-2 large-2 columns' },
+	                React.createElement('p', null)
+	            )
+	        );
+	    }
 	});
 
-	module.exports = Weather;
+	module.exports = About;
 
 /***/ },
 /* 232 */
@@ -25861,2103 +25900,317 @@
 	'use strict';
 
 	var React = __webpack_require__(7);
-
-	var WeatherForm = React.createClass({
-	  displayName: 'WeatherForm',
-
-	  onFormSubmit: function onFormSubmit(e) {
-	    e.preventDefault();
-
-	    var location = this.refs.location.value;
-
-	    if (location.length > 0) {
-	      this.refs.location.value = '';
-	      this.props.onSearch(location);
-	    }
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.onFormSubmit },
-	        React.createElement('input', { type: 'text', ref: 'location' }),
-	        React.createElement(
-	          'button',
-	          null,
-	          'Get Weather'
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = WeatherForm;
-
-/***/ },
-/* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(7);
-
-	var WeatherMessage = React.createClass({
-	  displayName: 'WeatherMessage',
-
-	  render: function render() {
-	    var _props = this.props,
-	        temp = _props.temp,
-	        location = _props.location;
-
-
-	    return React.createElement(
-	      'h3',
-	      null,
-	      'It\'s it ',
-	      temp,
-	      ' in ',
-	      location,
-	      '.'
-	    );
-	  }
-	});
-
-	module.exports = WeatherMessage;
-
-/***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var axios = __webpack_require__(235);
-
-	var OPEN_WEATHER_MAP_URL = 'http://api.openweathermap.org/data/2.5/weather?appid=66e96eb3904d83c91c7cbc445137ec53&units=metric';
-
-	//66e96eb3904d83c91c7cbc445137ec53
-
-	module.exports = {
-	    getTemp: function getTemp(location) {
-	        var encodedLocation = encodeURIComponent(location);
-	        var requestUrl = OPEN_WEATHER_MAP_URL + '&q=' + encodedLocation;
-
-	        return axios.get(requestUrl).then(function (res) {
-	            if (res.data.cod && res.data.message) {
-	                throw new Error(res.data.message);
-	            } else {
-	                return res.data.main.temp;
-	            }
-	        }, function (res) {
-	            throw new Error(res.data.message);
-	        });
-	    }
-	};
-
-/***/ },
-/* 235 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(236);
-
-/***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var utils = __webpack_require__(237);
-	var bind = __webpack_require__(238);
-	var Axios = __webpack_require__(239);
-
-	/**
-	 * Create an instance of Axios
-	 *
-	 * @param {Object} defaultConfig The default config for the instance
-	 * @return {Axios} A new instance of Axios
-	 */
-	function createInstance(defaultConfig) {
-	  var context = new Axios(defaultConfig);
-	  var instance = bind(Axios.prototype.request, context);
-
-	  // Copy axios.prototype to instance
-	  utils.extend(instance, Axios.prototype, context);
-
-	  // Copy context to instance
-	  utils.extend(instance, context);
-
-	  return instance;
-	}
-
-	// Create the default instance to be exported
-	var axios = createInstance();
-
-	// Expose Axios class to allow class inheritance
-	axios.Axios = Axios;
-
-	// Factory for creating new instances
-	axios.create = function create(defaultConfig) {
-	  return createInstance(defaultConfig);
-	};
-
-	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(257);
-	axios.CancelToken = __webpack_require__(258);
-	axios.isCancel = __webpack_require__(254);
-
-	// Expose all/spread
-	axios.all = function all(promises) {
-	  return Promise.all(promises);
-	};
-	axios.spread = __webpack_require__(259);
-
-	module.exports = axios;
-
-	// Allow use of default import syntax in TypeScript
-	module.exports.default = axios;
-
-
-/***/ },
-/* 237 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var bind = __webpack_require__(238);
-
-	/*global toString:true*/
-
-	// utils is a library of generic helper functions non-specific to axios
-
-	var toString = Object.prototype.toString;
-
-	/**
-	 * Determine if a value is an Array
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is an Array, otherwise false
-	 */
-	function isArray(val) {
-	  return toString.call(val) === '[object Array]';
-	}
-
-	/**
-	 * Determine if a value is an ArrayBuffer
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is an ArrayBuffer, otherwise false
-	 */
-	function isArrayBuffer(val) {
-	  return toString.call(val) === '[object ArrayBuffer]';
-	}
-
-	/**
-	 * Determine if a value is a FormData
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is an FormData, otherwise false
-	 */
-	function isFormData(val) {
-	  return (typeof FormData !== 'undefined') && (val instanceof FormData);
-	}
-
-	/**
-	 * Determine if a value is a view on an ArrayBuffer
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
-	 */
-	function isArrayBufferView(val) {
-	  var result;
-	  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
-	    result = ArrayBuffer.isView(val);
-	  } else {
-	    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
-	  }
-	  return result;
-	}
-
-	/**
-	 * Determine if a value is a String
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is a String, otherwise false
-	 */
-	function isString(val) {
-	  return typeof val === 'string';
-	}
-
-	/**
-	 * Determine if a value is a Number
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is a Number, otherwise false
-	 */
-	function isNumber(val) {
-	  return typeof val === 'number';
-	}
-
-	/**
-	 * Determine if a value is undefined
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if the value is undefined, otherwise false
-	 */
-	function isUndefined(val) {
-	  return typeof val === 'undefined';
-	}
-
-	/**
-	 * Determine if a value is an Object
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is an Object, otherwise false
-	 */
-	function isObject(val) {
-	  return val !== null && typeof val === 'object';
-	}
-
-	/**
-	 * Determine if a value is a Date
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is a Date, otherwise false
-	 */
-	function isDate(val) {
-	  return toString.call(val) === '[object Date]';
-	}
-
-	/**
-	 * Determine if a value is a File
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is a File, otherwise false
-	 */
-	function isFile(val) {
-	  return toString.call(val) === '[object File]';
-	}
-
-	/**
-	 * Determine if a value is a Blob
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is a Blob, otherwise false
-	 */
-	function isBlob(val) {
-	  return toString.call(val) === '[object Blob]';
-	}
-
-	/**
-	 * Determine if a value is a Function
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is a Function, otherwise false
-	 */
-	function isFunction(val) {
-	  return toString.call(val) === '[object Function]';
-	}
-
-	/**
-	 * Determine if a value is a Stream
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is a Stream, otherwise false
-	 */
-	function isStream(val) {
-	  return isObject(val) && isFunction(val.pipe);
-	}
-
-	/**
-	 * Determine if a value is a URLSearchParams object
-	 *
-	 * @param {Object} val The value to test
-	 * @returns {boolean} True if value is a URLSearchParams object, otherwise false
-	 */
-	function isURLSearchParams(val) {
-	  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
-	}
-
-	/**
-	 * Trim excess whitespace off the beginning and end of a string
-	 *
-	 * @param {String} str The String to trim
-	 * @returns {String} The String freed of excess whitespace
-	 */
-	function trim(str) {
-	  return str.replace(/^\s*/, '').replace(/\s*$/, '');
-	}
-
-	/**
-	 * Determine if we're running in a standard browser environment
-	 *
-	 * This allows axios to run in a web worker, and react-native.
-	 * Both environments support XMLHttpRequest, but not fully standard globals.
-	 *
-	 * web workers:
-	 *  typeof window -> undefined
-	 *  typeof document -> undefined
-	 *
-	 * react-native:
-	 *  typeof document.createElement -> undefined
-	 */
-	function isStandardBrowserEnv() {
-	  return (
-	    typeof window !== 'undefined' &&
-	    typeof document !== 'undefined' &&
-	    typeof document.createElement === 'function'
-	  );
-	}
-
-	/**
-	 * Iterate over an Array or an Object invoking a function for each item.
-	 *
-	 * If `obj` is an Array callback will be called passing
-	 * the value, index, and complete array for each item.
-	 *
-	 * If 'obj' is an Object callback will be called passing
-	 * the value, key, and complete object for each property.
-	 *
-	 * @param {Object|Array} obj The object to iterate
-	 * @param {Function} fn The callback to invoke for each item
-	 */
-	function forEach(obj, fn) {
-	  // Don't bother if no value provided
-	  if (obj === null || typeof obj === 'undefined') {
-	    return;
-	  }
-
-	  // Force an array if not already something iterable
-	  if (typeof obj !== 'object' && !isArray(obj)) {
-	    /*eslint no-param-reassign:0*/
-	    obj = [obj];
-	  }
-
-	  if (isArray(obj)) {
-	    // Iterate over array values
-	    for (var i = 0, l = obj.length; i < l; i++) {
-	      fn.call(null, obj[i], i, obj);
-	    }
-	  } else {
-	    // Iterate over object keys
-	    for (var key in obj) {
-	      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-	        fn.call(null, obj[key], key, obj);
-	      }
-	    }
-	  }
-	}
-
-	/**
-	 * Accepts varargs expecting each argument to be an object, then
-	 * immutably merges the properties of each object and returns result.
-	 *
-	 * When multiple objects contain the same key the later object in
-	 * the arguments list will take precedence.
-	 *
-	 * Example:
-	 *
-	 * ```js
-	 * var result = merge({foo: 123}, {foo: 456});
-	 * console.log(result.foo); // outputs 456
-	 * ```
-	 *
-	 * @param {Object} obj1 Object to merge
-	 * @returns {Object} Result of all merge properties
-	 */
-	function merge(/* obj1, obj2, obj3, ... */) {
-	  var result = {};
-	  function assignValue(val, key) {
-	    if (typeof result[key] === 'object' && typeof val === 'object') {
-	      result[key] = merge(result[key], val);
-	    } else {
-	      result[key] = val;
-	    }
-	  }
-
-	  for (var i = 0, l = arguments.length; i < l; i++) {
-	    forEach(arguments[i], assignValue);
-	  }
-	  return result;
-	}
-
-	/**
-	 * Extends object a by mutably adding to it the properties of object b.
-	 *
-	 * @param {Object} a The object to be extended
-	 * @param {Object} b The object to copy properties from
-	 * @param {Object} thisArg The object to bind function to
-	 * @return {Object} The resulting value of object a
-	 */
-	function extend(a, b, thisArg) {
-	  forEach(b, function assignValue(val, key) {
-	    if (thisArg && typeof val === 'function') {
-	      a[key] = bind(val, thisArg);
-	    } else {
-	      a[key] = val;
-	    }
-	  });
-	  return a;
-	}
-
-	module.exports = {
-	  isArray: isArray,
-	  isArrayBuffer: isArrayBuffer,
-	  isFormData: isFormData,
-	  isArrayBufferView: isArrayBufferView,
-	  isString: isString,
-	  isNumber: isNumber,
-	  isObject: isObject,
-	  isUndefined: isUndefined,
-	  isDate: isDate,
-	  isFile: isFile,
-	  isBlob: isBlob,
-	  isFunction: isFunction,
-	  isStream: isStream,
-	  isURLSearchParams: isURLSearchParams,
-	  isStandardBrowserEnv: isStandardBrowserEnv,
-	  forEach: forEach,
-	  merge: merge,
-	  extend: extend,
-	  trim: trim
-	};
-
-
-/***/ },
-/* 238 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = function bind(fn, thisArg) {
-	  return function wrap() {
-	    var args = new Array(arguments.length);
-	    for (var i = 0; i < args.length; i++) {
-	      args[i] = arguments[i];
-	    }
-	    return fn.apply(thisArg, args);
-	  };
-	};
-
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var defaults = __webpack_require__(240);
-	var utils = __webpack_require__(237);
-	var InterceptorManager = __webpack_require__(251);
-	var dispatchRequest = __webpack_require__(252);
-	var isAbsoluteURL = __webpack_require__(255);
-	var combineURLs = __webpack_require__(256);
-
-	/**
-	 * Create a new instance of Axios
-	 *
-	 * @param {Object} defaultConfig The default config for the instance
-	 */
-	function Axios(defaultConfig) {
-	  this.defaults = utils.merge(defaults, defaultConfig);
-	  this.interceptors = {
-	    request: new InterceptorManager(),
-	    response: new InterceptorManager()
-	  };
-	}
-
-	/**
-	 * Dispatch a request
-	 *
-	 * @param {Object} config The config specific for this request (merged with this.defaults)
-	 */
-	Axios.prototype.request = function request(config) {
-	  /*eslint no-param-reassign:0*/
-	  // Allow for axios('example/url'[, config]) a la fetch API
-	  if (typeof config === 'string') {
-	    config = utils.merge({
-	      url: arguments[0]
-	    }, arguments[1]);
-	  }
-
-	  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
-
-	  // Support baseURL config
-	  if (config.baseURL && !isAbsoluteURL(config.url)) {
-	    config.url = combineURLs(config.baseURL, config.url);
-	  }
-
-	  // Hook up interceptors middleware
-	  var chain = [dispatchRequest, undefined];
-	  var promise = Promise.resolve(config);
-
-	  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-	    chain.unshift(interceptor.fulfilled, interceptor.rejected);
-	  });
-
-	  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-	    chain.push(interceptor.fulfilled, interceptor.rejected);
-	  });
-
-	  while (chain.length) {
-	    promise = promise.then(chain.shift(), chain.shift());
-	  }
-
-	  return promise;
-	};
-
-	// Provide aliases for supported request methods
-	utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-	  /*eslint func-names:0*/
-	  Axios.prototype[method] = function(url, config) {
-	    return this.request(utils.merge(config || {}, {
-	      method: method,
-	      url: url
-	    }));
-	  };
-	});
-
-	utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-	  /*eslint func-names:0*/
-	  Axios.prototype[method] = function(url, data, config) {
-	    return this.request(utils.merge(config || {}, {
-	      method: method,
-	      url: url,
-	      data: data
-	    }));
-	  };
-	});
-
-	module.exports = Axios;
-
-
-/***/ },
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	var utils = __webpack_require__(237);
-	var normalizeHeaderName = __webpack_require__(241);
-
-	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
-	var DEFAULT_CONTENT_TYPE = {
-	  'Content-Type': 'application/x-www-form-urlencoded'
-	};
-
-	function setContentTypeIfUnset(headers, value) {
-	  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-	    headers['Content-Type'] = value;
-	  }
-	}
-
-	function getDefaultAdapter() {
-	  var adapter;
-	  if (typeof XMLHttpRequest !== 'undefined') {
-	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(242);
-	  } else if (typeof process !== 'undefined') {
-	    // For node use HTTP adapter
-	    adapter = __webpack_require__(242);
-	  }
-	  return adapter;
-	}
-
-	module.exports = {
-	  adapter: getDefaultAdapter(),
-
-	  transformRequest: [function transformRequest(data, headers) {
-	    normalizeHeaderName(headers, 'Content-Type');
-	    if (utils.isFormData(data) ||
-	      utils.isArrayBuffer(data) ||
-	      utils.isStream(data) ||
-	      utils.isFile(data) ||
-	      utils.isBlob(data)
-	    ) {
-	      return data;
-	    }
-	    if (utils.isArrayBufferView(data)) {
-	      return data.buffer;
-	    }
-	    if (utils.isURLSearchParams(data)) {
-	      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-	      return data.toString();
-	    }
-	    if (utils.isObject(data)) {
-	      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-	      return JSON.stringify(data);
-	    }
-	    return data;
-	  }],
-
-	  transformResponse: [function transformResponse(data) {
-	    /*eslint no-param-reassign:0*/
-	    if (typeof data === 'string') {
-	      data = data.replace(PROTECTION_PREFIX, '');
-	      try {
-	        data = JSON.parse(data);
-	      } catch (e) { /* Ignore */ }
-	    }
-	    return data;
-	  }],
-
-	  headers: {
-	    common: {
-	      'Accept': 'application/json, text/plain, */*'
-	    },
-	    patch: utils.merge(DEFAULT_CONTENT_TYPE),
-	    post: utils.merge(DEFAULT_CONTENT_TYPE),
-	    put: utils.merge(DEFAULT_CONTENT_TYPE)
-	  },
-
-	  timeout: 0,
-
-	  xsrfCookieName: 'XSRF-TOKEN',
-	  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-	  maxContentLength: -1,
-
-	  validateStatus: function validateStatus(status) {
-	    return status >= 200 && status < 300;
-	  }
-	};
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
-
-/***/ },
-/* 241 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var utils = __webpack_require__(237);
-
-	module.exports = function normalizeHeaderName(headers, normalizedName) {
-	  utils.forEach(headers, function processHeader(value, name) {
-	    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
-	      headers[normalizedName] = value;
-	      delete headers[name];
-	    }
-	  });
-	};
-
-
-/***/ },
-/* 242 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	var utils = __webpack_require__(237);
-	var settle = __webpack_require__(243);
-	var buildURL = __webpack_require__(246);
-	var parseHeaders = __webpack_require__(247);
-	var isURLSameOrigin = __webpack_require__(248);
-	var createError = __webpack_require__(244);
-	var btoa = (typeof window !== 'undefined' && window.btoa) || __webpack_require__(249);
-
-	module.exports = function xhrAdapter(config) {
-	  return new Promise(function dispatchXhrRequest(resolve, reject) {
-	    var requestData = config.data;
-	    var requestHeaders = config.headers;
-
-	    if (utils.isFormData(requestData)) {
-	      delete requestHeaders['Content-Type']; // Let the browser set it
-	    }
-
-	    var request = new XMLHttpRequest();
-	    var loadEvent = 'onreadystatechange';
-	    var xDomain = false;
-
-	    // For IE 8/9 CORS support
-	    // Only supports POST and GET calls and doesn't returns the response headers.
-	    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-	    if (process.env.NODE_ENV !== 'test' &&
-	        typeof window !== 'undefined' &&
-	        window.XDomainRequest && !('withCredentials' in request) &&
-	        !isURLSameOrigin(config.url)) {
-	      request = new window.XDomainRequest();
-	      loadEvent = 'onload';
-	      xDomain = true;
-	      request.onprogress = function handleProgress() {};
-	      request.ontimeout = function handleTimeout() {};
-	    }
-
-	    // HTTP basic authentication
-	    if (config.auth) {
-	      var username = config.auth.username || '';
-	      var password = config.auth.password || '';
-	      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
-	    }
-
-	    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
-
-	    // Set the request timeout in MS
-	    request.timeout = config.timeout;
-
-	    // Listen for ready state
-	    request[loadEvent] = function handleLoad() {
-	      if (!request || (request.readyState !== 4 && !xDomain)) {
-	        return;
-	      }
-
-	      // The request errored out and we didn't get a response, this will be
-	      // handled by onerror instead
-	      // With one exception: request that using file: protocol, most browsers
-	      // will return status as 0 even though it's a successful request
-	      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
-	        return;
-	      }
-
-	      // Prepare the response
-	      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-	      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
-	      var response = {
-	        data: responseData,
-	        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
-	        status: request.status === 1223 ? 204 : request.status,
-	        statusText: request.status === 1223 ? 'No Content' : request.statusText,
-	        headers: responseHeaders,
-	        config: config,
-	        request: request
-	      };
-
-	      settle(resolve, reject, response);
-
-	      // Clean up request
-	      request = null;
-	    };
-
-	    // Handle low level network errors
-	    request.onerror = function handleError() {
-	      // Real errors are hidden from us by the browser
-	      // onerror should only fire if it's a network error
-	      reject(createError('Network Error', config));
-
-	      // Clean up request
-	      request = null;
-	    };
-
-	    // Handle timeout
-	    request.ontimeout = function handleTimeout() {
-	      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED'));
-
-	      // Clean up request
-	      request = null;
-	    };
-
-	    // Add xsrf header
-	    // This is only done if running in a standard browser environment.
-	    // Specifically not if we're in a web worker, or react-native.
-	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(250);
-
-	      // Add xsrf header
-	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
-	          cookies.read(config.xsrfCookieName) :
-	          undefined;
-
-	      if (xsrfValue) {
-	        requestHeaders[config.xsrfHeaderName] = xsrfValue;
-	      }
-	    }
-
-	    // Add headers to the request
-	    if ('setRequestHeader' in request) {
-	      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
-	        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
-	          // Remove Content-Type if data is undefined
-	          delete requestHeaders[key];
-	        } else {
-	          // Otherwise add header to the request
-	          request.setRequestHeader(key, val);
-	        }
-	      });
-	    }
-
-	    // Add withCredentials to request if needed
-	    if (config.withCredentials) {
-	      request.withCredentials = true;
-	    }
-
-	    // Add responseType to request if needed
-	    if (config.responseType) {
-	      try {
-	        request.responseType = config.responseType;
-	      } catch (e) {
-	        if (request.responseType !== 'json') {
-	          throw e;
-	        }
-	      }
-	    }
-
-	    // Handle progress if needed
-	    if (typeof config.onDownloadProgress === 'function') {
-	      request.addEventListener('progress', config.onDownloadProgress);
-	    }
-
-	    // Not all browsers support upload events
-	    if (typeof config.onUploadProgress === 'function' && request.upload) {
-	      request.upload.addEventListener('progress', config.onUploadProgress);
-	    }
-
-	    if (config.cancelToken) {
-	      // Handle cancellation
-	      config.cancelToken.promise.then(function onCanceled(cancel) {
-	        if (!request) {
-	          return;
-	        }
-
-	        request.abort();
-	        reject(cancel);
-	        // Clean up request
-	        request = null;
-	      });
-	    }
-
-	    if (requestData === undefined) {
-	      requestData = null;
-	    }
-
-	    // Send the request
-	    request.send(requestData);
-	  });
-	};
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
-
-/***/ },
-/* 243 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var createError = __webpack_require__(244);
-
-	/**
-	 * Resolve or reject a Promise based on response status.
-	 *
-	 * @param {Function} resolve A function that resolves the promise.
-	 * @param {Function} reject A function that rejects the promise.
-	 * @param {object} response The response.
-	 */
-	module.exports = function settle(resolve, reject, response) {
-	  var validateStatus = response.config.validateStatus;
-	  // Note: status is not exposed by XDomainRequest
-	  if (!response.status || !validateStatus || validateStatus(response.status)) {
-	    resolve(response);
-	  } else {
-	    reject(createError(
-	      'Request failed with status code ' + response.status,
-	      response.config,
-	      null,
-	      response
-	    ));
-	  }
-	};
-
-
-/***/ },
-/* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var enhanceError = __webpack_require__(245);
-
-	/**
-	 * Create an Error with the specified message, config, error code, and response.
-	 *
-	 * @param {string} message The error message.
-	 * @param {Object} config The config.
-	 * @param {string} [code] The error code (for example, 'ECONNABORTED').
-	 @ @param {Object} [response] The response.
-	 * @returns {Error} The created error.
-	 */
-	module.exports = function createError(message, config, code, response) {
-	  var error = new Error(message);
-	  return enhanceError(error, config, code, response);
-	};
-
-
-/***/ },
-/* 245 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	/**
-	 * Update an Error with the specified config, error code, and response.
-	 *
-	 * @param {Error} error The error to update.
-	 * @param {Object} config The config.
-	 * @param {string} [code] The error code (for example, 'ECONNABORTED').
-	 @ @param {Object} [response] The response.
-	 * @returns {Error} The error.
-	 */
-	module.exports = function enhanceError(error, config, code, response) {
-	  error.config = config;
-	  if (code) {
-	    error.code = code;
-	  }
-	  error.response = response;
-	  return error;
-	};
-
-
-/***/ },
-/* 246 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var utils = __webpack_require__(237);
-
-	function encode(val) {
-	  return encodeURIComponent(val).
-	    replace(/%40/gi, '@').
-	    replace(/%3A/gi, ':').
-	    replace(/%24/g, '$').
-	    replace(/%2C/gi, ',').
-	    replace(/%20/g, '+').
-	    replace(/%5B/gi, '[').
-	    replace(/%5D/gi, ']');
-	}
-
-	/**
-	 * Build a URL by appending params to the end
-	 *
-	 * @param {string} url The base of the url (e.g., http://www.google.com)
-	 * @param {object} [params] The params to be appended
-	 * @returns {string} The formatted url
-	 */
-	module.exports = function buildURL(url, params, paramsSerializer) {
-	  /*eslint no-param-reassign:0*/
-	  if (!params) {
-	    return url;
-	  }
-
-	  var serializedParams;
-	  if (paramsSerializer) {
-	    serializedParams = paramsSerializer(params);
-	  } else if (utils.isURLSearchParams(params)) {
-	    serializedParams = params.toString();
-	  } else {
-	    var parts = [];
-
-	    utils.forEach(params, function serialize(val, key) {
-	      if (val === null || typeof val === 'undefined') {
-	        return;
-	      }
-
-	      if (utils.isArray(val)) {
-	        key = key + '[]';
-	      }
-
-	      if (!utils.isArray(val)) {
-	        val = [val];
-	      }
-
-	      utils.forEach(val, function parseValue(v) {
-	        if (utils.isDate(v)) {
-	          v = v.toISOString();
-	        } else if (utils.isObject(v)) {
-	          v = JSON.stringify(v);
-	        }
-	        parts.push(encode(key) + '=' + encode(v));
-	      });
-	    });
-
-	    serializedParams = parts.join('&');
-	  }
-
-	  if (serializedParams) {
-	    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
-	  }
-
-	  return url;
-	};
-
-
-/***/ },
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var utils = __webpack_require__(237);
-
-	/**
-	 * Parse headers into an object
-	 *
-	 * ```
-	 * Date: Wed, 27 Aug 2014 08:58:49 GMT
-	 * Content-Type: application/json
-	 * Connection: keep-alive
-	 * Transfer-Encoding: chunked
-	 * ```
-	 *
-	 * @param {String} headers Headers needing to be parsed
-	 * @returns {Object} Headers parsed into an object
-	 */
-	module.exports = function parseHeaders(headers) {
-	  var parsed = {};
-	  var key;
-	  var val;
-	  var i;
-
-	  if (!headers) { return parsed; }
-
-	  utils.forEach(headers.split('\n'), function parser(line) {
-	    i = line.indexOf(':');
-	    key = utils.trim(line.substr(0, i)).toLowerCase();
-	    val = utils.trim(line.substr(i + 1));
-
-	    if (key) {
-	      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
-	    }
-	  });
-
-	  return parsed;
-	};
-
-
-/***/ },
-/* 248 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var utils = __webpack_require__(237);
-
-	module.exports = (
-	  utils.isStandardBrowserEnv() ?
-
-	  // Standard browser envs have full support of the APIs needed to test
-	  // whether the request URL is of the same origin as current location.
-	  (function standardBrowserEnv() {
-	    var msie = /(msie|trident)/i.test(navigator.userAgent);
-	    var urlParsingNode = document.createElement('a');
-	    var originURL;
-
-	    /**
-	    * Parse a URL to discover it's components
-	    *
-	    * @param {String} url The URL to be parsed
-	    * @returns {Object}
-	    */
-	    function resolveURL(url) {
-	      var href = url;
-
-	      if (msie) {
-	        // IE needs attribute set twice to normalize properties
-	        urlParsingNode.setAttribute('href', href);
-	        href = urlParsingNode.href;
-	      }
-
-	      urlParsingNode.setAttribute('href', href);
-
-	      // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
-	      return {
-	        href: urlParsingNode.href,
-	        protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
-	        host: urlParsingNode.host,
-	        search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
-	        hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
-	        hostname: urlParsingNode.hostname,
-	        port: urlParsingNode.port,
-	        pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
-	                  urlParsingNode.pathname :
-	                  '/' + urlParsingNode.pathname
-	      };
-	    }
-
-	    originURL = resolveURL(window.location.href);
-
-	    /**
-	    * Determine if a URL shares the same origin as the current location
-	    *
-	    * @param {String} requestURL The URL to test
-	    * @returns {boolean} True if URL shares the same origin, otherwise false
-	    */
-	    return function isURLSameOrigin(requestURL) {
-	      var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
-	      return (parsed.protocol === originURL.protocol &&
-	            parsed.host === originURL.host);
-	    };
-	  })() :
-
-	  // Non standard browser envs (web workers, react-native) lack needed support.
-	  (function nonStandardBrowserEnv() {
-	    return function isURLSameOrigin() {
-	      return true;
-	    };
-	  })()
-	);
-
-
-/***/ },
-/* 249 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	// btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
-
-	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-
-	function E() {
-	  this.message = 'String contains an invalid character';
-	}
-	E.prototype = new Error;
-	E.prototype.code = 5;
-	E.prototype.name = 'InvalidCharacterError';
-
-	function btoa(input) {
-	  var str = String(input);
-	  var output = '';
-	  for (
-	    // initialize result and counter
-	    var block, charCode, idx = 0, map = chars;
-	    // if the next str index does not exist:
-	    //   change the mapping table to "="
-	    //   check if d has no fractional digits
-	    str.charAt(idx | 0) || (map = '=', idx % 1);
-	    // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
-	    output += map.charAt(63 & block >> 8 - idx % 1 * 8)
-	  ) {
-	    charCode = str.charCodeAt(idx += 3 / 4);
-	    if (charCode > 0xFF) {
-	      throw new E();
-	    }
-	    block = block << 8 | charCode;
-	  }
-	  return output;
-	}
-
-	module.exports = btoa;
-
-
-/***/ },
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var utils = __webpack_require__(237);
-
-	module.exports = (
-	  utils.isStandardBrowserEnv() ?
-
-	  // Standard browser envs support document.cookie
-	  (function standardBrowserEnv() {
-	    return {
-	      write: function write(name, value, expires, path, domain, secure) {
-	        var cookie = [];
-	        cookie.push(name + '=' + encodeURIComponent(value));
-
-	        if (utils.isNumber(expires)) {
-	          cookie.push('expires=' + new Date(expires).toGMTString());
-	        }
-
-	        if (utils.isString(path)) {
-	          cookie.push('path=' + path);
-	        }
-
-	        if (utils.isString(domain)) {
-	          cookie.push('domain=' + domain);
-	        }
-
-	        if (secure === true) {
-	          cookie.push('secure');
-	        }
-
-	        document.cookie = cookie.join('; ');
-	      },
-
-	      read: function read(name) {
-	        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-	        return (match ? decodeURIComponent(match[3]) : null);
-	      },
-
-	      remove: function remove(name) {
-	        this.write(name, '', Date.now() - 86400000);
-	      }
-	    };
-	  })() :
-
-	  // Non standard browser env (web workers, react-native) lack needed support.
-	  (function nonStandardBrowserEnv() {
-	    return {
-	      write: function write() {},
-	      read: function read() { return null; },
-	      remove: function remove() {}
-	    };
-	  })()
-	);
-
-
-/***/ },
-/* 251 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var utils = __webpack_require__(237);
-
-	function InterceptorManager() {
-	  this.handlers = [];
-	}
-
-	/**
-	 * Add a new interceptor to the stack
-	 *
-	 * @param {Function} fulfilled The function to handle `then` for a `Promise`
-	 * @param {Function} rejected The function to handle `reject` for a `Promise`
-	 *
-	 * @return {Number} An ID used to remove interceptor later
-	 */
-	InterceptorManager.prototype.use = function use(fulfilled, rejected) {
-	  this.handlers.push({
-	    fulfilled: fulfilled,
-	    rejected: rejected
-	  });
-	  return this.handlers.length - 1;
-	};
-
-	/**
-	 * Remove an interceptor from the stack
-	 *
-	 * @param {Number} id The ID that was returned by `use`
-	 */
-	InterceptorManager.prototype.eject = function eject(id) {
-	  if (this.handlers[id]) {
-	    this.handlers[id] = null;
-	  }
-	};
-
-	/**
-	 * Iterate over all the registered interceptors
-	 *
-	 * This method is particularly useful for skipping over any
-	 * interceptors that may have become `null` calling `eject`.
-	 *
-	 * @param {Function} fn The function to call for each interceptor
-	 */
-	InterceptorManager.prototype.forEach = function forEach(fn) {
-	  utils.forEach(this.handlers, function forEachHandler(h) {
-	    if (h !== null) {
-	      fn(h);
-	    }
-	  });
-	};
-
-	module.exports = InterceptorManager;
-
-
-/***/ },
-/* 252 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var utils = __webpack_require__(237);
-	var transformData = __webpack_require__(253);
-	var isCancel = __webpack_require__(254);
-	var defaults = __webpack_require__(240);
-
-	/**
-	 * Throws a `Cancel` if cancellation has been requested.
-	 */
-	function throwIfCancellationRequested(config) {
-	  if (config.cancelToken) {
-	    config.cancelToken.throwIfRequested();
-	  }
-	}
-
-	/**
-	 * Dispatch a request to the server using the configured adapter.
-	 *
-	 * @param {object} config The config that is to be used for the request
-	 * @returns {Promise} The Promise to be fulfilled
-	 */
-	module.exports = function dispatchRequest(config) {
-	  throwIfCancellationRequested(config);
-
-	  // Ensure headers exist
-	  config.headers = config.headers || {};
-
-	  // Transform request data
-	  config.data = transformData(
-	    config.data,
-	    config.headers,
-	    config.transformRequest
-	  );
-
-	  // Flatten headers
-	  config.headers = utils.merge(
-	    config.headers.common || {},
-	    config.headers[config.method] || {},
-	    config.headers || {}
-	  );
-
-	  utils.forEach(
-	    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
-	    function cleanHeaderConfig(method) {
-	      delete config.headers[method];
-	    }
-	  );
-
-	  var adapter = config.adapter || defaults.adapter;
-
-	  return adapter(config).then(function onAdapterResolution(response) {
-	    throwIfCancellationRequested(config);
-
-	    // Transform response data
-	    response.data = transformData(
-	      response.data,
-	      response.headers,
-	      config.transformResponse
-	    );
-
-	    return response;
-	  }, function onAdapterRejection(reason) {
-	    if (!isCancel(reason)) {
-	      throwIfCancellationRequested(config);
-
-	      // Transform response data
-	      if (reason && reason.response) {
-	        reason.response.data = transformData(
-	          reason.response.data,
-	          reason.response.headers,
-	          config.transformResponse
-	        );
-	      }
-	    }
-
-	    return Promise.reject(reason);
-	  });
-	};
-
-
-/***/ },
-/* 253 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var utils = __webpack_require__(237);
-
-	/**
-	 * Transform the data for a request or a response
-	 *
-	 * @param {Object|String} data The data to be transformed
-	 * @param {Array} headers The headers for the request or response
-	 * @param {Array|Function} fns A single function or Array of functions
-	 * @returns {*} The resulting transformed data
-	 */
-	module.exports = function transformData(data, headers, fns) {
-	  /*eslint no-param-reassign:0*/
-	  utils.forEach(fns, function transform(fn) {
-	    data = fn(data, headers);
-	  });
-
-	  return data;
-	};
-
-
-/***/ },
-/* 254 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = function isCancel(value) {
-	  return !!(value && value.__CANCEL__);
-	};
-
-
-/***/ },
-/* 255 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	/**
-	 * Determines whether the specified URL is absolute
-	 *
-	 * @param {string} url The URL to test
-	 * @returns {boolean} True if the specified URL is absolute, otherwise false
-	 */
-	module.exports = function isAbsoluteURL(url) {
-	  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
-	  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
-	  // by any combination of letters, digits, plus, period, or hyphen.
-	  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
-	};
-
-
-/***/ },
-/* 256 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	/**
-	 * Creates a new URL by combining the specified URLs
-	 *
-	 * @param {string} baseURL The base URL
-	 * @param {string} relativeURL The relative URL
-	 * @returns {string} The combined URL
-	 */
-	module.exports = function combineURLs(baseURL, relativeURL) {
-	  return baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '');
-	};
-
-
-/***/ },
-/* 257 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	/**
-	 * A `Cancel` is an object that is thrown when an operation is canceled.
-	 *
-	 * @class
-	 * @param {string=} message The message.
-	 */
-	function Cancel(message) {
-	  this.message = message;
-	}
-
-	Cancel.prototype.toString = function toString() {
-	  return 'Cancel' + (this.message ? ': ' + this.message : '');
-	};
-
-	Cancel.prototype.__CANCEL__ = true;
-
-	module.exports = Cancel;
-
-
-/***/ },
-/* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var Cancel = __webpack_require__(257);
-
-	/**
-	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
-	 *
-	 * @class
-	 * @param {Function} executor The executor function.
-	 */
-	function CancelToken(executor) {
-	  if (typeof executor !== 'function') {
-	    throw new TypeError('executor must be a function.');
-	  }
-
-	  var resolvePromise;
-	  this.promise = new Promise(function promiseExecutor(resolve) {
-	    resolvePromise = resolve;
-	  });
-
-	  var token = this;
-	  executor(function cancel(message) {
-	    if (token.reason) {
-	      // Cancellation has already been requested
-	      return;
-	    }
-
-	    token.reason = new Cancel(message);
-	    resolvePromise(token.reason);
-	  });
-	}
-
-	/**
-	 * Throws a `Cancel` if cancellation has been requested.
-	 */
-	CancelToken.prototype.throwIfRequested = function throwIfRequested() {
-	  if (this.reason) {
-	    throw this.reason;
-	  }
-	};
-
-	/**
-	 * Returns an object that contains a new `CancelToken` and a function that, when called,
-	 * cancels the `CancelToken`.
-	 */
-	CancelToken.source = function source() {
-	  var cancel;
-	  var token = new CancelToken(function executor(c) {
-	    cancel = c;
-	  });
-	  return {
-	    token: token,
-	    cancel: cancel
-	  };
-	};
-
-	module.exports = CancelToken;
-
-
-/***/ },
-/* 259 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	/**
-	 * Syntactic sugar for invoking a function and expanding an array for arguments.
-	 *
-	 * Common use case would be to use `Function.prototype.apply`.
-	 *
-	 *  ```js
-	 *  function f(x, y, z) {}
-	 *  var args = [1, 2, 3];
-	 *  f.apply(null, args);
-	 *  ```
-	 *
-	 * With `spread` this example can be re-written.
-	 *
-	 *  ```js
-	 *  spread(function(x, y, z) {})([1, 2, 3]);
-	 *  ```
-	 *
-	 * @param {Function} callback
-	 * @returns {Function}
-	 */
-	module.exports = function spread(callback) {
-	  return function wrap(arr) {
-	    return callback.apply(null, arr);
-	  };
-	};
-
-
-/***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(7);
-	var DisplayEventData = __webpack_require__(261);
-
-	var _require = __webpack_require__(165),
-	    Link = _require.Link,
-	    IndexLink = _require.IndexLink;
-
-	var Halogen = __webpack_require__(262);
-	var ReactCSSTransitionGroup = __webpack_require__(224);
-
-	var firebase = __webpack_require__(269);
-
-	var config = {
-	    apiKey: "AIzaSyBQpgPVjQScAtAbgxZZ_BIs3jZhLD38SJY",
-	    authDomain: "events-558cd.firebaseapp.com",
-	    databaseURL: "https://events-558cd.firebaseio.com",
-	    storageBucket: "events-558cd.appspot.com",
-	    messagingSenderId: "81048302603"
-	};
-	firebase.initializeApp(config);
-
-	//var ref = firebase.database().ref('events');
-
-	var EventData = React.createClass({
-	    displayName: 'EventData',
+	var firebase = __webpack_require__(233);
+	var ContentHeader = __webpack_require__(239);
+	var Halogen = __webpack_require__(240);
+
+	var Card = React.createClass({
+	    displayName: 'Card',
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            hot: []
+	            hot: [],
+	            cold: [],
+	            score: 0,
+	            strScore: "",
+	            title: "",
+	            date: "",
+	            location: "",
+	            fightersCount: "",
+	            fights: "fights"
 	        };
 	    },
 	    componentWillMount: function componentWillMount() {
-	        console.log('hello');
-	        var allevents = [];
-	        var events = [];
-	        var test;
+	        //console.log('Hello');
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var _this = this;
-
-	        //var tits = [];
+	        function computeScore(recordSplit) {
+	            var RecordScore = 0;
+	            for (var i = 0; i < recordSplit.length; i++) {
+	                if (recordSplit[i] === "o") {
+	                    return RecordScore;
+	                }
+	                if (i > 0 && recordSplit[i] !== recordSplit[i - 1] && recordSplit[i] !== "d") {
+	                    return RecordScore;
+	                }
+	                if (recordSplit[i] === "w") {
+	                    RecordScore = RecordScore + 1;
+	                }
+	                if (recordSplit[i] === "l") {
+	                    RecordScore = RecordScore - 1;
+	                }
+	            }
+	            return RecordScore;
+	        }
+	        var event_url = this.props.params.splat;
 	        var ref = firebase.database().ref('events');
+	        var refFighters = firebase.database().ref('fighters');
+	        var hotvents = [];
+	        var that = this;
+	        ref.once('value').then(function (snapshot) {
+	            //console.log('new shit', snapshot.val());
+	            var fightevents = snapshot.val();
+	            for (var i = 0; i < fightevents.length; i++) {
+	                if (fightevents[i].url === event_url) {
+	                    //console.log(fightevents[i]);
+	                    hotvents.push(fightevents[i]);
+	                    that.setState({ hot: fightevents[i].fights });
+	                    that.setState({ title: fightevents[i].title, date: fightevents[i].date, location: fightevents[i].location });
+	                    var fighter_list = [];
+	                    var fighterList = fightevents[i].fights;
+	                    that.setState({ fightersCount: fighterList.length });
+	                    refFighters.once('value').then(function (snapshotFighters) {
+	                        var allFighters = snapshotFighters.val();
+	                        var redRecordArr = [];
+	                        var blueRecordArr = [];
+	                        var zipper = [];
+	                        var score = 0;
+	                        Object.keys(fighterList).map(function (key, index) {
+	                            var redRecord = 0;
+	                            var blueRecord = 0;
+	                            var red = fighterList[key].red;
+	                            var blue = fighterList[key].blue;
+	                            var division = fighterList[key].division;
+	                            var divShort = fighterList[key].divshort;
+	                            var blueRecord;
+	                            var redRecord;
+	                            for (var n = 0; n < allFighters.length; n++) {}
+	                            //console.log(allFighters[n].name);
 
-	        ref.on('value', function (snapshot) {
-	            var tits = snapshot.val();
-	            var hotvents = [];
-	            //console.log(tits["0"].title);
-	            var that = _this;
+	                            //console.log(allFighters);
+	                            for (var k = 0; k < allFighters.length; k++) {
+	                                if (allFighters[k].name === fighterList[key].red) {
+	                                    var strRecord = allFighters[k].record;
+	                                    var redRecordSplit = strRecord.split(",");
+	                                    var redRecord = computeScore(redRecordSplit);
 
-	            snapshot.forEach(function (data) {
-	                var newtits = data.val();
-	                console.log(newtits.date);
-
-	                hotvents.push(newtits);
-	                that.setState({ hot: hotvents });
-	            });
+	                                    if (redRecord > 0) {
+	                                        var redRecordStr = "+" + redRecord;
+	                                    } else {
+	                                        var redRecordStr = redRecord;
+	                                    }
+	                                    //console.log(redRecord);
+	                                    that.setState({ score: that.state.score + redRecord });
+	                                }
+	                                if (allFighters[k].name === fighterList[key].blue) {
+	                                    var blueRecordSplit = allFighters[k].record.split(",");
+	                                    var blueRecord = computeScore(blueRecordSplit);
+	                                    if (blueRecord > 0) {
+	                                        var blueRecordStr = "+" + blueRecord;
+	                                    } else {
+	                                        var blueRecordStr = blueRecord;
+	                                    }
+	                                    //console.log(blueRecord);
+	                                    that.setState({ score: that.state.score + blueRecord });
+	                                }
+	                            }
+	                            var zip = {
+	                                fighterRed: red,
+	                                fighterBlue: blue,
+	                                redScore: redRecordStr,
+	                                blueScore: blueRecordStr,
+	                                divShort: divShort,
+	                                division: division
+	                            };
+	                            zipper.push(zip);
+	                            that.setState({ cold: zipper });
+	                            if (that.state.score > 0) {
+	                                var strScore = "+" + that.state.score;
+	                                that.setState({ strScore: strScore });
+	                            } else {
+	                                that.setState({ strScore: that.state.score });
+	                            }
+	                        });
+	                    });
+	                }
+	            }
+	        }, function (e) {
+	            console.log('unable to fetch', e);
 	        });
 	    },
-
 	    render: function render() {
-	        console.log(this.state.hot);
-	        if (!this.state.hot) {
+
+	        //console.log(this.props);
+	        //console.log(this.props);
+
+	        if (!this.state.score) {
 	            return React.createElement(
 	                'div',
 	                null,
 	                React.createElement(Halogen, { className: 'halogen', color: '#5F7187', size: '72px', margin: '48px' })
 	            );
 	        }
+
+	        var fightCardList = this.state.cold.map(function (op, index) {
+	            return React.createElement(
+	                'div',
+	                { className: 'row tab-row-parent', key: index },
+	                React.createElement(
+	                    'table',
+	                    null,
+	                    React.createElement(
+	                        'tbody',
+	                        null,
+	                        React.createElement(
+	                            'tr',
+	                            null,
+	                            React.createElement(
+	                                'td',
+	                                { rowSpan: '2', width: '25%', className: 'first-td' },
+	                                React.createElement(
+	                                    'abbr',
+	                                    { title: op.division },
+	                                    op.divShort
+	                                )
+	                            ),
+	                            React.createElement(
+	                                'td',
+	                                { width: '50%' },
+	                                op.fighterRed
+	                            ),
+	                            React.createElement(
+	                                'td',
+	                                { width: '25%' },
+	                                op.redScore
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'tr',
+	                            null,
+	                            React.createElement(
+	                                'td',
+	                                null,
+	                                op.fighterBlue
+	                            ),
+	                            React.createElement(
+	                                'td',
+	                                null,
+	                                op.blueScore
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        });
+
 	        return React.createElement(
 	            'div',
-	            null,
+	            { className: 'fadeIn slideUp' },
+	            React.createElement(ContentHeader, { title: this.state.title, date: this.state.date, location: this.state.location, score: this.state.score, fightersCount: this.state.fightersCount }),
 	            React.createElement(
 	                'div',
-	                { className: 'row small-up-1 medium-up-2 large-up-4' },
+	                { className: 'row fadeIn slideUp' },
 	                React.createElement(
-	                    ReactCSSTransitionGroup,
-	                    {
-	                        transitionName: 'fade',
-	                        transitionEnterTimeout: 500,
-	                        transitionLeaveTimeout: 500 },
-	                    this.state.hot.map(function (card) {
-	                        return React.createElement(
-	                            'div',
-	                            { className: 'small-3 columns end' },
+	                    'div',
+	                    { className: 'small-1 large-2 columns' },
+	                    React.createElement('p', null)
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-10 large-8 columns mid-card' },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'fight-card-title' },
+	                        React.createElement(
+	                            'h2',
+	                            null,
+	                            'FIGHT CARD'
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'column fight-col' },
+	                        React.createElement(
+	                            'table',
+	                            null,
 	                            React.createElement(
-	                                'div',
-	                                { className: 'profile-card slideRight' },
+	                                'thead',
+	                                null,
 	                                React.createElement(
-	                                    'div',
-	                                    { className: 'image-wrapper overlay-fade-in' },
-	                                    React.createElement('img', { src: card.img, className: 'thumbnail', alt: true }),
+	                                    'tr',
+	                                    null,
 	                                    React.createElement(
-	                                        'div',
-	                                        { className: 'image-overlay-content' },
-	                                        React.createElement(
-	                                            'h2',
-	                                            null,
-	                                            card.event_score
-	                                        ),
-	                                        React.createElement(
-	                                            Link,
-	                                            { to: '/card/' + card.url, className: 'button' },
-	                                            'Card'
-	                                        ),
-	                                        React.createElement(
-	                                            'p',
-	                                            null,
-	                                            card.title
-	                                        )
+	                                        'th',
+	                                        { width: '25%' },
+	                                        'Division'
+	                                    ),
+	                                    React.createElement(
+	                                        'th',
+	                                        { width: '50%' },
+	                                        'Fighter'
+	                                    ),
+	                                    React.createElement(
+	                                        'th',
+	                                        { width: '25%' },
+	                                        'Score'
 	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'h5',
-	                                    null,
-	                                    card.title
-	                                ),
-	                                React.createElement(
-	                                    'h6',
-	                                    null,
-	                                    card.date
 	                                )
 	                            )
-	                        );
-	                    })
+	                        ),
+	                        fightCardList
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-1 large-2 columns' },
+	                    React.createElement('p', null)
 	                )
 	            )
 	        );
 	    }
 	});
 
-	module.exports = EventData;
+	module.exports = Card;
 
 	/*
-	<div className="row small-up-1 medium-up-2 large-up-4">
-	                <Link to="/card/">Card</Link>
-	                <div className="column">
-	                   
-	                    <div className="profile-card">
-	                        <div className="image-wrapper overlay-fade-in">
-	                             <img src="https://upload.wikimedia.org/wikipedia/en/6/69/UFC_Sacramento_poster.jpg" className="thumbnail" alt />
-	                             <div className="image-overlay-content">
-	                                <h2>{this.state.hot.event_score}</h2>
-	                                <Link to ={ '/card/' + this.state.hot.url } className="button">Card</Link>
-	                                <p>{this.state.hot.title}</p>
-	                             </div>
-	                             
+	<ContentHeader title={this.state.title} date={this.state.date} location={this.state.location}/>
+
+
+
+
+	{this.state.hot.map(card=>{
+	                                return <div className="profile-card">{card.red}{card.blue}</div>
+	                            })}
+	<div className="small-5 columns tab-row-big">
+	                        <div className="row tab-row">
+	                          <div className="small-12 columns">
+	                            {op.fighterRed}
+	                          </div>
 	                        </div>
-	                        
-	                    </div>
-	           
-	                </div>
-	            <ul>
-	            {this.state.hot.map(card=>{
-	                return <li></li>
-	            })
-	                
-	            }
-	            </ul>
-	            
-	            </div>
+	                        <div className="row tab-row">
+	                          <div className="small-12 columns">
+	                            {op.fighterBlue}
+	                          </div>
+	                        </div>
+	                      </div>
+	                      
+	                      <div className="small-3 columns tab-row-big">
+	                        <div className="row tab-row">
+	                          <div className="small-12 columns">
+	                            {op.redScore}
+	                          </div>
+	                        </div>
+	                        <div className="row tab-row">
+	                          <div className="small-12 columns">
+	                            {op.blueScore}
+	                          </div>
+	                        </div>
+	                      </div>
+	                      <div className="small-4 columns tab-row-big-division">
+	                        <div className="row tab-row-tall">
+	                          
+	                            <h1>{op.division}</h1>
+	                         
+	                        </div>
+	                      </div>
 
-
-	||||||||||||||||||||||||||||||||||||||||||||||||||
-
-	<div className="profile-info"></div>
-
-
-	            
-
-
-	<a href="/card" className="button">FIGHT CARD</a>
-	<div class="image-wrapper overlay-fade-in">
-	      
-	      <img src="https://tourneau.scene7.com/is/image/tourneau/DEV9900004?hei=450&wid=300&fmt=png-alpha&resMode=bicub&op_sharpen=1" />
-	      
-	      <div class="image-overlay-content">
-	        <h2>.overlay-fade-in</h2>
-	        <p class="price">$99.99</p>
-	        <a href="#" class="button">Get it</a>
-	      </div>
-	    
-	    </div>
 
 
 
 	*/
 
 /***/ },
-/* 261 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(7);
-	var DisplayEventData = React.createClass({
-	    displayName: 'DisplayEventData',
-
-	    render: function render() {
-	        return React.createElement('div', null);
-	    }
-	});
-
-	module.exports = DisplayEventData;
-
-/***/ },
-/* 262 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(7);
-	var assign = __webpack_require__(263);
-	var insertKeyframesRule = __webpack_require__(266);
-
-	/**
-	 * @type {Object}
-	 */
-	var keyframes = {
-	    '0%': {
-	        transform: 'rotate(0deg) scale(1)'
-	    },
-	    '50%': {
-	        transform: 'rotate(180deg) scale(0.8)'
-	    },
-	    '100%': {
-	        transform: 'rotate(360deg) scale(1)'
-	    }
-	};
-
-	/**
-	 * @type {String}
-	 */
-	var animationName = insertKeyframesRule(keyframes);
-
-	var Loader = React.createClass({displayName: "Loader",
-	    /**
-	     * @type {Object}
-	     */
-	    propTypes: {
-	        loading: React.PropTypes.bool,
-	        color: React.PropTypes.string,
-	        size: React.PropTypes.string
-	    },
-
-	    /**
-	     * @return {Object}
-	     */
-	    getDefaultProps: function() {
-	        return {
-	            loading: true,
-	            color: '#ffffff',
-	            size: '35px'
-	        };
-	    },
-
-	    /**
-	     * @return {Object}
-	     */
-	    getBallStyle: function() {
-	        return {
-	            width: this.props.size,
-	            height: this.props.size,
-	            border: '2px solid',
-	            borderColor: this.props.color,
-	            borderBottomColor: 'transparent',
-	            borderRadius: '100%',
-	            background: 'transparent !important'
-	        };
-	    },
-
-	    /**
-	     * @param  {Number} i
-	     * @return {Object}
-	     */
-	    getAnimationStyle: function(i) {
-	        var animation = [animationName, '0.75s', '0s', 'infinite', 'linear'].join(' ');
-	        var animationFillMode = 'both';
-
-	        return {
-	            animation: animation,
-	            animationFillMode: animationFillMode
-	        };
-	    },
-
-	    /**
-	     * @param  {Number} i
-	     * @return {Object}
-	     */
-	    getStyle: function(i) {
-	        return assign(
-	            this.getBallStyle(i),
-	            this.getAnimationStyle(i),
-	            {
-	                display: 'inline-block'
-	            }
-	        );
-	    },
-
-	    /**
-	     * @param  {Boolean} loading
-	     * @return {ReactComponent || null}
-	     */
-	    renderLoader: function(loading) {
-	        if (loading) {
-	            return (
-	                React.createElement("div", {id: this.props.id, className: this.props.className}, 
-	                    React.createElement("div", {style: this.getStyle()})
-	                )
-	            );
-	        }
-
-	        return null;
-	    },
-
-	    render: function() {
-	        return this.renderLoader(this.props.loading);
-	    }
-	});
-
-	module.exports = Loader;
-
-
-/***/ },
-/* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var getVendorPropertyName = __webpack_require__(264);
-
-	module.exports = function(target, sources) {
-	  var to = Object(target);
-	  var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-	  for (var nextIndex = 1; nextIndex < arguments.length; nextIndex++) {
-	    var nextSource = arguments[nextIndex];
-	    if (nextSource == null) {
-	      continue;
-	    }
-
-	    var from = Object(nextSource);
-
-	    for (var key in from) {
-	      if (hasOwnProperty.call(from, key)) {
-	        to[key] = from[key];
-	      }
-	    }
-	  }
-
-	  var prefixed = {};
-	  for (var key in to) {
-	    prefixed[getVendorPropertyName(key)] = to[key]
-	  }
-
-	  return prefixed
-	}
-
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var builtinStyle = __webpack_require__(265);
-	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
-	var domVendorPrefix;
-
-	// 2009 spec only
-	var flexbox = {
-	  flex: ['WebkitFlex', 'WebkitBoxFlex'],
-	  order: ['WebkitOrder','WebkitBoxOrdinalGroup'],
-	  // https://github.com/postcss/autoprefixer/blob/master/lib/hacks/flex-direction.coffee
-	  flexDirection: ['WebkitFlexDirection', 'WebkitBoxOrient', 'WebkitBoxDirection'],
-	  // https://github.com/postcss/autoprefixer/blob/master/lib/hacks/align-items.coffee
-	  alignItems: ['WebkitAlignItems', 'WebkitBoxAlign'],
-	  // https://github.com/postcss/autoprefixer/blob/master/lib/hacks/justify-content.coffee
-	  justifyContent: ['WebkitJustifyContent', 'WebkitBoxPack'],
-	  flexWrap: ['WebkitFlexWrap'],
-	  alignSelf: ['WebkitAlignSelf'],
-	}
-
-	// Helper function to get the proper vendor property name. (transition => WebkitTransition)
-	module.exports = function(prop, isSupportTest) {
-
-	  var vendorProp;
-	  if (prop in builtinStyle) return prop;
-
-	  if(flexbox[prop]){
-	    // TODO: cache the result
-	    var flexProperties = flexbox[prop];
-	    for (var i = 0; i < flexProperties.length; ++i) {
-	      if (flexProperties[i] in builtinStyle) {
-	        return flexProperties[i];
-	      }
-	    }
-
-	  }else{
-
-	    var UpperProp = prop.charAt(0).toUpperCase() + prop.substr(1);
-
-	    if (domVendorPrefix) {
-
-	      vendorProp = domVendorPrefix + UpperProp;
-	      if (vendorProp in builtinStyle) {
-	        return vendorProp;
-	      }
-	    } else {
-
-	      for (var i = 0; i < prefixes.length; ++i) {
-	        vendorProp = prefixes[i] + UpperProp;
-	        if (vendorProp in builtinStyle) {
-	          domVendorPrefix = prefixes[i];
-	          return vendorProp;
-	        }
-	      }
-	    }
-	  }
-
-	  // if support test, not fallback to origin prop name
-	  if (!isSupportTest) {
-	    return prop;
-	  }
-
-	}
-
-
-/***/ },
-/* 265 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = document.createElement('div').style;
-
-
-/***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var insertRule = __webpack_require__(267);
-	var vendorPrefix = __webpack_require__(268)();
-	var index = 0;
-
-	module.exports = function(keyframes) {
-	  // random name
-	  var name = 'anim_' + (++index) + (+new Date);
-	  var css = "@" + vendorPrefix + "keyframes " + name + " {";
-
-	  for (var key in keyframes) {
-	    css += key + " {";
-
-	    for (var property in keyframes[key]) {
-	      var part = ":" + keyframes[key][property] + ";";
-	      // We do vendor prefix for every property
-	      css += vendorPrefix + property + part;
-	      css += property + part;
-	    }
-
-	    css += "}";
-	  }
-
-	  css += "}";
-
-	  insertRule(css);
-
-	  return name
-	}
-
-
-/***/ },
-/* 267 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var extraSheet;
-
-	module.exports = function(css) {
-
-	  if (!extraSheet) {
-	    // First time, create an extra stylesheet for adding rules
-	    extraSheet = document.createElement('style');
-	    document.getElementsByTagName('head')[0].appendChild(extraSheet);
-	    // Keep reference to actual StyleSheet object (`styleSheet` for IE < 9)
-	    extraSheet = extraSheet.sheet || extraSheet.styleSheet;
-	  }
-
-	  var index = (extraSheet.cssRules || extraSheet.rules).length;
-	  extraSheet.insertRule(css, index);
-
-	  return extraSheet;
-	}
-
-
-/***/ },
-/* 268 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var cssVendorPrefix;
-
-	module.exports = function() {
-
-	  if (cssVendorPrefix) return cssVendorPrefix;
-
-	  var styles = window.getComputedStyle(document.documentElement, '');
-	  var pre = (Array.prototype.slice.call(styles).join('').match(/-(moz|webkit|ms)-/) || (styles.OLink === '' && ['', 'o']))[1];
-
-	  return cssVendorPrefix = '-' + pre + '-';
-	}
-
-
-/***/ },
-/* 269 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27967,16 +26220,16 @@
 	 *
 	 *   firebase = require('firebase');
 	 */
-	var firebase = __webpack_require__(270);
-	__webpack_require__(271);
-	__webpack_require__(272);
-	__webpack_require__(273);
-	__webpack_require__(274);
+	var firebase = __webpack_require__(234);
+	__webpack_require__(235);
+	__webpack_require__(236);
+	__webpack_require__(237);
+	__webpack_require__(238);
 	module.exports = firebase;
 
 
 /***/ },
-/* 270 */
+/* 234 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.6.1
@@ -28014,10 +26267,10 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 271 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(270);
+	var firebase = __webpack_require__(234);
 	/*! @license Firebase v3.6.1
 	    Build: 3.6.1-rc.3
 	    Terms: https://firebase.google.com/terms/ */
@@ -28234,10 +26487,10 @@
 
 
 /***/ },
-/* 272 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(270);
+	var firebase = __webpack_require__(234);
 	/*! @license Firebase v3.6.1
 	    Build: 3.6.1-rc.3
 	    Terms: https://firebase.google.com/terms/
@@ -28501,10 +26754,10 @@
 
 
 /***/ },
-/* 273 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(270);
+	var firebase = __webpack_require__(234);
 	/*! @license Firebase v3.6.1
 	    Build: 3.6.1-rc.3
 	    Terms: https://firebase.google.com/terms/ */
@@ -28558,10 +26811,10 @@
 
 
 /***/ },
-/* 274 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(270);
+	var firebase = __webpack_require__(234);
 	/*! @license Firebase v3.6.1
 	    Build: 3.6.1-rc.3
 	    Terms: https://firebase.google.com/terms/ */
@@ -28600,452 +26853,7 @@
 
 
 /***/ },
-/* 275 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(7);
-	var ReactCSSTransitionGroup = __webpack_require__(224);
-	var About = React.createClass({
-	    displayName: 'About',
-
-	    render: function render() {
-
-	        return React.createElement(
-	            'div',
-	            { className: 'row buffer slideRight' },
-	            React.createElement(
-	                'div',
-	                { className: 'small-2 large-2 columns' },
-	                React.createElement('p', null)
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'small-8 large-8 columns' },
-	                React.createElement(
-	                    'div',
-	                    { className: 'row faq ' },
-	                    React.createElement(
-	                        'h5',
-	                        null,
-	                        'What is MMA Momentum Gauge?'
-	                    ),
-	                    React.createElement(
-	                        'p',
-	                        null,
-	                        'This app analyzes UFC events to determine its\' Dwyer Score based upon the fighters who are scheduled to fight on the card.'
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'row faq ' },
-	                    React.createElement(
-	                        'h5',
-	                        null,
-	                        'What is the Dwyer Score?'
-	                    ),
-	                    React.createElement(
-	                        'p',
-	                        null,
-	                        'The purpose of the Dwyer Score is to gauge the magnitude, or importance, of an event.'
-	                    ),
-	                    React.createElement(
-	                        'p',
-	                        null,
-	                        'Analyzing each fighter\'s record to determine their current win or loss streak and adding it to the total for the event.  For example, if a fighter has a 3 fight win streak, they contribute +3 to the total Dwyer Score for the event.  If a fighter has lost their last two contests, they contribute -2.  Other fight results such as draws and no contests are ignored.  The Dwyer Score was originally created by Nick Dwyer.'
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'row faq' },
-	                    React.createElement(
-	                        'h5',
-	                        null,
-	                        'Why develop MMA Momentum Guage?'
-	                    ),
-	                    React.createElement(
-	                        'p',
-	                        null,
-	                        'Calculating a Dwyer Score for an event by hand can be a time consuming experience as you have to look at each individual fighters\' record.  By nature, fight cards can routinely change based upon injuries and replacement fighters causing the Dwyer Score to fluctuate.  This app is designed to generate Dwyer Scores as events are announced.'
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'row faq' },
-	                    React.createElement(
-	                        'h5',
-	                        null,
-	                        'What is the goal for MMA Momentum Guage?'
-	                    ),
-	                    React.createElement(
-	                        'p',
-	                        null,
-	                        'Initially designed to forumalte Dwyer Scores for future events, other plans for this app are to generate Dwyer Scores for past events.  Additionally, in the sports world where data and statistics are more looked at than ever, an API service will be developed to provide the unique data gathering capabilities of this app to be used by other developers.'
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'row faq' },
-	                    React.createElement(
-	                        'h6',
-	                        null,
-	                        'MMA Momentum Guage developed and designed by Eric Page.'
-	                    )
-	                )
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'small-2 large-2 columns' },
-	                React.createElement('p', null)
-	            )
-	        );
-	    }
-	});
-
-	module.exports = About;
-
-/***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(7);
-	var Examples = React.createClass({
-	   displayName: 'Examples',
-
-	   render: function render() {
-	      return React.createElement(
-	         'h3',
-	         null,
-	         'Examples Component'
-	      );
-	   }
-	});
-
-	module.exports = Examples;
-
-/***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(7);
-	var firebase = __webpack_require__(269);
-	var ContentHeader = __webpack_require__(278);
-	var Halogen = __webpack_require__(262);
-
-	var Card = React.createClass({
-	    displayName: 'Card',
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            hot: [],
-	            cold: [],
-	            score: 0,
-	            strScore: "",
-	            title: "",
-	            date: "",
-	            location: "",
-	            fightersCount: "",
-	            fights: "fights"
-	        };
-	    },
-	    componentWillMount: function componentWillMount() {
-	        console.log('Hello');
-	    },
-	    componentDidMount: function componentDidMount() {
-	        function computeScore(recordSplit) {
-	            var RecordScore = 0;
-	            //console.log(recordSplit.length);
-	            for (var i = 0; i < recordSplit.length; i++) {
-	                //console.log(recordSplit[i]);
-	                //console.log(RecordScore);
-	                if (recordSplit[i] === "o") {
-	                    return RecordScore;
-	                }
-	                if (i > 0 && recordSplit[i] !== recordSplit[i - 1] && recordSplit[i] !== "d") {
-	                    //console.log('break!');
-	                    return RecordScore;
-	                }
-	                if (recordSplit[i] === "w") {
-	                    //console.log('entered w');
-	                    RecordScore = RecordScore + 1;
-	                }
-	                if (recordSplit[i] === "l") {
-	                    RecordScore = RecordScore - 1;
-	                }
-	            }
-	            return RecordScore;
-	        }
-	        var event_url = this.props.params.splat;
-	        var ref = firebase.database().ref('events');
-	        var refFighters = firebase.database().ref('fighters');
-	        var hotvents = [];
-	        var that = this;
-	        ref.once('value').then(function (snapshot) {
-	            //console.log('new shit', snapshot.val());
-	            var fightevents = snapshot.val();
-	            for (var i = 0; i < fightevents.length; i++) {
-	                if (fightevents[i].url === event_url) {
-	                    console.log(fightevents[i]);
-	                    hotvents.push(fightevents[i]);
-	                    that.setState({ hot: fightevents[i].fights });
-	                    that.setState({ title: fightevents[i].title, date: fightevents[i].date, location: fightevents[i].location });
-	                    var fighter_list = [];
-	                    var fighterList = fightevents[i].fights;
-	                    that.setState({ fightersCount: fighterList.length });
-	                    refFighters.once('value').then(function (snapshotFighters) {
-	                        var allFighters = snapshotFighters.val();
-	                        var redRecordArr = [];
-	                        var blueRecordArr = [];
-	                        var zipper = [];
-	                        var score = 0;
-	                        Object.keys(fighterList).map(function (key, index) {
-	                            var redRecord = 0;
-	                            var blueRecord = 0;
-	                            var red = fighterList[key].red;
-	                            var blue = fighterList[key].blue;
-	                            var division = fighterList[key].division;
-	                            var divShort = fighterList[key].divshort;
-	                            var blueRecord;
-	                            var redRecord;
-	                            for (var n = 0; n < allFighters.length; n++) {
-	                                console.log(allFighters[n].name);
-	                            }
-	                            console.log(allFighters);
-	                            for (var k = 0; k < allFighters.length; k++) {
-	                                if (allFighters[k].name === fighterList[key].red) {
-	                                    var strRecord = allFighters[k].record;
-	                                    var redRecordSplit = strRecord.split(",");
-	                                    var redRecord = computeScore(redRecordSplit);
-
-	                                    if (redRecord > 0) {
-	                                        var redRecordStr = "+" + redRecord;
-	                                    } else {
-	                                        var redRecordStr = redRecord;
-	                                    }
-	                                    console.log(redRecord);
-	                                    that.setState({ score: that.state.score + redRecord });
-	                                }
-	                                if (allFighters[k].name === fighterList[key].blue) {
-	                                    var blueRecordSplit = allFighters[k].record.split(",");
-	                                    var blueRecord = computeScore(blueRecordSplit);
-	                                    if (blueRecord > 0) {
-	                                        var blueRecordStr = "+" + blueRecord;
-	                                    } else {
-	                                        var blueRecordStr = blueRecord;
-	                                    }
-	                                    console.log(blueRecord);
-	                                    that.setState({ score: that.state.score + blueRecord });
-	                                }
-	                            }
-	                            console.log(division);
-	                            var zip = {
-	                                fighterRed: red,
-	                                fighterBlue: blue,
-	                                redScore: redRecordStr,
-	                                blueScore: blueRecordStr,
-	                                divShort: divShort,
-	                                division: division
-	                            };
-	                            zipper.push(zip);
-	                            that.setState({ cold: zipper });
-	                            if (that.state.score > 0) {
-	                                var strScore = "+" + that.state.score;
-	                                that.setState({ strScore: strScore });
-	                            } else {
-	                                that.setState({ strScore: that.state.score });
-	                            }
-	                        });
-	                    });
-	                }
-	            }
-	        }, function (e) {
-	            console.log('unable to fetch', e);
-	        });
-	    },
-	    render: function render() {
-
-	        //console.log(this.props);
-	        //console.log(this.props);
-
-	        if (!this.state.score) {
-	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement(Halogen, { className: 'halogen', color: '#5F7187', size: '72px', margin: '48px' })
-	            );
-	        }
-
-	        var fightCardList = this.state.cold.map(function (op) {
-	            return React.createElement(
-	                'div',
-	                { className: 'row tab-row-parent' },
-	                React.createElement(
-	                    'table',
-	                    null,
-	                    React.createElement(
-	                        'tr',
-	                        null,
-	                        React.createElement(
-	                            'td',
-	                            { rowSpan: '2', width: '25%', className: 'first-td' },
-	                            React.createElement(
-	                                'abbr',
-	                                { title: op.division },
-	                                op.divShort
-	                            )
-	                        ),
-	                        React.createElement(
-	                            'td',
-	                            { width: '50%' },
-	                            op.fighterRed
-	                        ),
-	                        React.createElement(
-	                            'td',
-	                            { width: '25%' },
-	                            op.redScore
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'tr',
-	                        null,
-	                        React.createElement(
-	                            'td',
-	                            null,
-	                            op.fighterBlue
-	                        ),
-	                        React.createElement(
-	                            'td',
-	                            null,
-	                            op.blueScore
-	                        )
-	                    )
-	                )
-	            );
-	        });
-
-	        return React.createElement(
-	            'div',
-	            { className: 'fadeIn slideUp' },
-	            React.createElement(ContentHeader, { title: this.state.title, date: this.state.date, location: this.state.location, score: this.state.score }),
-	            React.createElement(
-	                'div',
-	                { 'class': 'row fadeIn slideUp' },
-	                React.createElement(
-	                    'div',
-	                    { className: 'small-1 large-3 columns' },
-	                    React.createElement('p', null)
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'small-10 large-6 columns mid-card' },
-	                    React.createElement(
-	                        'div',
-	                        { className: 'fight-card-title' },
-	                        React.createElement(
-	                            'h2',
-	                            null,
-	                            'FIGHT CARD'
-	                        )
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: 'column fight-col' },
-	                        React.createElement(
-	                            'table',
-	                            null,
-	                            React.createElement(
-	                                'thead',
-	                                null,
-	                                React.createElement(
-	                                    'tr',
-	                                    null,
-	                                    React.createElement(
-	                                        'th',
-	                                        { width: '25%' },
-	                                        'Division'
-	                                    ),
-	                                    React.createElement(
-	                                        'th',
-	                                        { width: '50%' },
-	                                        'Fighter'
-	                                    ),
-	                                    React.createElement(
-	                                        'th',
-	                                        { width: '25%' },
-	                                        'Score'
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        fightCardList
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'small-1 large-3 columns' },
-	                    React.createElement('p', null)
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Card;
-
-	/*
-	<ContentHeader title={this.state.title} date={this.state.date} location={this.state.location}/>
-
-
-
-
-	{this.state.hot.map(card=>{
-	                                return <div className="profile-card">{card.red}{card.blue}</div>
-	                            })}
-	<div className="small-5 columns tab-row-big">
-	                        <div className="row tab-row">
-	                          <div className="small-12 columns">
-	                            {op.fighterRed}
-	                          </div>
-	                        </div>
-	                        <div className="row tab-row">
-	                          <div className="small-12 columns">
-	                            {op.fighterBlue}
-	                          </div>
-	                        </div>
-	                      </div>
-	                      
-	                      <div className="small-3 columns tab-row-big">
-	                        <div className="row tab-row">
-	                          <div className="small-12 columns">
-	                            {op.redScore}
-	                          </div>
-	                        </div>
-	                        <div className="row tab-row">
-	                          <div className="small-12 columns">
-	                            {op.blueScore}
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="small-4 columns tab-row-big-division">
-	                        <div className="row tab-row-tall">
-	                          
-	                            <h1>{op.division}</h1>
-	                         
-	                        </div>
-	                      </div>
-
-
-
-
-	*/
-
-/***/ },
-/* 278 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29057,7 +26865,8 @@
 	  var title = _ref.title,
 	      date = _ref.date,
 	      location = _ref.location,
-	      score = _ref.score;
+	      score = _ref.score,
+	      fightersCount = _ref.fightersCount;
 
 	  return React.createElement(
 	    'div',
@@ -29072,46 +26881,56 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'small-8 large-8 columns event-info' },
+	        { className: 'small-8 large-8 columns' },
 	        React.createElement(
 	          'div',
-	          { className: 'top-info' },
+	          { className: 'row' },
 	          React.createElement(
 	            'div',
-	            { className: 'circle' },
+	            { className: 'small-6 large-6 columns' },
 	            React.createElement(
-	              'h1',
-	              null,
-	              score
-	            )
-	          ),
-	          React.createElement(
-	            'h6',
-	            null,
-	            React.createElement(
-	              'small',
-	              null,
+	              'div',
+	              { className: 'sqr' },
 	              React.createElement(
-	                'abbr',
-	                { title: 'Cumulative Dwyer Score of all fighters on card' },
-	                'Total Score'
+	                'h1',
+	                null,
+	                score
+	              ),
+	              React.createElement(
+	                'h6',
+	                null,
+	                React.createElement(
+	                  'small',
+	                  null,
+	                  'Dwyer Score'
+	                )
 	              )
 	            )
 	          ),
 	          React.createElement(
-	            'h4',
-	            null,
-	            title
-	          ),
-	          React.createElement(
-	            'h5',
-	            null,
-	            date
-	          ),
-	          React.createElement(
-	            'h6',
-	            null,
-	            location
+	            'div',
+	            { className: 'small-6 large-6 columns card-stuff' },
+	            React.createElement(
+	              'h2',
+	              null,
+	              title
+	            ),
+	            React.createElement(
+	              'h5',
+	              null,
+	              date
+	            ),
+	            React.createElement(
+	              'h5',
+	              null,
+	              location
+	            ),
+	            React.createElement(
+	              'h5',
+	              null,
+	              fightersCount,
+	              ' fights'
+	            )
 	          )
 	        )
 	      ),
@@ -29124,26 +26943,538 @@
 	  );
 	}
 
-	ContentHeader.propTypes = {
-	  title: React.PropTypes.string.isRequired,
-	  date: React.PropTypes.string.isRequired,
-	  location: React.PropTypes.string.isRequired,
-	  score: React.PropTypes.string.isRequired
-	};
-
 	module.exports = ContentHeader;
 
 /***/ },
-/* 279 */
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(7);
+	var assign = __webpack_require__(241);
+	var insertKeyframesRule = __webpack_require__(244);
+
+	/**
+	 * @type {Object}
+	 */
+	var keyframes = {
+	    '0%': {
+	        transform: 'rotate(0deg) scale(1)'
+	    },
+	    '50%': {
+	        transform: 'rotate(180deg) scale(0.8)'
+	    },
+	    '100%': {
+	        transform: 'rotate(360deg) scale(1)'
+	    }
+	};
+
+	/**
+	 * @type {String}
+	 */
+	var animationName = insertKeyframesRule(keyframes);
+
+	var Loader = React.createClass({displayName: "Loader",
+	    /**
+	     * @type {Object}
+	     */
+	    propTypes: {
+	        loading: React.PropTypes.bool,
+	        color: React.PropTypes.string,
+	        size: React.PropTypes.string
+	    },
+
+	    /**
+	     * @return {Object}
+	     */
+	    getDefaultProps: function() {
+	        return {
+	            loading: true,
+	            color: '#ffffff',
+	            size: '35px'
+	        };
+	    },
+
+	    /**
+	     * @return {Object}
+	     */
+	    getBallStyle: function() {
+	        return {
+	            width: this.props.size,
+	            height: this.props.size,
+	            border: '2px solid',
+	            borderColor: this.props.color,
+	            borderBottomColor: 'transparent',
+	            borderRadius: '100%',
+	            background: 'transparent !important'
+	        };
+	    },
+
+	    /**
+	     * @param  {Number} i
+	     * @return {Object}
+	     */
+	    getAnimationStyle: function(i) {
+	        var animation = [animationName, '0.75s', '0s', 'infinite', 'linear'].join(' ');
+	        var animationFillMode = 'both';
+
+	        return {
+	            animation: animation,
+	            animationFillMode: animationFillMode
+	        };
+	    },
+
+	    /**
+	     * @param  {Number} i
+	     * @return {Object}
+	     */
+	    getStyle: function(i) {
+	        return assign(
+	            this.getBallStyle(i),
+	            this.getAnimationStyle(i),
+	            {
+	                display: 'inline-block'
+	            }
+	        );
+	    },
+
+	    /**
+	     * @param  {Boolean} loading
+	     * @return {ReactComponent || null}
+	     */
+	    renderLoader: function(loading) {
+	        if (loading) {
+	            return (
+	                React.createElement("div", {id: this.props.id, className: this.props.className}, 
+	                    React.createElement("div", {style: this.getStyle()})
+	                )
+	            );
+	        }
+
+	        return null;
+	    },
+
+	    render: function() {
+	        return this.renderLoader(this.props.loading);
+	    }
+	});
+
+	module.exports = Loader;
+
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var getVendorPropertyName = __webpack_require__(242);
+
+	module.exports = function(target, sources) {
+	  var to = Object(target);
+	  var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+	  for (var nextIndex = 1; nextIndex < arguments.length; nextIndex++) {
+	    var nextSource = arguments[nextIndex];
+	    if (nextSource == null) {
+	      continue;
+	    }
+
+	    var from = Object(nextSource);
+
+	    for (var key in from) {
+	      if (hasOwnProperty.call(from, key)) {
+	        to[key] = from[key];
+	      }
+	    }
+	  }
+
+	  var prefixed = {};
+	  for (var key in to) {
+	    prefixed[getVendorPropertyName(key)] = to[key]
+	  }
+
+	  return prefixed
+	}
+
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var builtinStyle = __webpack_require__(243);
+	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
+	var domVendorPrefix;
+
+	// 2009 spec only
+	var flexbox = {
+	  flex: ['WebkitFlex', 'WebkitBoxFlex'],
+	  order: ['WebkitOrder','WebkitBoxOrdinalGroup'],
+	  // https://github.com/postcss/autoprefixer/blob/master/lib/hacks/flex-direction.coffee
+	  flexDirection: ['WebkitFlexDirection', 'WebkitBoxOrient', 'WebkitBoxDirection'],
+	  // https://github.com/postcss/autoprefixer/blob/master/lib/hacks/align-items.coffee
+	  alignItems: ['WebkitAlignItems', 'WebkitBoxAlign'],
+	  // https://github.com/postcss/autoprefixer/blob/master/lib/hacks/justify-content.coffee
+	  justifyContent: ['WebkitJustifyContent', 'WebkitBoxPack'],
+	  flexWrap: ['WebkitFlexWrap'],
+	  alignSelf: ['WebkitAlignSelf'],
+	}
+
+	// Helper function to get the proper vendor property name. (transition => WebkitTransition)
+	module.exports = function(prop, isSupportTest) {
+
+	  var vendorProp;
+	  if (prop in builtinStyle) return prop;
+
+	  if(flexbox[prop]){
+	    // TODO: cache the result
+	    var flexProperties = flexbox[prop];
+	    for (var i = 0; i < flexProperties.length; ++i) {
+	      if (flexProperties[i] in builtinStyle) {
+	        return flexProperties[i];
+	      }
+	    }
+
+	  }else{
+
+	    var UpperProp = prop.charAt(0).toUpperCase() + prop.substr(1);
+
+	    if (domVendorPrefix) {
+
+	      vendorProp = domVendorPrefix + UpperProp;
+	      if (vendorProp in builtinStyle) {
+	        return vendorProp;
+	      }
+	    } else {
+
+	      for (var i = 0; i < prefixes.length; ++i) {
+	        vendorProp = prefixes[i] + UpperProp;
+	        if (vendorProp in builtinStyle) {
+	          domVendorPrefix = prefixes[i];
+	          return vendorProp;
+	        }
+	      }
+	    }
+	  }
+
+	  // if support test, not fallback to origin prop name
+	  if (!isSupportTest) {
+	    return prop;
+	  }
+
+	}
+
+
+/***/ },
+/* 243 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = document.createElement('div').style;
+
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var insertRule = __webpack_require__(245);
+	var vendorPrefix = __webpack_require__(246)();
+	var index = 0;
+
+	module.exports = function(keyframes) {
+	  // random name
+	  var name = 'anim_' + (++index) + (+new Date);
+	  var css = "@" + vendorPrefix + "keyframes " + name + " {";
+
+	  for (var key in keyframes) {
+	    css += key + " {";
+
+	    for (var property in keyframes[key]) {
+	      var part = ":" + keyframes[key][property] + ";";
+	      // We do vendor prefix for every property
+	      css += vendorPrefix + property + part;
+	      css += property + part;
+	    }
+
+	    css += "}";
+	  }
+
+	  css += "}";
+
+	  insertRule(css);
+
+	  return name
+	}
+
+
+/***/ },
+/* 245 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var extraSheet;
+
+	module.exports = function(css) {
+
+	  if (!extraSheet) {
+	    // First time, create an extra stylesheet for adding rules
+	    extraSheet = document.createElement('style');
+	    document.getElementsByTagName('head')[0].appendChild(extraSheet);
+	    // Keep reference to actual StyleSheet object (`styleSheet` for IE < 9)
+	    extraSheet = extraSheet.sheet || extraSheet.styleSheet;
+	  }
+
+	  var index = (extraSheet.cssRules || extraSheet.rules).length;
+	  extraSheet.insertRule(css, index);
+
+	  return extraSheet;
+	}
+
+
+/***/ },
+/* 246 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var cssVendorPrefix;
+
+	module.exports = function() {
+
+	  if (cssVendorPrefix) return cssVendorPrefix;
+
+	  var styles = window.getComputedStyle(document.documentElement, '');
+	  var pre = (Array.prototype.slice.call(styles).join('').match(/-(moz|webkit|ms)-/) || (styles.OLink === '' && ['', 'o']))[1];
+
+	  return cssVendorPrefix = '-' + pre + '-';
+	}
+
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(7);
+	var DisplayEventData = __webpack_require__(248);
+
+	var _require = __webpack_require__(165),
+	    Link = _require.Link,
+	    IndexLink = _require.IndexLink;
+
+	var Halogen = __webpack_require__(240);
+	var ReactCSSTransitionGroup = __webpack_require__(224);
+
+	var firebase = __webpack_require__(233);
+
+	var config = {
+	    apiKey: "AIzaSyBQpgPVjQScAtAbgxZZ_BIs3jZhLD38SJY",
+	    authDomain: "events-558cd.firebaseapp.com",
+	    databaseURL: "https://events-558cd.firebaseio.com",
+	    storageBucket: "events-558cd.appspot.com",
+	    messagingSenderId: "81048302603"
+	};
+	firebase.initializeApp(config);
+
+	var EventData = React.createClass({
+	    displayName: 'EventData',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            hot: []
+	        };
+	    },
+	    componentWillMount: function componentWillMount() {
+	        var allevents = [];
+	        var events = [];
+	        var test;
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+
+	        var ref = firebase.database().ref('events');
+
+	        ref.on('value', function (snapshot) {
+	            var tits = snapshot.val();
+	            var hotvents = [];
+	            var that = _this;
+
+	            snapshot.forEach(function (data) {
+	                var newtits = data.val();
+	                var eventDate = new Date(newtits.date); //get event date
+	                var currentDate = new Date(); //get current date
+
+	                if (currentDate < eventDate) {
+	                    //push only future events
+	                    hotvents.push(newtits);
+	                }
+	                that.setState({ hot: hotvents });
+	            });
+	        });
+	    },
+
+	    render: function render() {
+
+	        if (!this.state.hot) {
+	            return React.createElement(
+	                'div',
+	                null,
+	                React.createElement(Halogen, { className: 'halogen', color: '#5F7187', size: '72px', margin: '48px' })
+	            );
+	        }
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'div',
+	                { className: 'row small-up-1 medium-up-2 large-up-4' },
+	                React.createElement(
+	                    ReactCSSTransitionGroup,
+	                    {
+	                        transitionName: 'fade',
+	                        transitionEnterTimeout: 500,
+	                        transitionLeaveTimeout: 500 },
+	                    this.state.hot.map(function (card, index) {
+	                        return React.createElement(
+	                            'div',
+	                            { className: 'small-3 columns end', key: index },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'profile-card slideRight' },
+	                                React.createElement(
+	                                    'div',
+	                                    { className: 'image-wrapper overlay-fade-in' },
+	                                    React.createElement('img', { src: card.img, className: 'thumbnail', alt: true }),
+	                                    React.createElement(
+	                                        'div',
+	                                        { className: 'image-overlay-content' },
+	                                        React.createElement(
+	                                            'h2',
+	                                            null,
+	                                            card.event_score
+	                                        ),
+	                                        React.createElement(
+	                                            Link,
+	                                            { to: '/card/' + card.url, className: 'button' },
+	                                            'Card'
+	                                        ),
+	                                        React.createElement(
+	                                            'p',
+	                                            null,
+	                                            card.title
+	                                        )
+	                                    )
+	                                ),
+	                                React.createElement(
+	                                    'h5',
+	                                    null,
+	                                    card.title
+	                                ),
+	                                React.createElement(
+	                                    'h6',
+	                                    null,
+	                                    card.date
+	                                )
+	                            )
+	                        );
+	                    })
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = EventData;
+
+	/*
+	<div className="row small-up-1 medium-up-2 large-up-4">
+	                <Link to="/card/">Card</Link>
+	                <div className="column">
+	                   
+	                    <div className="profile-card">
+	                        <div className="image-wrapper overlay-fade-in">
+	                             <img src="https://upload.wikimedia.org/wikipedia/en/6/69/UFC_Sacramento_poster.jpg" className="thumbnail" alt />
+	                             <div className="image-overlay-content">
+	                                <h2>{this.state.hot.event_score}</h2>
+	                                <Link to ={ '/card/' + this.state.hot.url } className="button">Card</Link>
+	                                <p>{this.state.hot.title}</p>
+	                             </div>
+	                             
+	                        </div>
+	                        
+	                    </div>
+	           
+	                </div>
+	            <ul>
+	            {this.state.hot.map(card=>{
+	                return <li></li>
+	            })
+	                
+	            }
+	            </ul>
+	            
+	            </div>
+
+
+	||||||||||||||||||||||||||||||||||||||||||||||||||
+
+	<div className="profile-info"></div>
+
+
+	            
+
+
+	<a href="/card" className="button">FIGHT CARD</a>
+	<div class="image-wrapper overlay-fade-in">
+	      
+	      <img src="https://tourneau.scene7.com/is/image/tourneau/DEV9900004?hei=450&wid=300&fmt=png-alpha&resMode=bicub&op_sharpen=1" />
+	      
+	      <div class="image-overlay-content">
+	        <h2>.overlay-fade-in</h2>
+	        <p class="price">$99.99</p>
+	        <a href="#" class="button">Get it</a>
+	      </div>
+	    
+	    </div>
+
+
+
+	*/
+
+/***/ },
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(7);
+	var DisplayEventData = React.createClass({
+	    displayName: 'DisplayEventData',
+
+	    render: function render() {
+	        return React.createElement('div', null);
+	    }
+	});
+
+	module.exports = DisplayEventData;
+
+/***/ },
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(280);
+	var content = __webpack_require__(250);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(282)(content, {});
+	var update = __webpack_require__(252)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -29160,10 +27491,10 @@
 	}
 
 /***/ },
-/* 280 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(281)();
+	exports = module.exports = __webpack_require__(251)();
 	// imports
 
 
@@ -29174,7 +27505,7 @@
 
 
 /***/ },
-/* 281 */
+/* 251 */
 /***/ function(module, exports) {
 
 	/*
@@ -29230,7 +27561,7 @@
 
 
 /***/ },
-/* 282 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29484,16 +27815,16 @@
 
 
 /***/ },
-/* 283 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(284);
+	var content = __webpack_require__(254);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(282)(content, {});
+	var update = __webpack_require__(252)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -29510,30 +27841,30 @@
 	}
 
 /***/ },
-/* 284 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(281)();
+	exports = module.exports = __webpack_require__(251)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "  \n.icon {\n    color: #fff;\n    background-color: #F7E5BD; /* teal */\n    line-height: 150px;\n    text-align: center;\n    display: block;\n    overflow: hidden;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    \n    \n    \n    text-shadow: rgb(44, 62, 80) 1px 1px,\n    rgb(44, 62, 80) 2px 2px,\n    rgb(44, 62, 80) 3px 3px,\n    rgb(44, 62, 80) 4px 4px,\n    rgb(44, 62, 80) 5px 5px,\n    rgb(44, 62, 80) 6px 6px,\n    rgb(44, 62, 80) 7px 7px,\n    rgb(44, 62, 80) 8px 8px,\n    rgb(44, 62, 80) 9px 9px,\n    rgb(44, 62, 80) 10px 10px,\n    rgb(44, 62, 80) 11px 11px,\n    rgb(44, 62, 80) 12px 12px,\n    rgb(44, 62, 80) 13px 13px,\n    rgb(44, 62, 80) 14px 14px,\n    rgb(44, 62, 80) 15px 15px,\n    rgb(44, 62, 80) 16px 16px,\n    rgb(44, 62, 80) 17px 17px,\n    rgb(44, 62, 80) 18px 18px,\n    rgb(44, 62, 80) 19px 19px,\n    rgb(44, 62, 80) 20px 20px,\n    rgb(44, 62, 80) 21px 21px,\n    rgb(44, 62, 80) 22px 22px,\n    rgb(44, 62, 80) 23px 23px,\n    rgb(44, 62, 80) 24px 24px,\n    rgb(44, 62, 80) 25px 25px,\n    rgb(44, 62, 80) 26px 26px,\n    rgb(44, 62, 80) 27px 27px,\n    rgb(44, 62, 80) 28px 28px,\n    rgb(44, 62, 80) 29px 29px,\n    rgb(44, 62, 80) 30px 30px,\n    rgb(44, 62, 80) 31px 31px,\n    rgb(44, 62, 80) 32px 32px,\n    rgb(44, 62, 80) 33px 33px,\n    rgb(44, 62, 80) 34px 34px,\n    rgb(44, 62, 80) 35px 35px,\n    rgb(44, 62, 80) 36px 36px,\n    rgb(44, 62, 80) 37px 37px,\n    rgb(44, 62, 80) 38px 38px,\n    rgb(44, 62, 80) 39px 39px,\n    rgb(44, 62, 80) 40px 40px,\n    rgb(44, 62, 80) 41px 41px,\n    rgb(44, 62, 80) 42px 42px,\n    rgb(44, 62, 80) 43px 43px,\n    rgb(44, 62, 80) 44px 44px,\n    rgb(44, 62, 80) 45px 45px,\n    rgb(44, 62, 80) 46px 46px,\n    rgb(44, 62, 80) 47px 47px,\n    rgb(44, 62, 80) 48px 48px,\n    rgb(44, 62, 80) 49px 49px,\n    rgb(44, 62, 80) 50px 50px,\n    rgb(44, 62, 80) 51px 51px,\n    rgb(44, 62, 80) 52px 52px,\n    rgb(44, 62, 80) 53px 53px,\n    rgb(44, 62, 80) 54px 54px,\n    rgb(44, 62, 80) 55px 55px,\n    rgb(44, 62, 80) 56px 56px,\n    rgb(44, 62, 80) 57px 57px,\n    rgb(44, 62, 80) 58px 58px,\n    rgb(44, 62, 80) 59px 59px,\n    rgb(44, 62, 80) 60px 60px,\n    rgb(44, 62, 80) 61px 61px,\n    rgb(44, 62, 80) 62px 62px,\n    rgb(44, 62, 80) 63px 63px,\n    rgb(44, 62, 80) 64px 64px,\n    rgb(44, 62, 80) 65px 65px,\n    rgb(44, 62, 80) 66px 66px,\n    rgb(44, 62, 80) 67px 67px,\n    rgb(44, 62, 80) 68px 68px,\n    rgb(44, 62, 80) 69px 69px,\n    rgb(44, 62, 80) 70px 70px,\n    rgb(44, 62, 80) 71px 71px,\n    rgb(44, 62, 80) 72px 72px,\n    rgb(44, 62, 80) 73px 73px,\n    rgb(44, 62, 80) 74px 74px,\n    rgb(44, 62, 80) 75px 75px,\n    rgb(44, 62, 80) 76px 76px,\n    rgb(44, 62, 80) 77px 77px,\n    rgb(44, 62, 80) 78px 78px,\n    rgb(44, 62, 80) 79px 79px,\n    rgb(44, 62, 80) 80px 80px,\n    rgb(44, 62, 80) 81px 81px,\n    rgb(44, 62, 80) 82px 82px,\n    rgb(44, 62, 80) 83px 83px,\n    rgb(44, 62, 80) 84px 84px,\n    rgb(44, 62, 80) 85px 85px,\n    rgb(44, 62, 80) 86px 86px,\n    rgb(44, 62, 80) 87px 87px,\n    rgb(44, 62, 80) 88px 88px,\n    rgb(44, 62, 80) 89px 89px,\n    rgb(44, 62, 80) 90px 90px,\n    rgb(44, 62, 80) 91px 91px,\n    rgb(44, 62, 80) 92px 92px,\n    rgb(44, 62, 80) 93px 93px,\n    rgb(44, 62, 80) 94px 94px,\n    rgb(44, 62, 80) 95px 95px,\n    rgb(44, 62, 80) 96px 96px,\n    rgb(44, 62, 80) 97px 97px,\n    rgb(44, 62, 80) 98px 98px,\n    rgb(44, 62, 80) 99px 99px,\n    rgb(44, 62, 80) 100px 100px;\n}\n  \n  \n  \n  \n  /********************\n    CSS TRANSITION\n  ********************/\n  .fade-enter{\n    opacity: 0;\n  }\n  .fade-enter-active {\n    opacity: 1;\n    transition: opacity 500ms ease-out;\n  }\n  .fade-leave {\n    opacity: 1;\n  }\n  .fade-leave-active {\n    opacity: 0;\n    transition: opacity 500ms ease-out;\n  }\n\n\n\n.example-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.example-enter.example-enter-active {\n  opacity: 1;\n}\n\n.example-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.example-leave.example-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.example-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.example-appear.example-appear-active {\n  opacity: 1;\n}\n\n\n\n\n\n.slip-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.slip-enter.slip-enter-active {\n  opacity: 1;\n}\n\n.slip-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.slip-leave.slip-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.slip-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.slip-appear.slip-appear-active {\n  opacity: 1;\n}\n\n\n\n  \n  /*********************/\n  .buffer {\n    margin-top: 3rem;\n  }\n  .faq p {\n    line-height: 1.3;\n    padding-left: 1rem;\n    font-family: 'Roboto';\n  }\n  .faq h5 {\n    font-weight: bold;\n  }\n  .faq h6 {\n    font-weight: bold;\n    padding-top: 1rem;\n    color: #5F7187;\n    text-align: center;\n  }\n  \n  .halogen {\n    margin: auto;\n    text-align: center;\n  }\n  .halogen div {\n    width: 100px;\n    height: 100px;\n    position: absolute;\n    top:0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    margin: auto;\n   }\n   .halogen div div{\n    margin: 0 auto;\n  }\n  .callout.large.secondary {\n    padding-top: 1.5rem;\n    /*background-color: #67809F;*/\n    background-color: #5F7187;\n    color: white;\n    margin-bottom: 3rem;\n    padding-bottom: 0rem;\n  }\n  .callout.large.secondary h5 {\n    margin-bottom: 0;\n  }\n  .circle\n    {\n    width:100px;\n    height:100px;\n    border-radius:50px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin: auto;\n    margin-bottom: 1rem;\n    \n    }\n  \n  \n  .top-info {\n    text-align: center;\n    margin-bottom: 2rem;\n  }\n  .top-info h2, h3,h4,h5,h6{\n    padding: 0;\n    margin: 0;\n    line-height: 1.5;\n    \n  }\n  \n  .top-info h1 {\n    font-family: 'Lato';\n    font-weight: 300;\n    font-size: 4rem;\n    margin-top: 0;\n    margin-bottom: -0.5rem;\n    \n  }.top-info h6 {\n    margin-bottom: 0.5rem;\n  }\n  .tab-space-border {\n    background-color: #CCCCCC;\n    width: 100%;\n    height: 1px;\n    display: block;\n  }\n  .fakeTable {\n    border-width: 1px;\n    border-style: solid;\n    border-color: #CCCCCC;\n    border-right-width: 0px;\n    border-bottom-width: 0px;\n    overflow: hidden;\n    margin-top: 0.5rem;\n    margin-bottom: 1.0rem;\n  }\n  .tab-header {\n    background-color: #CCCCCC;\n    color: black;\n    font-weight: 700;\n  }\n  .tab-left span{\n    padding-left: 0.5rem;\n    border-left-color: white;\n    border-left-style: solid;\n    border-left-width: 0.1rem;\n  }\n  .tab-row {\n    background-color: #EEEEEE;\n    color: black;\n    font-weight: 300;\n    padding: 1rem;\n    border-right-color: white;\n    border-right-style: solid;\n    border-right-width: 0.2rem;\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n  }\n  .tab-row:nth-child(2) {\n    border-bottom-width: 0;\n  }\n  .tab-row-parent {\n\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n     \n  }\n  .first-td {\n    border-left-width: 0;\n    text-align: center;\n  }\n  .third-td {\n    text-align: center;\n  }\n  td{\n    background-color: #ECECEC;\n    border-bottom-color: white;\n    border-bottom-width: 2px;\n    border-bottom-style: solid;\n    border-left-color: white;\n    border-left-width: 2px;\n    border-left-style: solid;\n  }\n  table{margin-bottom: 0; width: 90%;}\n  .mid-card {\n    box-shadow: 0px 7px 19px 3px rgba(0,0,0,0.39);\n    background-color: white;\n    padding: 0;\n    margin-bottom: 5rem;\n    padding-bottom: 1rem;\n  }\n  .tab-pad {\n    width: 95%;\n    margin: auto;\n  }\n  \n  .tab-row-big-division {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall h1 {\n    \n    text-shadow: 1px 1px rgba(187,187,187, 0.95), 2px 2px rgba(187,187,187, 0.90), 3px 3px rgba(187,187,187, 0.85), 4px 4px rgba(187,187,187, 0.80), 5px 5px rgba(187,187,187, 0.75), 6px 6px rgba(187,187,187, 0.70), 7px 7px rgba(187,187,187, 0.65), 8px 8px rgba(187,187,187, 0.60), 9px 9px rgba(187,187,187, 0.55), 10px 10px rgba(187,187,187, 0.50), 11px 11px rgba(187,187,187, 0.45), 12px 12px rgba(187,187,187, 0.40), 13px 13px rgba(187,187,187, 0.35), 14px 14px rgba(187,187,187, 0.30), 15px 15px rgba(187,187,187, 0.25), 16px 16px rgba(187,187,187, 0.20), 17px 17px rgba(187,187,187, 0.15), 18px 18px rgba(187,187,187, 0.10), 19px 19px rgba(187,187,187, 0.05), 20px 20px rgba(187,187,187, 0.00)\n\n\n  }\n  .tab-entry {\n    overflow: hidden;\n  }\n  .tab-entry span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n  }\n  .tab-entry span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  .tab-entry-two {\n    overflow: hidden;\n  }\n  .tab-entry-two span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n    background-color: #F2F1EF;\n  }\n  .tab-entry-two span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  \n  \n\n  \n  .full-circle {\n   background-color: #5F7187;\n   /*height: 150px;\n   -moz-border-radius:75px;\n   -webkit-border-radius: 75px;\n   width: 150px;*/\n   width: 100*;\n   margin:auto;\n   margin-top: -1rem;\n  }\n  .halfOval { \n     background-color: rgb(44, 62, 80);\n     bottom:150px;\n     height: 50px;\n     margin: auto 0px;\n     border-radius: 50% 50% 0 0/ 100% 100% 0px 0px;\n     z-index: 0; \n}\n.triangle {\n  width: 0;\n    margin: auto;\n    height: 0;\n    border-style: solid;\n    border-width: 0 100px 40px 100px;\n    border-color: transparent transparent rgb(44, 62, 80) transparent;\n}\n\n\n   .backdrop {\n  height: 100px;\n  width: 200px;\n  background: blue;\n  margin-bottom: 50px;\n}\n\n.curtain {\n  height: 100px;\n  width: 200px;\n  position: relative;\n  top: -100px;\n  background-color: green;\n  margin-bottom: -50px;\n}\n.abovehalfOval { \n     width: 150px;\n     height: 150px;\n     background: red;\n    margin-bottom: -40px;\n    z-index: 1;\n}\n  \n  .score {\n    width: 50%;\n    margin: auto;\n  }\n  .full-circle h1 {\n    text-align: center;\n    color: white;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .info h4 {\n    text-align: center;\n    color: white;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .top-bar {\n    box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);\n    z-index: 1;\n  }\n  \n  .callout{\n    /*box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);*/\n    border-top-width: 0px;\n    border-left-width: 0px;\n    border-bottom-width: 0px;\n    border-right-width: 0px;\n    position: relative;\n    z-index: -1;\n    \n  }\n  .overlay-fade-in p  {\n    font-size: 14px;\n  }\n    .image-wrapper {\n  width: 100%;\n  height: 100%;\n  border: 1px solid rgba(0, 0, 0, 0.04);\n  overflow: hidden;\n  position: relative;\n  text-align: center;\n  border-radius: 4px;\n}\n.image-overlay-content h2 {\n font-weight: 800; \n}\n\n.image-overlay-content {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  overflow: hidden;\n  top: 0;\n  left: 0; }\n\n.overlay-fade-in p {\n  letter-spacing: 0.15em;\n  color: #f4f4f4;\n  font-size: 28px;\n  opacity: 0;\n  transition: all 0.2s linear; }\n.overlay-fade-in img {\n  transition: all 0.2s linear; }\n.overlay-fade-in .image-overlay-content {\n  opacity: 0;\n  background-color: rgba(0, 0, 0, 0.4);\n  transition: all 0.4s ease-in-out; }\n.overlay-fade-in h2 {\n  color: #f2f2f2;\n  font-size: 1.8rem;\n  margin-top: 40%;\n  opacity: 0;\n  transition: all 0.2s ease-in-out;\n  background: rgba(0, 0, 0, 0.7); }\n.overlay-fade-in .button {\n  display: inline-block;\n  text-decoration: none;\n  padding: 7px 14px;\n  background: #FFF;\n  color: #222;\n  text-transform: uppercase;\n  box-shadow: 0 0 1px #000;\n  position: relative;\n  border: 1px solid #999;\n  opacity: 0;\n  transition: all 0.2s ease-in-out; }\n  .overlay-fade-in .button:hover {\n    box-shadow: 0 0 5px #000; }\n.overlay-fade-in:hover img {\n  transform: scale(1.2); }\n.overlay-fade-in:hover .image-overlay-content {\n  opacity: 1; }\n.overlay-fade-in:hover h2, .overlay-fade-in p, .overlay-fade-in .button {\n  opacity: 1; }\n.overlay-fade-in:hover p {\n  transition-delay: 0.1s; }\n.overlay-fade-in:hover .button {\n  transition-delay: 0.2s; }\n\n/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/\n\n.fight-card {\n  /*padding: 1rem;*/\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  background-color: #fff;\n  width: 50%;\n  margin: auto;\n  margin-bottom: 1rem;\n  overflow: hidden;\n}\n.fight-col {\n  padding-left: 0;\n  padding-right: 0;\n}\n.fight-card-left {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n  border-right-style: solid;\n  border-right-width: 2px;\n  border-right-color: #ecf0f1;\n  background-color: #F7E5BD;\n}\n.fight-card-left span {\n  text-align: center;\n  display: block;\n}\n.fight-card-right span {\n  text-align: left;\n  display: inline;\n}\n.fight-card-data span {\n  float: left;\n}\n\n.fight-card-right {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n}\n.fight-card-title {\n  width: 100%;\n  margin-bottom: 1rem;\n  background-color: rgb(44, 62, 80);\n  color: white;\n}\n.fight-card-title h2 {\n  text-align: center;\n  font-family: 'Lato';\n  font-weight: 300;\n}\n.fight-card-data {\n    \n  }\n  .fight-card-data-header {\n    width: 50%;\n    color: #666666;\n  }\n  .fight-card-data-text {\n    width: 50%;\n    padding-left: 1rem;\n  }\n  .info {\n    /*margin-left: 3rem;*/\n    text-align: center;\n    margin-top: 1rem;\n  }\n  .info h4 {\n    font-weight: 700;\n  }\n  .info p {\n    text-align: center;\n    margin-bottom: 0.05rem;\n  }\n  .info span {\n    display: inline;\n  }\n.clearFix {\n  clear: both;\n  display: block;\n  width: 100%;\n}\n.profile-card {\n  padding: 1rem;\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  margin: 2rem 0;\n  background-color: #fff; }\n  .profile-card img {\n    \n    display: block;\n\n    text-align: center;\n\n    box-shadow: 2px 2px 5px #888888; }\n  .profile-card .profile-info {\n    padding: 1rem; }\n    .profile-card .profile-info h4 {\n      margin-top: 0;\n      text-align: center;\n      text-transform: uppercase; }\n    .profile-card .profile-info p {\n      text-align: center; }\n    .profile-card .profile-info .inline-list {\n      text-align: center;\n      margin-bottom: 1rem; }\n      .profile-card .profile-info .inline-list li {\n        float: none;\n        display: inline-block; }\n      .profile-card .profile-info .inline-list i.fi-social-facebook {\n        font-size: 1.5rem;\n        color: #3b5998; }\n        .profile-card .profile-info .inline-list i.fi-social-facebook:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-twitter {\n        font-size: 1.5rem;\n        color: #55acee; }\n        .profile-card .profile-info .inline-list i.fi-social-twitter:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-linkedin {\n        font-size: 1.5rem;\n        color: #0077b5; }\n        .profile-card .profile-info .inline-list i.fi-social-linkedin:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-github {\n        font-size: 1.5rem;\n        color: #333; }\n        .profile-card .profile-info .inline-list i.fi-social-github:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-youtube {\n        font-size: 1.5rem;\n        color: #cc181e; }\n        .profile-card .profile-info .inline-list i.fi-social-youtube:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n", ""]);
+	exports.push([module.id, "  \n.icon {\n    color: #fff;\n    background-color: #F7E5BD; /* teal */\n    line-height: 150px;\n    text-align: center;\n    display: block;\n    overflow: hidden;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    \n    \n    \n    text-shadow: rgb(44, 62, 80) 1px 1px,\n    rgb(44, 62, 80) 2px 2px,\n    rgb(44, 62, 80) 3px 3px,\n    rgb(44, 62, 80) 4px 4px,\n    rgb(44, 62, 80) 5px 5px,\n    rgb(44, 62, 80) 6px 6px,\n    rgb(44, 62, 80) 7px 7px,\n    rgb(44, 62, 80) 8px 8px,\n    rgb(44, 62, 80) 9px 9px,\n    rgb(44, 62, 80) 10px 10px,\n    rgb(44, 62, 80) 11px 11px,\n    rgb(44, 62, 80) 12px 12px,\n    rgb(44, 62, 80) 13px 13px,\n    rgb(44, 62, 80) 14px 14px,\n    rgb(44, 62, 80) 15px 15px,\n    rgb(44, 62, 80) 16px 16px,\n    rgb(44, 62, 80) 17px 17px,\n    rgb(44, 62, 80) 18px 18px,\n    rgb(44, 62, 80) 19px 19px,\n    rgb(44, 62, 80) 20px 20px,\n    rgb(44, 62, 80) 21px 21px,\n    rgb(44, 62, 80) 22px 22px,\n    rgb(44, 62, 80) 23px 23px,\n    rgb(44, 62, 80) 24px 24px,\n    rgb(44, 62, 80) 25px 25px,\n    rgb(44, 62, 80) 26px 26px,\n    rgb(44, 62, 80) 27px 27px,\n    rgb(44, 62, 80) 28px 28px,\n    rgb(44, 62, 80) 29px 29px,\n    rgb(44, 62, 80) 30px 30px,\n    rgb(44, 62, 80) 31px 31px,\n    rgb(44, 62, 80) 32px 32px,\n    rgb(44, 62, 80) 33px 33px,\n    rgb(44, 62, 80) 34px 34px,\n    rgb(44, 62, 80) 35px 35px,\n    rgb(44, 62, 80) 36px 36px,\n    rgb(44, 62, 80) 37px 37px,\n    rgb(44, 62, 80) 38px 38px,\n    rgb(44, 62, 80) 39px 39px,\n    rgb(44, 62, 80) 40px 40px,\n    rgb(44, 62, 80) 41px 41px,\n    rgb(44, 62, 80) 42px 42px,\n    rgb(44, 62, 80) 43px 43px,\n    rgb(44, 62, 80) 44px 44px,\n    rgb(44, 62, 80) 45px 45px,\n    rgb(44, 62, 80) 46px 46px,\n    rgb(44, 62, 80) 47px 47px,\n    rgb(44, 62, 80) 48px 48px,\n    rgb(44, 62, 80) 49px 49px,\n    rgb(44, 62, 80) 50px 50px,\n    rgb(44, 62, 80) 51px 51px,\n    rgb(44, 62, 80) 52px 52px,\n    rgb(44, 62, 80) 53px 53px,\n    rgb(44, 62, 80) 54px 54px,\n    rgb(44, 62, 80) 55px 55px,\n    rgb(44, 62, 80) 56px 56px,\n    rgb(44, 62, 80) 57px 57px,\n    rgb(44, 62, 80) 58px 58px,\n    rgb(44, 62, 80) 59px 59px,\n    rgb(44, 62, 80) 60px 60px,\n    rgb(44, 62, 80) 61px 61px,\n    rgb(44, 62, 80) 62px 62px,\n    rgb(44, 62, 80) 63px 63px,\n    rgb(44, 62, 80) 64px 64px,\n    rgb(44, 62, 80) 65px 65px,\n    rgb(44, 62, 80) 66px 66px,\n    rgb(44, 62, 80) 67px 67px,\n    rgb(44, 62, 80) 68px 68px,\n    rgb(44, 62, 80) 69px 69px,\n    rgb(44, 62, 80) 70px 70px,\n    rgb(44, 62, 80) 71px 71px,\n    rgb(44, 62, 80) 72px 72px,\n    rgb(44, 62, 80) 73px 73px,\n    rgb(44, 62, 80) 74px 74px,\n    rgb(44, 62, 80) 75px 75px,\n    rgb(44, 62, 80) 76px 76px,\n    rgb(44, 62, 80) 77px 77px,\n    rgb(44, 62, 80) 78px 78px,\n    rgb(44, 62, 80) 79px 79px,\n    rgb(44, 62, 80) 80px 80px,\n    rgb(44, 62, 80) 81px 81px,\n    rgb(44, 62, 80) 82px 82px,\n    rgb(44, 62, 80) 83px 83px,\n    rgb(44, 62, 80) 84px 84px,\n    rgb(44, 62, 80) 85px 85px,\n    rgb(44, 62, 80) 86px 86px,\n    rgb(44, 62, 80) 87px 87px,\n    rgb(44, 62, 80) 88px 88px,\n    rgb(44, 62, 80) 89px 89px,\n    rgb(44, 62, 80) 90px 90px,\n    rgb(44, 62, 80) 91px 91px,\n    rgb(44, 62, 80) 92px 92px,\n    rgb(44, 62, 80) 93px 93px,\n    rgb(44, 62, 80) 94px 94px,\n    rgb(44, 62, 80) 95px 95px,\n    rgb(44, 62, 80) 96px 96px,\n    rgb(44, 62, 80) 97px 97px,\n    rgb(44, 62, 80) 98px 98px,\n    rgb(44, 62, 80) 99px 99px,\n    rgb(44, 62, 80) 100px 100px;\n}\n  \n  \n  \n  \n  /********************\n    CSS TRANSITION\n  ********************/\n  .fade-enter{\n    opacity: 0;\n  }\n  .fade-enter-active {\n    opacity: 1;\n    transition: opacity 500ms ease-out;\n  }\n  .fade-leave {\n    opacity: 1;\n  }\n  .fade-leave-active {\n    opacity: 0;\n    transition: opacity 500ms ease-out;\n  }\n\n\n\n.example-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.example-enter.example-enter-active {\n  opacity: 1;\n}\n\n.example-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.example-leave.example-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.example-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.example-appear.example-appear-active {\n  opacity: 1;\n}\n\n\n\n\n\n.slip-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.slip-enter.slip-enter-active {\n  opacity: 1;\n}\n\n.slip-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.slip-leave.slip-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.slip-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.slip-appear.slip-appear-active {\n  opacity: 1;\n}\n\n\n\n  \n  /*********************/\n  .buffer {\n    margin-top: 3rem;\n  }\n  .faq p {\n    line-height: 1.3;\n    padding-left: 1rem;\n    font-family: 'Roboto';\n  }\n  .faq h5 {\n    font-weight: bold;\n  }\n  .faq h6 {\n    font-weight: bold;\n    padding-top: 1rem;\n    color: #5F7187;\n    text-align: center;\n  }\n  \n  .halogen {\n    margin: auto;\n    text-align: center;\n  }\n  .halogen div {\n    width: 100px;\n    height: 100px;\n    position: absolute;\n    top:0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    margin: auto;\n   }\n   .halogen div div{\n    margin: 0 auto;\n  }\n  .callout.large.secondary {\n    padding-top: 1.5rem;\n    /*background-color: #67809F;*/\n    background-color: #5F7187;\n    color: white;\n    margin-bottom: 3rem;\n    padding-bottom: 0rem;\n  }\n  .callout.large.secondary h5 {\n    margin-bottom: 0;\n  }\n  .circle\n  {\n    width:100px;\n    height:100px;\n    border-radius:50px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin-bottom: 1rem;\n  }\n  .sqr\n  {\n    height: 200px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin-bottom: 1rem;\n  }\n  \n  .sqr h1 {\n    font-size: 100px;\n    font-family: \"Lato\";\n    padding-bottom: 0rem;\n    font-weight: 300;\n    position: relative;\n    top: 40%;\n    transform: translateY(-40%);\n  }\n  .card-stuff {\n    text-align: center;\n  }\n  .card-stuff h1,h2,h3,h4,h5,h6 {\n    text-align: center;\n    font-family: 'Lato';\n    font-weight: 300;\n  }\n  .card-stuff h2{\n    font-weight: 500;\n    margin-bottom: 0.5rem;\n    line-height: 3rem;\n  }\n  .card-stuff h5{\n    line-height: 1.5rem;\n    color: #DADFE1;\n  }\n  \n  .top-info {\n    margin-bottom: 2rem;\n  }\n  .top-info h2, h3,h4,h5,h6{\n    padding: 0;\n    margin: 0;\n    line-height: 1.5;\n    \n  }\n  \n  .top-info h1 {\n    font-family: 'Lato';\n    font-weight: 300;\n    font-size: 4rem;\n    margin-top: 0;\n    margin-bottom: -0.5rem;\n    \n  }.top-info h6 {\n    margin-bottom: 0.5rem;\n  }\n  .tab-space-border {\n    background-color: #CCCCCC;\n    width: 100%;\n    height: 1px;\n    display: block;\n  }\n  .fakeTable {\n    border-width: 1px;\n    border-style: solid;\n    border-color: #CCCCCC;\n    border-right-width: 0px;\n    border-bottom-width: 0px;\n    overflow: hidden;\n    margin-top: 0.5rem;\n    margin-bottom: 1.0rem;\n  }\n  .tab-header {\n    background-color: #CCCCCC;\n    color: black;\n    font-weight: 700;\n  }\n  .tab-left span{\n    padding-left: 0.5rem;\n    border-left-color: white;\n    border-left-style: solid;\n    border-left-width: 0.1rem;\n  }\n  .tab-row {\n    background-color: #EEEEEE;\n    color: black;\n    font-weight: 300;\n    padding: 1rem;\n    border-right-color: white;\n    border-right-style: solid;\n    border-right-width: 0.2rem;\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n  }\n  .tab-row:nth-child(2) {\n    border-bottom-width: 0;\n  }\n  .tab-row-parent {\n\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n     \n  }\n  .first-td {\n    border-left-width: 0;\n    text-align: center;\n  }\n  .third-td {\n    text-align: center;\n  }\n  td{\n    background-color: #ECECEC;\n    border-bottom-color: white;\n    border-bottom-width: 2px;\n    border-bottom-style: solid;\n    border-left-color: white;\n    border-left-width: 2px;\n    border-left-style: solid;\n  }\n  table{margin-bottom: 0; width: 90%;}\n  .mid-card {\n    box-shadow: 0px 7px 19px 3px rgba(0,0,0,0.39);\n    background-color: white;\n    padding: 0;\n    margin-bottom: 5rem;\n    padding-bottom: 1rem;\n  }\n  .tab-pad {\n    width: 95%;\n    margin: auto;\n  }\n  \n  .tab-row-big-division {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall h1 {\n    \n    text-shadow: 1px 1px rgba(187,187,187, 0.95), 2px 2px rgba(187,187,187, 0.90), 3px 3px rgba(187,187,187, 0.85), 4px 4px rgba(187,187,187, 0.80), 5px 5px rgba(187,187,187, 0.75), 6px 6px rgba(187,187,187, 0.70), 7px 7px rgba(187,187,187, 0.65), 8px 8px rgba(187,187,187, 0.60), 9px 9px rgba(187,187,187, 0.55), 10px 10px rgba(187,187,187, 0.50), 11px 11px rgba(187,187,187, 0.45), 12px 12px rgba(187,187,187, 0.40), 13px 13px rgba(187,187,187, 0.35), 14px 14px rgba(187,187,187, 0.30), 15px 15px rgba(187,187,187, 0.25), 16px 16px rgba(187,187,187, 0.20), 17px 17px rgba(187,187,187, 0.15), 18px 18px rgba(187,187,187, 0.10), 19px 19px rgba(187,187,187, 0.05), 20px 20px rgba(187,187,187, 0.00)\n\n\n  }\n  .tab-entry {\n    overflow: hidden;\n  }\n  .tab-entry span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n  }\n  .tab-entry span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  .tab-entry-two {\n    overflow: hidden;\n  }\n  .tab-entry-two span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n    background-color: #F2F1EF;\n  }\n  .tab-entry-two span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  \n  \n\n  \n  .full-circle {\n   background-color: #5F7187;\n   /*height: 150px;\n   -moz-border-radius:75px;\n   -webkit-border-radius: 75px;\n   width: 150px;*/\n   width: 100*;\n   margin:auto;\n   margin-top: -1rem;\n  }\n  .halfOval { \n     background-color: rgb(44, 62, 80);\n     bottom:150px;\n     height: 50px;\n     margin: auto 0px;\n     border-radius: 50% 50% 0 0/ 100% 100% 0px 0px;\n     z-index: 0; \n}\n.triangle {\n  width: 0;\n    margin: auto;\n    height: 0;\n    border-style: solid;\n    border-width: 0 100px 40px 100px;\n    border-color: transparent transparent rgb(44, 62, 80) transparent;\n}\n\n\n   .backdrop {\n  height: 100px;\n  width: 200px;\n  background: blue;\n  margin-bottom: 50px;\n}\n\n.curtain {\n  height: 100px;\n  width: 200px;\n  position: relative;\n  top: -100px;\n  background-color: green;\n  margin-bottom: -50px;\n}\n.abovehalfOval { \n     width: 150px;\n     height: 150px;\n     background: red;\n    margin-bottom: -40px;\n    z-index: 1;\n}\n  \n  .score {\n    width: 50%;\n    margin: auto;\n  }\n  .full-circle h1 {\n    text-align: center;\n    color: white;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .info h4 {\n    text-align: center;\n    color: white;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .top-bar {\n    box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);\n    z-index: 1;\n  }\n  \n  .callout{\n    /*box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);*/\n    border-top-width: 0px;\n    border-left-width: 0px;\n    border-bottom-width: 0px;\n    border-right-width: 0px;\n    position: relative;\n    z-index: -1;\n    \n  }\n  .overlay-fade-in p  {\n    font-size: 14px;\n  }\n    .image-wrapper {\n  width: 100%;\n  height: 100%;\n  border: 1px solid rgba(0, 0, 0, 0.04);\n  overflow: hidden;\n  position: relative;\n  text-align: center;\n  border-radius: 4px;\n}\n.image-overlay-content h2 {\n font-weight: 800; \n}\n\n.image-overlay-content {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  overflow: hidden;\n  top: 0;\n  left: 0; }\n\n.overlay-fade-in p {\n  letter-spacing: 0.15em;\n  color: #f4f4f4;\n  font-size: 28px;\n  opacity: 0;\n  transition: all 0.2s linear; }\n.overlay-fade-in img {\n  transition: all 0.2s linear; }\n.overlay-fade-in .image-overlay-content {\n  opacity: 0;\n  background-color: rgba(0, 0, 0, 0.4);\n  transition: all 0.4s ease-in-out; }\n.overlay-fade-in h2 {\n  color: #f2f2f2;\n  font-size: 1.8rem;\n  margin-top: 40%;\n  opacity: 0;\n  transition: all 0.2s ease-in-out;\n  background: rgba(0, 0, 0, 0.7); }\n.overlay-fade-in .button {\n  display: inline-block;\n  text-decoration: none;\n  padding: 7px 14px;\n  background: #FFF;\n  color: #222;\n  text-transform: uppercase;\n  box-shadow: 0 0 1px #000;\n  position: relative;\n  border: 1px solid #999;\n  opacity: 0;\n  transition: all 0.2s ease-in-out; }\n  .overlay-fade-in .button:hover {\n    box-shadow: 0 0 5px #000; }\n.overlay-fade-in:hover img {\n  transform: scale(1.2); }\n.overlay-fade-in:hover .image-overlay-content {\n  opacity: 1; }\n.overlay-fade-in:hover h2, .overlay-fade-in p, .overlay-fade-in .button {\n  opacity: 1; }\n.overlay-fade-in:hover p {\n  transition-delay: 0.1s; }\n.overlay-fade-in:hover .button {\n  transition-delay: 0.2s; }\n\n/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/\n\n.fight-card {\n  /*padding: 1rem;*/\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  background-color: #fff;\n  width: 50%;\n  margin: auto;\n  margin-bottom: 1rem;\n  overflow: hidden;\n}\n.fight-col {\n  padding-left: 0;\n  padding-right: 0;\n}\n.fight-col .row {\n  margin-left: 0;\n  margin-right: 0;\n}\n.fight-card-left {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n  border-right-style: solid;\n  border-right-width: 2px;\n  border-right-color: #ecf0f1;\n  background-color: #F7E5BD;\n}\n.fight-card-left span {\n  text-align: center;\n  display: block;\n}\n.fight-card-right span {\n  text-align: left;\n  display: inline;\n}\n.fight-card-data span {\n  float: left;\n}\n\n.fight-card-right {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n}\n.fight-card-title {\n  width: 100%;\n  margin-bottom: 1rem;\n  background-color: rgb(44, 62, 80);\n  color: white;\n}\n.fight-card-title h2 {\n  text-align: center;\n  font-family: 'Lato';\n  font-weight: 300;\n}\n.fight-card-data {\n    \n  }\n  .fight-card-data-header {\n    width: 50%;\n    color: #666666;\n  }\n  .fight-card-data-text {\n    width: 50%;\n    padding-left: 1rem;\n  }\n  .info {\n    /*margin-left: 3rem;*/\n    text-align: center;\n    margin-top: 1rem;\n  }\n  .info h4 {\n    font-weight: 700;\n  }\n  .info p {\n    text-align: center;\n    margin-bottom: 0.05rem;\n  }\n  .info span {\n    display: inline;\n  }\n.clearFix {\n  clear: both;\n  display: block;\n  width: 100%;\n}\n.profile-card {\n  padding: 1rem;\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  margin: 2rem 0;\n  background-color: #fff; }\n  .profile-card img {\n    \n    display: block;\n\n    text-align: center;\n\n    box-shadow: 2px 2px 5px #888888; }\n  .profile-card .profile-info {\n    padding: 1rem; }\n    .profile-card .profile-info h4 {\n      margin-top: 0;\n      text-align: center;\n      text-transform: uppercase; }\n    .profile-card .profile-info p {\n      text-align: center; }\n    .profile-card .profile-info .inline-list {\n      text-align: center;\n      margin-bottom: 1rem; }\n      .profile-card .profile-info .inline-list li {\n        float: none;\n        display: inline-block; }\n      .profile-card .profile-info .inline-list i.fi-social-facebook {\n        font-size: 1.5rem;\n        color: #3b5998; }\n        .profile-card .profile-info .inline-list i.fi-social-facebook:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-twitter {\n        font-size: 1.5rem;\n        color: #55acee; }\n        .profile-card .profile-info .inline-list i.fi-social-twitter:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-linkedin {\n        font-size: 1.5rem;\n        color: #0077b5; }\n        .profile-card .profile-info .inline-list i.fi-social-linkedin:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-github {\n        font-size: 1.5rem;\n        color: #333; }\n        .profile-card .profile-info .inline-list i.fi-social-github:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-youtube {\n        font-size: 1.5rem;\n        color: #cc181e; }\n        .profile-card .profile-info .inline-list i.fi-social-youtube:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 285 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(286);
+	var content = __webpack_require__(256);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(282)(content, {});
+	var update = __webpack_require__(252)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -29550,10 +27881,10 @@
 	}
 
 /***/ },
-/* 286 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(281)();
+	exports = module.exports = __webpack_require__(251)();
 	// imports
 
 

@@ -19,24 +19,19 @@ var Card = React.createClass({
         }
     },
     componentWillMount: function () {
-        console.log('Hello');
+        //console.log('Hello');
     },
     componentDidMount: function () {
         function computeScore (recordSplit) {
             var RecordScore = 0;
-            //console.log(recordSplit.length);
             for (var i = 0; i < recordSplit.length; i++) {
-                //console.log(recordSplit[i]);
-                //console.log(RecordScore);
                 if (recordSplit[i] === "o") {
                     return RecordScore;
                 }
                 if (i > 0 && recordSplit[i] !== recordSplit[i-1] && recordSplit[i] !== "d") {
-                    //console.log('break!');
                     return RecordScore;
                 }
                 if (recordSplit[i] === "w") {
-                    //console.log('entered w');
                     RecordScore = RecordScore + 1;
                 }
                 if (recordSplit[i] === "l") {
@@ -55,7 +50,7 @@ var Card = React.createClass({
                 var fightevents = snapshot.val();
                 for (var i = 0; i < fightevents.length; i++) {
                     if (fightevents[i].url === event_url) {
-                        console.log(fightevents[i]);
+                        //console.log(fightevents[i]);
                         hotvents.push(fightevents[i]);
                         that.setState({hot: fightevents[i].fights});
                         that.setState({title: fightevents[i].title, date: fightevents[i].date, location: fightevents[i].location});
@@ -78,9 +73,9 @@ var Card = React.createClass({
                                 var blueRecord;
                                 var redRecord;
                                 for (var n = 0; n < allFighters.length; n++) {
-                                    console.log(allFighters[n].name);
+                                    //console.log(allFighters[n].name);
                                 }
-                                console.log(allFighters);
+                                //console.log(allFighters);
                                 for (var k = 0; k < allFighters.length; k++) {
                                     if (allFighters[k].name === fighterList[key].red) {
                                         var strRecord = allFighters[k].record;
@@ -93,7 +88,7 @@ var Card = React.createClass({
                                         else {
                                             var redRecordStr = redRecord;
                                         }
-                                        console.log(redRecord);
+                                        //console.log(redRecord);
                                         that.setState({score: that.state.score + redRecord});
                                     }
                                     if (allFighters[k].name === fighterList[key].blue) {
@@ -105,11 +100,10 @@ var Card = React.createClass({
                                         else {
                                             var blueRecordStr = blueRecord;
                                         }
-                                        console.log(blueRecord);
+                                        //console.log(blueRecord);
                                         that.setState({score: that.state.score + blueRecord});
                                     }
                                 }
-                                console.log(division);
                                 var zip =
                                     {
                                         fighterRed: red,
@@ -128,9 +122,6 @@ var Card = React.createClass({
                                 else {
                                     that.setState({strScore: that.state.score});
                                 }
-                                
-                                
-                                
                             });    
                         }));
                         
@@ -149,10 +140,11 @@ var Card = React.createClass({
                 return <div><Halogen className = "halogen" color="#5F7187" size="72px" margin="48px"/></div>
             }
         
-        var fightCardList = this.state.cold.map(op => {
-            return  <div className="row tab-row-parent">
+        var fightCardList = this.state.cold.map((op,index) => {
+            return  <div className="row tab-row-parent" key={index}>
             
                         <table>
+                        <tbody>
                           <tr>
                             <td rowSpan="2" width="25%" className="first-td"><abbr title={op.division}>{op.divShort}</abbr></td>
                             <td width="50%">{op.fighterRed}</td>
@@ -162,38 +154,41 @@ var Card = React.createClass({
                             <td>{op.fighterBlue}</td>
                             <td>{op.blueScore}</td>
                           </tr>
+                        </tbody>
                         </table>
+                        
                     </div>
         })
 
         return (
             <div className="fadeIn slideUp">
                 
-               <ContentHeader title={this.state.title} date={this.state.date} location={this.state.location} score={this.state.score}/>
+               <ContentHeader title={this.state.title} date={this.state.date} location={this.state.location} score={this.state.score} fightersCount={this.state.fightersCount}/>
             
                 
-                    <div class="row fadeIn slideUp">
-                        <div className="small-1 large-3 columns">
+                    <div className="row fadeIn slideUp">
+                        <div className="small-1 large-2 columns">
                             <p></p>
                         </div>
-                        <div className="small-10 large-6 columns mid-card">
+                        <div className="small-10 large-8 columns mid-card">
                             
                             <div className="fight-card-title"><h2>FIGHT CARD</h2></div>
                             <div className="column fight-col">
                                           <table>
-                                                 <thead>
+                                                <thead>
                                                 <tr>
                                                   <th width="25%">Division</th>
                                                   <th width="50%">Fighter</th>
                                                   <th width="25%">Score</th>
                                                 </tr>
                                               </thead>
+                                              
                                               </table>
                                 {fightCardList}
                             
                             </div>
                         </div>
-                        <div className="small-1 large-3 columns">
+                        <div className="small-1 large-2 columns">
                             <p></p>  
                         </div>
                     </div>
