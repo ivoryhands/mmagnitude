@@ -107,6 +107,7 @@
 	var About = __webpack_require__(231);
 	var Card = __webpack_require__(232);
 	var EventData = __webpack_require__(247);
+	var EventDataPast = __webpack_require__(248);
 
 	__webpack_require__(249);
 	__webpack_require__(253);
@@ -120,6 +121,7 @@
 	    { path: '/', component: Main },
 	    React.createElement(Route, { path: 'about', component: About }),
 	    React.createElement(Route, { path: 'card/*', component: Card }),
+	    React.createElement(Route, { path: 'past-events', component: EventDataPast }),
 	    React.createElement(IndexRoute, { component: EventData })
 	  )
 	), document.getElementById('app'));
@@ -24980,6 +24982,15 @@
 	            null,
 	            React.createElement(
 	              Link,
+	              { to: '/past-events', activeStyle: { fontWeight: 'bold' } },
+	              'Past Events'
+	            )
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(
+	              Link,
 	              { to: '/about', activeStyle: { fontWeight: 'bold' } },
 	              'About'
 	            )
@@ -27262,7 +27273,6 @@
 	'use strict';
 
 	var React = __webpack_require__(7);
-	var DisplayEventData = __webpack_require__(248);
 
 	var _require = __webpack_require__(165),
 	    Link = _require.Link,
@@ -27294,6 +27304,7 @@
 	        var allevents = [];
 	        var events = [];
 	        var test;
+	        console.log(this.props);
 	    },
 	    componentDidMount: function componentDidMount() {
 	        var _this = this;
@@ -27454,15 +27465,126 @@
 	'use strict';
 
 	var React = __webpack_require__(7);
-	var DisplayEventData = React.createClass({
-	    displayName: 'DisplayEventData',
 
+	var _require = __webpack_require__(165),
+	    Link = _require.Link;
+
+	var Halogen = __webpack_require__(240);
+	var ReactCSSTransitionGroup = __webpack_require__(224);
+
+	var firebase = __webpack_require__(233);
+
+	var EventDataPast = React.createClass({
+	    displayName: 'EventDataPast',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            hot: []
+	        };
+	    },
+	    componentWillMount: function componentWillMount() {
+	        var allevents = [];
+	        var events = [];
+	        var test;
+	        console.log(this.props);
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+
+	        var ref = firebase.database().ref('events');
+
+	        ref.on('value', function (snapshot) {
+	            var tits = snapshot.val();
+	            var hotvents = [];
+	            var that = _this;
+
+	            snapshot.forEach(function (data) {
+	                var newtits = data.val();
+	                var eventDate = new Date(newtits.date); //get event date
+	                var currentDate = new Date(); //get current date
+
+	                if (currentDate > eventDate) {
+	                    //push only future events
+	                    hotvents.push(newtits);
+	                }
+	                that.setState({ hot: hotvents });
+	            });
+	        });
+	    },
 	    render: function render() {
+
+	        if (!this.state.hot) {
+	            return React.createElement(
+	                'div',
+	                null,
+	                React.createElement(Halogen, { className: 'halogen', color: '#5F7187', size: '72px', margin: '48px' })
+	            );
+	        }
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'div',
+	                { className: 'row small-up-1 medium-up-2 large-up-4' },
+	                React.createElement(
+	                    ReactCSSTransitionGroup,
+	                    {
+	                        transitionName: 'fade',
+	                        transitionEnterTimeout: 500,
+	                        transitionLeaveTimeout: 500 },
+	                    this.state.hot.map(function (card, index) {
+	                        return React.createElement(
+	                            'div',
+	                            { className: 'small-3 columns end', key: index },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'profile-card slideRight' },
+	                                React.createElement(
+	                                    'div',
+	                                    { className: 'image-wrapper overlay-fade-in' },
+	                                    React.createElement('img', { src: card.img, className: 'thumbnail', alt: true }),
+	                                    React.createElement(
+	                                        'div',
+	                                        { className: 'image-overlay-content' },
+	                                        React.createElement(
+	                                            'h2',
+	                                            null,
+	                                            card.event_score
+	                                        ),
+	                                        React.createElement(
+	                                            Link,
+	                                            { to: '/card/' + card.url, className: 'button' },
+	                                            'Card'
+	                                        ),
+	                                        React.createElement(
+	                                            'p',
+	                                            null,
+	                                            card.title
+	                                        )
+	                                    )
+	                                ),
+	                                React.createElement(
+	                                    'h5',
+	                                    null,
+	                                    card.title
+	                                ),
+	                                React.createElement(
+	                                    'h6',
+	                                    null,
+	                                    card.date
+	                                )
+	                            )
+	                        );
+	                    })
+	                )
+	            )
+	        );
+
 	        return React.createElement('div', null);
 	    }
 	});
 
-	module.exports = DisplayEventData;
+	module.exports = EventDataPast;
 
 /***/ },
 /* 249 */

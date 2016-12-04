@@ -5,6 +5,7 @@ var Main = require('Main');
 var About = require('About');
 var Card = require('Card');
 var EventData = require('EventData');
+var EventDataPast = require('EventDataPast');
 
 require('style!css!foundation-sites/dist/foundation.css')
 require('style!css!foundation-sites/dist/custom.css')
@@ -13,10 +14,12 @@ require('style!css!foundation-sites/dist/animation.css')
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
-      <Route path="about" component={About}/>
-      <Route path ="card/*" component={Card}/> 
+      <Route path ="about" component={About}/>
+      <Route path ="card/*" component={Card}/>
+      <Route path ="past-events" component={EventDataPast}/>
       <IndexRoute component={EventData}/>
     </Route>
+    
   </Router>,
   document.getElementById('app')
 );

@@ -26,7 +26,7 @@ module.exports = {
       Nav: 'app/components/Nav.jsx',
       About: 'app/components/About.jsx',
       EventData: 'app/components/EventData.jsx',
-      DisplayEventData: 'app/components/DisplayEventData.jsx',
+      EventData: 'app/components/EventDataPast.jsx',
       Card: 'app/components/Card.jsx',
       ContentHeader: 'app/components/ContentHeader.jsx'
     },

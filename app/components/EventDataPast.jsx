@@ -1,20 +1,13 @@
 var React = require ('react');
-var {Link, IndexLink} = require('react-router');
+var {Link} = require('react-router');
 var Halogen = require('halogen/ClipLoader');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 var firebase = require('firebase');
 
-var config = {
-    apiKey: "AIzaSyBQpgPVjQScAtAbgxZZ_BIs3jZhLD38SJY",
-    authDomain: "events-558cd.firebaseapp.com",
-    databaseURL: "https://events-558cd.firebaseio.com",
-    storageBucket: "events-558cd.appspot.com",
-    messagingSenderId: "81048302603"
-};
-firebase.initializeApp(config);
 
-var EventData = React.createClass({
+
+var EventDataPast = React.createClass({
     getInitialState: function () {
         return {
            hot: []
@@ -40,7 +33,7 @@ var EventData = React.createClass({
                     var eventDate = new Date(newtits.date);     //get event date
                     var currentDate = new Date();               //get current date
                     
-                    if (currentDate < eventDate) {              //push only future events
+                    if (currentDate > eventDate) {              //push only future events
                         hotvents.push(newtits);  
                     }
                     that.setState({hot: hotvents});
@@ -48,10 +41,9 @@ var EventData = React.createClass({
             });
 
     },
-    
    render: function () {
-        
-        if (!this.state.hot) {
+       
+       if (!this.state.hot) {
                 return <div><Halogen className = "halogen" color="#5F7187" size="72px" margin="48px"/></div>
             }
         return (
@@ -85,62 +77,15 @@ var EventData = React.createClass({
             
             </div>
         )
+       
+       
+        return (
+           
+            <div>
+            </div>
+           
+        )
    } 
 });
 
-module.exports = EventData;
-
-/*
-<div className="row small-up-1 medium-up-2 large-up-4">
-                <Link to="/card/">Card</Link>
-                <div className="column">
-                   
-                    <div className="profile-card">
-                        <div className="image-wrapper overlay-fade-in">
-                             <img src="https://upload.wikimedia.org/wikipedia/en/6/69/UFC_Sacramento_poster.jpg" className="thumbnail" alt />
-                             <div className="image-overlay-content">
-                                <h2>{this.state.hot.event_score}</h2>
-                                <Link to ={ '/card/' + this.state.hot.url } className="button">Card</Link>
-                                <p>{this.state.hot.title}</p>
-                             </div>
-                             
-                        </div>
-                        
-                    </div>
-           
-                </div>
-            <ul>
-            {this.state.hot.map(card=>{
-                return <li></li>
-            })
-                
-            }
-            </ul>
-            
-            </div>
-
-
-||||||||||||||||||||||||||||||||||||||||||||||||||
-
-<div className="profile-info"></div>
-
-
-            
-
-
-<a href="/card" className="button">FIGHT CARD</a>
-<div class="image-wrapper overlay-fade-in">
-      
-      <img src="https://tourneau.scene7.com/is/image/tourneau/DEV9900004?hei=450&wid=300&fmt=png-alpha&resMode=bicub&op_sharpen=1" />
-      
-      <div class="image-overlay-content">
-        <h2>.overlay-fade-in</h2>
-        <p class="price">$99.99</p>
-        <a href="#" class="button">Get it</a>
-      </div>
-    
-    </div>
-
-
-
-*/
+module.exports = EventDataPast;
