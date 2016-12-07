@@ -101,17 +101,20 @@
 	    Route = _require.Route,
 	    Router = _require.Router,
 	    IndexRoute = _require.IndexRoute,
-	    hashHistory = _require.hashHistory;
+	    hashHistory = _require.hashHistory,
+	    Link = _require.Link;
 
 	var Main = __webpack_require__(222);
 	var About = __webpack_require__(231);
 	var Card = __webpack_require__(232);
 	var EventData = __webpack_require__(247);
-	var EventDataPast = __webpack_require__(248);
+	var EventDataPast = __webpack_require__(249);
+	var Nav = __webpack_require__(223);
+	var Splash = __webpack_require__(250);
 
-	__webpack_require__(249);
-	__webpack_require__(253);
+	__webpack_require__(251);
 	__webpack_require__(255);
+	__webpack_require__(257);
 
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -122,7 +125,8 @@
 	    React.createElement(Route, { path: 'about', component: About }),
 	    React.createElement(Route, { path: 'card/*', component: Card }),
 	    React.createElement(Route, { path: 'past-events', component: EventDataPast }),
-	    React.createElement(IndexRoute, { component: EventData })
+	    React.createElement(Route, { path: 'upcoming-events', component: EventData }),
+	    React.createElement(IndexRoute, { component: Splash })
 	  )
 	), document.getElementById('app'));
 
@@ -24921,6 +24925,11 @@
 
 	var React = __webpack_require__(7);
 	var Nav = __webpack_require__(223);
+
+	var _require = __webpack_require__(165),
+	    Link = _require.Link,
+	    IndexLink = _require.IndexLink;
+
 	var ReactCSSTransitionGroup = __webpack_require__(224);
 
 	var Main = React.createClass({
@@ -24966,7 +24975,7 @@
 	          React.createElement(
 	            'li',
 	            { className: 'menu-text' },
-	            'MMA Momentum Gauge'
+	            'MMAGNITUDE'
 	          ),
 	          React.createElement(
 	            'li',
@@ -24974,6 +24983,15 @@
 	            React.createElement(
 	              IndexLink,
 	              { to: '/', activeStyle: { fontWeight: 'bold' } },
+	              'Home'
+	            )
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(
+	              Link,
+	              { to: '/upcoming-events', activeStyle: { fontWeight: 'bold' } },
 	              'Upcoming Events'
 	            )
 	          ),
@@ -25806,6 +25824,7 @@
 
 	var React = __webpack_require__(7);
 	var ReactCSSTransitionGroup = __webpack_require__(224);
+	var Nav = __webpack_require__(223);
 	var About = React.createClass({
 	    displayName: 'About',
 
@@ -25813,90 +25832,94 @@
 
 	        return React.createElement(
 	            'div',
-	            { className: 'row buffer slideRight' },
+	            null,
 	            React.createElement(
 	                'div',
-	                { className: 'small-2 large-2 columns' },
-	                React.createElement('p', null)
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'small-8 large-8 columns' },
+	                { className: 'row buffer slideRight' },
 	                React.createElement(
 	                    'div',
-	                    { className: 'row faq ' },
+	                    { className: 'small-2 large-2 columns' },
+	                    React.createElement('p', null)
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-8 large-8 columns' },
 	                    React.createElement(
-	                        'h5',
-	                        null,
-	                        'What is MMA Momentum Gauge?'
+	                        'div',
+	                        { className: 'row faq ' },
+	                        React.createElement(
+	                            'h5',
+	                            null,
+	                            'What is MMA Momentum Gauge?'
+	                        ),
+	                        React.createElement(
+	                            'p',
+	                            null,
+	                            'This app analyzes UFC events to determine its\' Dwyer Score based upon the fighters who are scheduled to fight on the card.'
+	                        )
 	                    ),
 	                    React.createElement(
-	                        'p',
-	                        null,
-	                        'This app analyzes UFC events to determine its\' Dwyer Score based upon the fighters who are scheduled to fight on the card.'
+	                        'div',
+	                        { className: 'row faq ' },
+	                        React.createElement(
+	                            'h5',
+	                            null,
+	                            'What is the Dwyer Score?'
+	                        ),
+	                        React.createElement(
+	                            'p',
+	                            null,
+	                            'The purpose of the Dwyer Score is to gauge the magnitude, or importance, of an event.'
+	                        ),
+	                        React.createElement(
+	                            'p',
+	                            null,
+	                            'Analyzing each fighter\'s record to determine their current win or loss streak and adding it to the total for the event.  For example, if a fighter has a 3 fight win streak, they contribute +3 to the total Dwyer Score for the event.  If a fighter has lost their last two contests, they contribute -2.  Other fight results such as draws and no contests are ignored.  The Dwyer Score was originally created by Nick Dwyer.'
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'row faq' },
+	                        React.createElement(
+	                            'h5',
+	                            null,
+	                            'Why develop MMA Momentum Guage?'
+	                        ),
+	                        React.createElement(
+	                            'p',
+	                            null,
+	                            'Calculating a Dwyer Score for an event by hand can be a time consuming experience as you have to look at each individual fighters\' record.  By nature, fight cards can routinely change based upon injuries and replacement fighters causing the Dwyer Score to fluctuate.  This app is designed to generate Dwyer Scores as events are announced.'
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'row faq' },
+	                        React.createElement(
+	                            'h5',
+	                            null,
+	                            'What is the goal for MMA Momentum Guage?'
+	                        ),
+	                        React.createElement(
+	                            'p',
+	                            null,
+	                            'Initially designed to forumalte Dwyer Scores for future events, other plans for this app are to generate Dwyer Scores for past events.  Additionally, in the sports world where data and statistics are more looked at than ever, an API service will be developed to provide the unique data gathering capabilities of this app to be used by other developers.'
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'row faq' },
+	                        React.createElement(
+	                            'h6',
+	                            null,
+	                            'MMA Momentum Guage developed and designed by Eric Page.'
+	                        )
 	                    )
 	                ),
 	                React.createElement(
 	                    'div',
-	                    { className: 'row faq ' },
-	                    React.createElement(
-	                        'h5',
-	                        null,
-	                        'What is the Dwyer Score?'
-	                    ),
-	                    React.createElement(
-	                        'p',
-	                        null,
-	                        'The purpose of the Dwyer Score is to gauge the magnitude, or importance, of an event.'
-	                    ),
-	                    React.createElement(
-	                        'p',
-	                        null,
-	                        'Analyzing each fighter\'s record to determine their current win or loss streak and adding it to the total for the event.  For example, if a fighter has a 3 fight win streak, they contribute +3 to the total Dwyer Score for the event.  If a fighter has lost their last two contests, they contribute -2.  Other fight results such as draws and no contests are ignored.  The Dwyer Score was originally created by Nick Dwyer.'
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'row faq' },
-	                    React.createElement(
-	                        'h5',
-	                        null,
-	                        'Why develop MMA Momentum Guage?'
-	                    ),
-	                    React.createElement(
-	                        'p',
-	                        null,
-	                        'Calculating a Dwyer Score for an event by hand can be a time consuming experience as you have to look at each individual fighters\' record.  By nature, fight cards can routinely change based upon injuries and replacement fighters causing the Dwyer Score to fluctuate.  This app is designed to generate Dwyer Scores as events are announced.'
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'row faq' },
-	                    React.createElement(
-	                        'h5',
-	                        null,
-	                        'What is the goal for MMA Momentum Guage?'
-	                    ),
-	                    React.createElement(
-	                        'p',
-	                        null,
-	                        'Initially designed to forumalte Dwyer Scores for future events, other plans for this app are to generate Dwyer Scores for past events.  Additionally, in the sports world where data and statistics are more looked at than ever, an API service will be developed to provide the unique data gathering capabilities of this app to be used by other developers.'
-	                    )
-	                ),
-	                React.createElement(
-	                    'div',
-	                    { className: 'row faq' },
-	                    React.createElement(
-	                        'h6',
-	                        null,
-	                        'MMA Momentum Guage developed and designed by Eric Page.'
-	                    )
+	                    { className: 'small-2 large-2 columns' },
+	                    React.createElement('p', null)
 	                )
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'small-2 large-2 columns' },
-	                React.createElement('p', null)
 	            )
 	        );
 	    }
@@ -26069,8 +26092,8 @@
 	                                'td',
 	                                { rowSpan: '2', width: '25%', className: 'first-td' },
 	                                React.createElement(
-	                                    'abbr',
-	                                    { title: op.division },
+	                                    'span',
+	                                    { 'data-tooltip': true, 'aria-haspopup': 'true', 'class': 'has-tip', 'data-disable-hover': 'false', tabindex: '1', title: '{op.divison}' },
 	                                    op.divShort
 	                                )
 	                            ),
@@ -27279,7 +27302,9 @@
 	    IndexLink = _require.IndexLink;
 
 	var Halogen = __webpack_require__(240);
+	var Nav = __webpack_require__(223);
 	var ReactCSSTransitionGroup = __webpack_require__(224);
+	var InfiniteScroll = __webpack_require__(248);
 
 	var firebase = __webpack_require__(233);
 
@@ -27295,107 +27320,163 @@
 	var EventData = React.createClass({
 	    displayName: 'EventData',
 
+
 	    getInitialState: function getInitialState() {
 	        return {
-	            hot: []
+	            events: [],
+	            hotLength: 0,
+	            eventsDisplay: [],
+	            page: 0,
+	            previous: false,
+	            next: true,
+	            isLoading: true,
+	            offset: 0,
+	            hasMoreItems: true,
+	            loadedEvents: false,
+	            btnLoadingMsg: 'Load More'
 	        };
 	    },
 	    componentWillMount: function componentWillMount() {
 	        var allevents = [];
 	        var events = [];
 	        var test;
-	        console.log(this.props);
+
+	        //console.log(this.props);
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var _this = this;
+	        console.log('start!');
+	        var that = this;
 
+	        this.initLoad();
+	        //this.loadItems();
+
+	    },
+	    loadChunk: function loadChunk() {
+	        console.log(this.state.events);
+	    },
+	    initLoad: function initLoad() {
+	        console.log(ref, "this is ref!");
 	        var ref = firebase.database().ref('events');
+	        var that = this;
 
 	        ref.on('value', function (snapshot) {
-	            var tits = snapshot.val();
-	            var hotvents = [];
-	            var that = _this;
-
-	            snapshot.forEach(function (data) {
-	                var newtits = data.val();
-	                var eventDate = new Date(newtits.date); //get event date
-	                var currentDate = new Date(); //get current date
-
-	                if (currentDate < eventDate) {
-	                    //push only future events
-	                    hotvents.push(newtits);
-	                }
-	                that.setState({ hot: hotvents });
+	            var data = snapshot.val();
+	            that.setState({ events: data }, function afterChange() {
+	                that.loadItems();
 	            });
+	        }, function (error) {
+	            console.error(error);
 	        });
 	    },
+	    loadItems: function loadItems() {
+	        var page_size = 6;
+	        var length = this.state.events.length;
+	        console.log(length, "length");
+	        var offset = this.state.offset;
+	        console.log(offset, "offset");
+	        var limit = page_size + offset;
+	        console.log(limit, "limit");
+	        if (limit > length) {
+	            limit = length;
+	            this.setState({ btnLoadingMsg: 'All Loaded' });
+	        }
+	        //console.log("load items!");
+	        var loadedEvents = this.state.events;
+	        var eventsDisplay = [];
+
+	        for (var i = 0; i < limit; i++) {
+	            eventsDisplay.push(loadedEvents[i]);
+	            console.log("pushing!");
+	        }
+	        this.setState({ eventsDisplay: eventsDisplay });
+	        this.setState({ isLoading: false });
+	        this.setState({ hasMoreItems: false });
+	        this.setState({ offset: limit });
+	        console.log("eventsDisplay", eventsDisplay);
+	    },
+
 
 	    render: function render() {
+	        console.log(this.state.events.length, "events function length", this.state.loadedEvents);
 
-	        if (!this.state.hot) {
+	        if (this.state.isLoading) {
 	            return React.createElement(
 	                'div',
 	                null,
 	                React.createElement(Halogen, { className: 'halogen', color: '#5F7187', size: '72px', margin: '48px' })
 	            );
 	        }
+
+	        var events = [];
+	        this.state.eventsDisplay.map(function (card, i) {
+	            events.push(React.createElement(
+	                'div',
+	                { className: 'small-10 large-4 columns slideRight', key: i },
+	                React.createElement(
+	                    'div',
+	                    { className: 'profile-card', key: i + "profile" },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'frame-square' },
+	                        React.createElement(
+	                            'div',
+	                            { className: 'crop' },
+	                            React.createElement('img', { src: card.img })
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'card-info' },
+	                        React.createElement(
+	                            'h6',
+	                            null,
+	                            React.createElement(
+	                                Link,
+	                                { to: '/card/' + card.url },
+	                                card.title
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'h6',
+	                            null,
+	                            card.location
+	                        ),
+	                        React.createElement(
+	                            'h6',
+	                            null,
+	                            card.date
+	                        )
+	                    )
+	                )
+	            ));
+	        });
+
 	        return React.createElement(
 	            'div',
 	            null,
 	            React.createElement(
 	                'div',
-	                { className: 'row small-up-1 medium-up-2 large-up-4' },
+	                { className: 'row' },
 	                React.createElement(
-	                    ReactCSSTransitionGroup,
-	                    {
-	                        transitionName: 'fade',
-	                        transitionEnterTimeout: 500,
-	                        transitionLeaveTimeout: 500 },
-	                    this.state.hot.map(function (card, index) {
-	                        return React.createElement(
-	                            'div',
-	                            { className: 'small-3 columns end', key: index },
-	                            React.createElement(
-	                                'div',
-	                                { className: 'profile-card slideRight' },
-	                                React.createElement(
-	                                    'div',
-	                                    { className: 'image-wrapper overlay-fade-in' },
-	                                    React.createElement('img', { src: card.img, className: 'thumbnail', alt: true }),
-	                                    React.createElement(
-	                                        'div',
-	                                        { className: 'image-overlay-content' },
-	                                        React.createElement(
-	                                            'h2',
-	                                            null,
-	                                            card.event_score
-	                                        ),
-	                                        React.createElement(
-	                                            Link,
-	                                            { to: '/card/' + card.url, className: 'button' },
-	                                            'Card'
-	                                        ),
-	                                        React.createElement(
-	                                            'p',
-	                                            null,
-	                                            card.title
-	                                        )
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    'h5',
-	                                    null,
-	                                    card.title
-	                                ),
-	                                React.createElement(
-	                                    'h6',
-	                                    null,
-	                                    card.date
-	                                )
-	                            )
-	                        );
-	                    })
+	                    'div',
+	                    { className: 'small-1 large-1 columns' },
+	                    React.createElement('p', null)
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-10 large-10 columns' },
+	                    events
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-1 large-1 columns' },
+	                    React.createElement('p', null)
 	                )
+	            ),
+	            React.createElement(
+	                'button',
+	                { className: 'button load-more', onClick: this.loadItems },
+	                this.state.btnLoadingMsg
 	            )
 	        );
 	    }
@@ -27403,63 +27484,181 @@
 
 	module.exports = EventData;
 
-	/*
-	<div className="row small-up-1 medium-up-2 large-up-4">
-	                <Link to="/card/">Card</Link>
-	                <div className="column">
-	                   
-	                    <div className="profile-card">
-	                        <div className="image-wrapper overlay-fade-in">
-	                             <img src="https://upload.wikimedia.org/wikipedia/en/6/69/UFC_Sacramento_poster.jpg" className="thumbnail" alt />
-	                             <div className="image-overlay-content">
-	                                <h2>{this.state.hot.event_score}</h2>
-	                                <Link to ={ '/card/' + this.state.hot.url } className="button">Card</Link>
-	                                <p>{this.state.hot.title}</p>
-	                             </div>
-	                             
-	                        </div>
-	                        
-	                    </div>
-	           
-	                </div>
-	            <ul>
-	            {this.state.hot.map(card=>{
-	                return <li></li>
-	            })
-	                
-	            }
-	            </ul>
-	            
-	            </div>
-
-
-	||||||||||||||||||||||||||||||||||||||||||||||||||
-
-	<div className="profile-info"></div>
-
-
-	            
-
-
-	<a href="/card" className="button">FIGHT CARD</a>
-	<div class="image-wrapper overlay-fade-in">
-	      
-	      <img src="https://tourneau.scene7.com/is/image/tourneau/DEV9900004?hei=450&wid=300&fmt=png-alpha&resMode=bicub&op_sharpen=1" />
-	      
-	      <div class="image-overlay-content">
-	        <h2>.overlay-fade-in</h2>
-	        <p class="price">$99.99</p>
-	        <a href="#" class="button">Get it</a>
-	      </div>
-	    
-	    </div>
-
-
-
-	*/
-
 /***/ },
 /* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(7);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(164);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var InfiniteScroll = function (_Component) {
+	    _inherits(InfiniteScroll, _Component);
+
+	    function InfiniteScroll(props) {
+	        _classCallCheck(this, InfiniteScroll);
+
+	        var _this = _possibleConstructorReturn(this, (InfiniteScroll.__proto__ || Object.getPrototypeOf(InfiniteScroll)).call(this, props));
+
+	        _this.scrollListener = _this.scrollListener.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(InfiniteScroll, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.pageLoaded = this.props.pageStart;
+	            this.attachScrollListener();
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate() {
+	            this.attachScrollListener();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _props = this.props;
+	            var children = _props.children;
+	            var element = _props.element;
+	            var hasMore = _props.hasMore;
+	            var initialLoad = _props.initialLoad;
+	            var loader = _props.loader;
+	            var loadMore = _props.loadMore;
+	            var pageStart = _props.pageStart;
+	            var threshold = _props.threshold;
+	            var useWindow = _props.useWindow;
+	            var isReverse = _props.isReverse;
+
+	            var props = _objectWithoutProperties(_props, ['children', 'element', 'hasMore', 'initialLoad', 'loader', 'loadMore', 'pageStart', 'threshold', 'useWindow', 'isReverse']);
+
+	            return _react2.default.createElement(element, props, children, hasMore && (loader || this._defaultLoader));
+	        }
+	    }, {
+	        key: 'calculateTopPosition',
+	        value: function calculateTopPosition(el) {
+	            if (!el) {
+	                return 0;
+	            }
+	            return el.offsetTop + this.calculateTopPosition(el.offsetParent);
+	        }
+	    }, {
+	        key: 'scrollListener',
+	        value: function scrollListener() {
+	            var el = _reactDom2.default.findDOMNode(this);
+	            var scrollEl = window;
+
+	            var offset = void 0;
+	            if (this.props.useWindow) {
+	                var scrollTop = scrollEl.pageYOffset !== undefined ? scrollEl.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+	                if (this.props.isReverse) offset = scrollTop;else offset = this.calculateTopPosition(el) + el.offsetHeight - scrollTop - window.innerHeight;
+	            } else {
+	                if (this.props.isReverse) offset = el.parentNode.scrollTop;else offset = el.scrollHeight - el.parentNode.scrollTop - el.parentNode.clientHeight;
+	            }
+
+	            if (offset < Number(this.props.threshold)) {
+	                this.detachScrollListener();
+	                // Call loadMore after detachScrollListener to allow for non-async loadMore functions
+	                if (typeof this.props.loadMore == 'function') {
+	                    this.props.loadMore(this.pageLoaded += 1);
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'attachScrollListener',
+	        value: function attachScrollListener() {
+	            if (!this.props.hasMore) {
+	                return;
+	            }
+
+	            var scrollEl = window;
+	            if (this.props.useWindow == false) {
+	                scrollEl = _reactDom2.default.findDOMNode(this).parentNode;
+	            }
+
+	            scrollEl.addEventListener('scroll', this.scrollListener);
+	            scrollEl.addEventListener('resize', this.scrollListener);
+
+	            if (this.props.initialLoad) {
+	                this.scrollListener();
+	            }
+	        }
+	    }, {
+	        key: 'detachScrollListener',
+	        value: function detachScrollListener() {
+	            var scrollEl = window;
+	            if (this.props.useWindow == false) {
+	                scrollEl = _reactDom2.default.findDOMNode(this).parentNode;
+	            }
+
+	            scrollEl.removeEventListener('scroll', this.scrollListener);
+	            scrollEl.removeEventListener('resize', this.scrollListener);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            this.detachScrollListener();
+	        }
+
+	        // Set a defaut loader for all your `InfiniteScroll` components
+
+	    }, {
+	        key: 'setDefaultLoader',
+	        value: function setDefaultLoader(loader) {
+	            this._defaultLoader = loader;
+	        }
+	    }]);
+
+	    return InfiniteScroll;
+	}(_react.Component);
+
+	InfiniteScroll.propTypes = {
+	    element: _react.PropTypes.string,
+	    hasMore: _react.PropTypes.bool,
+	    initialLoad: _react.PropTypes.bool,
+	    loadMore: _react.PropTypes.func.isRequired,
+	    pageStart: _react.PropTypes.number,
+	    threshold: _react.PropTypes.number,
+	    useWindow: _react.PropTypes.bool,
+	    isReverse: _react.PropTypes.bool
+	};
+	InfiniteScroll.defaultProps = {
+	    element: 'div',
+	    hasMore: false,
+	    initialLoad: true,
+	    pageStart: 0,
+	    threshold: 250,
+	    useWindow: true,
+	    isReverse: false
+	};
+	exports.default = InfiniteScroll;
+	module.exports = exports['default'];
+
+
+/***/ },
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27579,24 +27778,101 @@
 	                )
 	            )
 	        );
-
-	        return React.createElement('div', null);
 	    }
 	});
 
 	module.exports = EventDataPast;
 
 /***/ },
-/* 249 */
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(7);
+	var ReactCSSTransitionGroup = __webpack_require__(224);
+	var Nav = __webpack_require__(223);
+
+	var _require = __webpack_require__(165),
+	    Link = _require.Link,
+	    IndexLink = _require.IndexLink;
+
+	var Splash = React.createClass({
+	    displayName: 'Splash',
+
+	    render: function render() {
+
+	        return React.createElement(
+	            'div',
+	            { className: 'row space' },
+	            React.createElement(
+	                'div',
+	                { className: 'small-2 large-2 columns' },
+	                React.createElement('p', null)
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'small-8 large-8 columns' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'splash-title slideRight' },
+	                    React.createElement(
+	                        'h1',
+	                        null,
+	                        React.createElement(
+	                            'span',
+	                            null,
+	                            'MMA'
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'h1',
+	                        null,
+	                        'GNITUDE'
+	                    ),
+	                    React.createElement(
+	                        'h4',
+	                        null,
+	                        'Find event scores and fighter breakdowns for past and future MMA events.'
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'btnEvents' },
+	                    React.createElement(
+	                        Link,
+	                        { to: '/upcoming-events', className: 'secondary large button slideLeft' },
+	                        'Upcoming Events'
+	                    ),
+	                    React.createElement(
+	                        Link,
+	                        { to: '/previous-events', className: 'secondary large button slideLeft' },
+	                        'Past Events'
+	                    )
+	                )
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'small-2 large-2 columns' },
+	                React.createElement('p', null)
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Splash;
+
+/***/ },
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(250);
+	var content = __webpack_require__(252);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(252)(content, {});
+	var update = __webpack_require__(254)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -27613,10 +27889,10 @@
 	}
 
 /***/ },
-/* 250 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(251)();
+	exports = module.exports = __webpack_require__(253)();
 	// imports
 
 
@@ -27627,7 +27903,7 @@
 
 
 /***/ },
-/* 251 */
+/* 253 */
 /***/ function(module, exports) {
 
 	/*
@@ -27683,7 +27959,7 @@
 
 
 /***/ },
-/* 252 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27937,16 +28213,16 @@
 
 
 /***/ },
-/* 253 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(254);
+	var content = __webpack_require__(256);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(252)(content, {});
+	var update = __webpack_require__(254)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -27963,30 +28239,30 @@
 	}
 
 /***/ },
-/* 254 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(251)();
+	exports = module.exports = __webpack_require__(253)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "  \n.icon {\n    color: #fff;\n    background-color: #F7E5BD; /* teal */\n    line-height: 150px;\n    text-align: center;\n    display: block;\n    overflow: hidden;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    \n    \n    \n    text-shadow: rgb(44, 62, 80) 1px 1px,\n    rgb(44, 62, 80) 2px 2px,\n    rgb(44, 62, 80) 3px 3px,\n    rgb(44, 62, 80) 4px 4px,\n    rgb(44, 62, 80) 5px 5px,\n    rgb(44, 62, 80) 6px 6px,\n    rgb(44, 62, 80) 7px 7px,\n    rgb(44, 62, 80) 8px 8px,\n    rgb(44, 62, 80) 9px 9px,\n    rgb(44, 62, 80) 10px 10px,\n    rgb(44, 62, 80) 11px 11px,\n    rgb(44, 62, 80) 12px 12px,\n    rgb(44, 62, 80) 13px 13px,\n    rgb(44, 62, 80) 14px 14px,\n    rgb(44, 62, 80) 15px 15px,\n    rgb(44, 62, 80) 16px 16px,\n    rgb(44, 62, 80) 17px 17px,\n    rgb(44, 62, 80) 18px 18px,\n    rgb(44, 62, 80) 19px 19px,\n    rgb(44, 62, 80) 20px 20px,\n    rgb(44, 62, 80) 21px 21px,\n    rgb(44, 62, 80) 22px 22px,\n    rgb(44, 62, 80) 23px 23px,\n    rgb(44, 62, 80) 24px 24px,\n    rgb(44, 62, 80) 25px 25px,\n    rgb(44, 62, 80) 26px 26px,\n    rgb(44, 62, 80) 27px 27px,\n    rgb(44, 62, 80) 28px 28px,\n    rgb(44, 62, 80) 29px 29px,\n    rgb(44, 62, 80) 30px 30px,\n    rgb(44, 62, 80) 31px 31px,\n    rgb(44, 62, 80) 32px 32px,\n    rgb(44, 62, 80) 33px 33px,\n    rgb(44, 62, 80) 34px 34px,\n    rgb(44, 62, 80) 35px 35px,\n    rgb(44, 62, 80) 36px 36px,\n    rgb(44, 62, 80) 37px 37px,\n    rgb(44, 62, 80) 38px 38px,\n    rgb(44, 62, 80) 39px 39px,\n    rgb(44, 62, 80) 40px 40px,\n    rgb(44, 62, 80) 41px 41px,\n    rgb(44, 62, 80) 42px 42px,\n    rgb(44, 62, 80) 43px 43px,\n    rgb(44, 62, 80) 44px 44px,\n    rgb(44, 62, 80) 45px 45px,\n    rgb(44, 62, 80) 46px 46px,\n    rgb(44, 62, 80) 47px 47px,\n    rgb(44, 62, 80) 48px 48px,\n    rgb(44, 62, 80) 49px 49px,\n    rgb(44, 62, 80) 50px 50px,\n    rgb(44, 62, 80) 51px 51px,\n    rgb(44, 62, 80) 52px 52px,\n    rgb(44, 62, 80) 53px 53px,\n    rgb(44, 62, 80) 54px 54px,\n    rgb(44, 62, 80) 55px 55px,\n    rgb(44, 62, 80) 56px 56px,\n    rgb(44, 62, 80) 57px 57px,\n    rgb(44, 62, 80) 58px 58px,\n    rgb(44, 62, 80) 59px 59px,\n    rgb(44, 62, 80) 60px 60px,\n    rgb(44, 62, 80) 61px 61px,\n    rgb(44, 62, 80) 62px 62px,\n    rgb(44, 62, 80) 63px 63px,\n    rgb(44, 62, 80) 64px 64px,\n    rgb(44, 62, 80) 65px 65px,\n    rgb(44, 62, 80) 66px 66px,\n    rgb(44, 62, 80) 67px 67px,\n    rgb(44, 62, 80) 68px 68px,\n    rgb(44, 62, 80) 69px 69px,\n    rgb(44, 62, 80) 70px 70px,\n    rgb(44, 62, 80) 71px 71px,\n    rgb(44, 62, 80) 72px 72px,\n    rgb(44, 62, 80) 73px 73px,\n    rgb(44, 62, 80) 74px 74px,\n    rgb(44, 62, 80) 75px 75px,\n    rgb(44, 62, 80) 76px 76px,\n    rgb(44, 62, 80) 77px 77px,\n    rgb(44, 62, 80) 78px 78px,\n    rgb(44, 62, 80) 79px 79px,\n    rgb(44, 62, 80) 80px 80px,\n    rgb(44, 62, 80) 81px 81px,\n    rgb(44, 62, 80) 82px 82px,\n    rgb(44, 62, 80) 83px 83px,\n    rgb(44, 62, 80) 84px 84px,\n    rgb(44, 62, 80) 85px 85px,\n    rgb(44, 62, 80) 86px 86px,\n    rgb(44, 62, 80) 87px 87px,\n    rgb(44, 62, 80) 88px 88px,\n    rgb(44, 62, 80) 89px 89px,\n    rgb(44, 62, 80) 90px 90px,\n    rgb(44, 62, 80) 91px 91px,\n    rgb(44, 62, 80) 92px 92px,\n    rgb(44, 62, 80) 93px 93px,\n    rgb(44, 62, 80) 94px 94px,\n    rgb(44, 62, 80) 95px 95px,\n    rgb(44, 62, 80) 96px 96px,\n    rgb(44, 62, 80) 97px 97px,\n    rgb(44, 62, 80) 98px 98px,\n    rgb(44, 62, 80) 99px 99px,\n    rgb(44, 62, 80) 100px 100px;\n}\n  \n  \n  \n  \n  /********************\n    CSS TRANSITION\n  ********************/\n  .fade-enter{\n    opacity: 0;\n  }\n  .fade-enter-active {\n    opacity: 1;\n    transition: opacity 500ms ease-out;\n  }\n  .fade-leave {\n    opacity: 1;\n  }\n  .fade-leave-active {\n    opacity: 0;\n    transition: opacity 500ms ease-out;\n  }\n\n\n\n.example-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.example-enter.example-enter-active {\n  opacity: 1;\n}\n\n.example-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.example-leave.example-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.example-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.example-appear.example-appear-active {\n  opacity: 1;\n}\n\n\n\n\n\n.slip-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.slip-enter.slip-enter-active {\n  opacity: 1;\n}\n\n.slip-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.slip-leave.slip-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.slip-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.slip-appear.slip-appear-active {\n  opacity: 1;\n}\n\n\n\n  \n  /*********************/\n  .buffer {\n    margin-top: 3rem;\n  }\n  .faq p {\n    line-height: 1.3;\n    padding-left: 1rem;\n    font-family: 'Roboto';\n  }\n  .faq h5 {\n    font-weight: bold;\n  }\n  .faq h6 {\n    font-weight: bold;\n    padding-top: 1rem;\n    color: #5F7187;\n    text-align: center;\n  }\n  \n  .halogen {\n    margin: auto;\n    text-align: center;\n  }\n  .halogen div {\n    width: 100px;\n    height: 100px;\n    position: absolute;\n    top:0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    margin: auto;\n   }\n   .halogen div div{\n    margin: 0 auto;\n  }\n  .callout.large.secondary {\n    padding-top: 1.5rem;\n    /*background-color: #67809F;*/\n    background-color: #5F7187;\n    color: white;\n    margin-bottom: 3rem;\n    padding-bottom: 0rem;\n  }\n  .callout.large.secondary h5 {\n    margin-bottom: 0;\n  }\n  .circle\n  {\n    width:100px;\n    height:100px;\n    border-radius:50px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin-bottom: 1rem;\n  }\n  .sqr\n  {\n    height: 200px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin-bottom: 1rem;\n  }\n  \n  .sqr h1 {\n    font-size: 100px;\n    font-family: \"Lato\";\n    padding-bottom: 0rem;\n    font-weight: 300;\n    position: relative;\n    top: 40%;\n    transform: translateY(-40%);\n  }\n  .card-stuff {\n    text-align: center;\n  }\n  .card-stuff h1,h2,h3,h4,h5,h6 {\n    text-align: center;\n    font-family: 'Lato';\n    font-weight: 300;\n  }\n  .card-stuff h2{\n    font-weight: 500;\n    margin-bottom: 0.5rem;\n    line-height: 3rem;\n  }\n  .card-stuff h5{\n    line-height: 1.5rem;\n    color: #DADFE1;\n  }\n  \n  .top-info {\n    margin-bottom: 2rem;\n  }\n  .top-info h2, h3,h4,h5,h6{\n    padding: 0;\n    margin: 0;\n    line-height: 1.5;\n    \n  }\n  \n  .top-info h1 {\n    font-family: 'Lato';\n    font-weight: 300;\n    font-size: 4rem;\n    margin-top: 0;\n    margin-bottom: -0.5rem;\n    \n  }.top-info h6 {\n    margin-bottom: 0.5rem;\n  }\n  .tab-space-border {\n    background-color: #CCCCCC;\n    width: 100%;\n    height: 1px;\n    display: block;\n  }\n  .fakeTable {\n    border-width: 1px;\n    border-style: solid;\n    border-color: #CCCCCC;\n    border-right-width: 0px;\n    border-bottom-width: 0px;\n    overflow: hidden;\n    margin-top: 0.5rem;\n    margin-bottom: 1.0rem;\n  }\n  .tab-header {\n    background-color: #CCCCCC;\n    color: black;\n    font-weight: 700;\n  }\n  .tab-left span{\n    padding-left: 0.5rem;\n    border-left-color: white;\n    border-left-style: solid;\n    border-left-width: 0.1rem;\n  }\n  .tab-row {\n    background-color: #EEEEEE;\n    color: black;\n    font-weight: 300;\n    padding: 1rem;\n    border-right-color: white;\n    border-right-style: solid;\n    border-right-width: 0.2rem;\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n  }\n  .tab-row:nth-child(2) {\n    border-bottom-width: 0;\n  }\n  .tab-row-parent {\n\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n     \n  }\n  .first-td {\n    border-left-width: 0;\n    text-align: center;\n  }\n  .third-td {\n    text-align: center;\n  }\n  td{\n    background-color: #ECECEC;\n    border-bottom-color: white;\n    border-bottom-width: 2px;\n    border-bottom-style: solid;\n    border-left-color: white;\n    border-left-width: 2px;\n    border-left-style: solid;\n  }\n  table{margin-bottom: 0; width: 90%;}\n  .mid-card {\n    box-shadow: 0px 7px 19px 3px rgba(0,0,0,0.39);\n    background-color: white;\n    padding: 0;\n    margin-bottom: 5rem;\n    padding-bottom: 1rem;\n  }\n  .tab-pad {\n    width: 95%;\n    margin: auto;\n  }\n  \n  .tab-row-big-division {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall h1 {\n    \n    text-shadow: 1px 1px rgba(187,187,187, 0.95), 2px 2px rgba(187,187,187, 0.90), 3px 3px rgba(187,187,187, 0.85), 4px 4px rgba(187,187,187, 0.80), 5px 5px rgba(187,187,187, 0.75), 6px 6px rgba(187,187,187, 0.70), 7px 7px rgba(187,187,187, 0.65), 8px 8px rgba(187,187,187, 0.60), 9px 9px rgba(187,187,187, 0.55), 10px 10px rgba(187,187,187, 0.50), 11px 11px rgba(187,187,187, 0.45), 12px 12px rgba(187,187,187, 0.40), 13px 13px rgba(187,187,187, 0.35), 14px 14px rgba(187,187,187, 0.30), 15px 15px rgba(187,187,187, 0.25), 16px 16px rgba(187,187,187, 0.20), 17px 17px rgba(187,187,187, 0.15), 18px 18px rgba(187,187,187, 0.10), 19px 19px rgba(187,187,187, 0.05), 20px 20px rgba(187,187,187, 0.00)\n\n\n  }\n  .tab-entry {\n    overflow: hidden;\n  }\n  .tab-entry span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n  }\n  .tab-entry span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  .tab-entry-two {\n    overflow: hidden;\n  }\n  .tab-entry-two span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n    background-color: #F2F1EF;\n  }\n  .tab-entry-two span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  \n  \n\n  \n  .full-circle {\n   background-color: #5F7187;\n   /*height: 150px;\n   -moz-border-radius:75px;\n   -webkit-border-radius: 75px;\n   width: 150px;*/\n   width: 100*;\n   margin:auto;\n   margin-top: -1rem;\n  }\n  .halfOval { \n     background-color: rgb(44, 62, 80);\n     bottom:150px;\n     height: 50px;\n     margin: auto 0px;\n     border-radius: 50% 50% 0 0/ 100% 100% 0px 0px;\n     z-index: 0; \n}\n.triangle {\n  width: 0;\n    margin: auto;\n    height: 0;\n    border-style: solid;\n    border-width: 0 100px 40px 100px;\n    border-color: transparent transparent rgb(44, 62, 80) transparent;\n}\n\n\n   .backdrop {\n  height: 100px;\n  width: 200px;\n  background: blue;\n  margin-bottom: 50px;\n}\n\n.curtain {\n  height: 100px;\n  width: 200px;\n  position: relative;\n  top: -100px;\n  background-color: green;\n  margin-bottom: -50px;\n}\n.abovehalfOval { \n     width: 150px;\n     height: 150px;\n     background: red;\n    margin-bottom: -40px;\n    z-index: 1;\n}\n  \n  .score {\n    width: 50%;\n    margin: auto;\n  }\n  .full-circle h1 {\n    text-align: center;\n    color: white;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .info h4 {\n    text-align: center;\n    color: white;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .top-bar {\n    box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);\n    z-index: 1;\n  }\n  \n  .callout{\n    /*box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);*/\n    border-top-width: 0px;\n    border-left-width: 0px;\n    border-bottom-width: 0px;\n    border-right-width: 0px;\n    position: relative;\n    z-index: -1;\n    \n  }\n  .overlay-fade-in p  {\n    font-size: 14px;\n  }\n    .image-wrapper {\n  width: 100%;\n  height: 100%;\n  border: 1px solid rgba(0, 0, 0, 0.04);\n  overflow: hidden;\n  position: relative;\n  text-align: center;\n  border-radius: 4px;\n}\n.image-overlay-content h2 {\n font-weight: 800; \n}\n\n.image-overlay-content {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  overflow: hidden;\n  top: 0;\n  left: 0; }\n\n.overlay-fade-in p {\n  letter-spacing: 0.15em;\n  color: #f4f4f4;\n  font-size: 28px;\n  opacity: 0;\n  transition: all 0.2s linear; }\n.overlay-fade-in img {\n  transition: all 0.2s linear; }\n.overlay-fade-in .image-overlay-content {\n  opacity: 0;\n  background-color: rgba(0, 0, 0, 0.4);\n  transition: all 0.4s ease-in-out; }\n.overlay-fade-in h2 {\n  color: #f2f2f2;\n  font-size: 1.8rem;\n  margin-top: 40%;\n  opacity: 0;\n  transition: all 0.2s ease-in-out;\n  background: rgba(0, 0, 0, 0.7); }\n.overlay-fade-in .button {\n  display: inline-block;\n  text-decoration: none;\n  padding: 7px 14px;\n  background: #FFF;\n  color: #222;\n  text-transform: uppercase;\n  box-shadow: 0 0 1px #000;\n  position: relative;\n  border: 1px solid #999;\n  opacity: 0;\n  transition: all 0.2s ease-in-out; }\n  .overlay-fade-in .button:hover {\n    box-shadow: 0 0 5px #000; }\n.overlay-fade-in:hover img {\n  transform: scale(1.2); }\n.overlay-fade-in:hover .image-overlay-content {\n  opacity: 1; }\n.overlay-fade-in:hover h2, .overlay-fade-in p, .overlay-fade-in .button {\n  opacity: 1; }\n.overlay-fade-in:hover p {\n  transition-delay: 0.1s; }\n.overlay-fade-in:hover .button {\n  transition-delay: 0.2s; }\n\n/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/\n\n.fight-card {\n  /*padding: 1rem;*/\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  background-color: #fff;\n  width: 50%;\n  margin: auto;\n  margin-bottom: 1rem;\n  overflow: hidden;\n}\n.fight-col {\n  padding-left: 0;\n  padding-right: 0;\n}\n.fight-col .row {\n  margin-left: 0;\n  margin-right: 0;\n}\n.fight-card-left {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n  border-right-style: solid;\n  border-right-width: 2px;\n  border-right-color: #ecf0f1;\n  background-color: #F7E5BD;\n}\n.fight-card-left span {\n  text-align: center;\n  display: block;\n}\n.fight-card-right span {\n  text-align: left;\n  display: inline;\n}\n.fight-card-data span {\n  float: left;\n}\n\n.fight-card-right {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n}\n.fight-card-title {\n  width: 100%;\n  margin-bottom: 1rem;\n  background-color: rgb(44, 62, 80);\n  color: white;\n}\n.fight-card-title h2 {\n  text-align: center;\n  font-family: 'Lato';\n  font-weight: 300;\n}\n.fight-card-data {\n    \n  }\n  .fight-card-data-header {\n    width: 50%;\n    color: #666666;\n  }\n  .fight-card-data-text {\n    width: 50%;\n    padding-left: 1rem;\n  }\n  .info {\n    /*margin-left: 3rem;*/\n    text-align: center;\n    margin-top: 1rem;\n  }\n  .info h4 {\n    font-weight: 700;\n  }\n  .info p {\n    text-align: center;\n    margin-bottom: 0.05rem;\n  }\n  .info span {\n    display: inline;\n  }\n.clearFix {\n  clear: both;\n  display: block;\n  width: 100%;\n}\n.profile-card {\n  padding: 1rem;\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  margin: 2rem 0;\n  background-color: #fff; }\n  .profile-card img {\n    \n    display: block;\n\n    text-align: center;\n\n    box-shadow: 2px 2px 5px #888888; }\n  .profile-card .profile-info {\n    padding: 1rem; }\n    .profile-card .profile-info h4 {\n      margin-top: 0;\n      text-align: center;\n      text-transform: uppercase; }\n    .profile-card .profile-info p {\n      text-align: center; }\n    .profile-card .profile-info .inline-list {\n      text-align: center;\n      margin-bottom: 1rem; }\n      .profile-card .profile-info .inline-list li {\n        float: none;\n        display: inline-block; }\n      .profile-card .profile-info .inline-list i.fi-social-facebook {\n        font-size: 1.5rem;\n        color: #3b5998; }\n        .profile-card .profile-info .inline-list i.fi-social-facebook:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-twitter {\n        font-size: 1.5rem;\n        color: #55acee; }\n        .profile-card .profile-info .inline-list i.fi-social-twitter:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-linkedin {\n        font-size: 1.5rem;\n        color: #0077b5; }\n        .profile-card .profile-info .inline-list i.fi-social-linkedin:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-github {\n        font-size: 1.5rem;\n        color: #333; }\n        .profile-card .profile-info .inline-list i.fi-social-github:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-youtube {\n        font-size: 1.5rem;\n        color: #cc181e; }\n        .profile-card .profile-info .inline-list i.fi-social-youtube:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n", ""]);
+	exports.push([module.id, "  \n.icon {\n    color: #fff;\n    background-color: #F7E5BD; /* teal */\n    line-height: 150px;\n    text-align: center;\n    display: block;\n    overflow: hidden;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    \n    \n    \n    text-shadow: rgb(44, 62, 80) 1px 1px,\n    rgb(44, 62, 80) 2px 2px,\n    rgb(44, 62, 80) 3px 3px,\n    rgb(44, 62, 80) 4px 4px,\n    rgb(44, 62, 80) 5px 5px,\n    rgb(44, 62, 80) 6px 6px,\n    rgb(44, 62, 80) 7px 7px,\n    rgb(44, 62, 80) 8px 8px,\n    rgb(44, 62, 80) 9px 9px,\n    rgb(44, 62, 80) 10px 10px,\n    rgb(44, 62, 80) 11px 11px,\n    rgb(44, 62, 80) 12px 12px,\n    rgb(44, 62, 80) 13px 13px,\n    rgb(44, 62, 80) 14px 14px,\n    rgb(44, 62, 80) 15px 15px,\n    rgb(44, 62, 80) 16px 16px,\n    rgb(44, 62, 80) 17px 17px,\n    rgb(44, 62, 80) 18px 18px,\n    rgb(44, 62, 80) 19px 19px,\n    rgb(44, 62, 80) 20px 20px,\n    rgb(44, 62, 80) 21px 21px,\n    rgb(44, 62, 80) 22px 22px,\n    rgb(44, 62, 80) 23px 23px,\n    rgb(44, 62, 80) 24px 24px,\n    rgb(44, 62, 80) 25px 25px,\n    rgb(44, 62, 80) 26px 26px,\n    rgb(44, 62, 80) 27px 27px,\n    rgb(44, 62, 80) 28px 28px,\n    rgb(44, 62, 80) 29px 29px,\n    rgb(44, 62, 80) 30px 30px,\n    rgb(44, 62, 80) 31px 31px,\n    rgb(44, 62, 80) 32px 32px,\n    rgb(44, 62, 80) 33px 33px,\n    rgb(44, 62, 80) 34px 34px,\n    rgb(44, 62, 80) 35px 35px,\n    rgb(44, 62, 80) 36px 36px,\n    rgb(44, 62, 80) 37px 37px,\n    rgb(44, 62, 80) 38px 38px,\n    rgb(44, 62, 80) 39px 39px,\n    rgb(44, 62, 80) 40px 40px,\n    rgb(44, 62, 80) 41px 41px,\n    rgb(44, 62, 80) 42px 42px,\n    rgb(44, 62, 80) 43px 43px,\n    rgb(44, 62, 80) 44px 44px,\n    rgb(44, 62, 80) 45px 45px,\n    rgb(44, 62, 80) 46px 46px,\n    rgb(44, 62, 80) 47px 47px,\n    rgb(44, 62, 80) 48px 48px,\n    rgb(44, 62, 80) 49px 49px,\n    rgb(44, 62, 80) 50px 50px,\n    rgb(44, 62, 80) 51px 51px,\n    rgb(44, 62, 80) 52px 52px,\n    rgb(44, 62, 80) 53px 53px,\n    rgb(44, 62, 80) 54px 54px,\n    rgb(44, 62, 80) 55px 55px,\n    rgb(44, 62, 80) 56px 56px,\n    rgb(44, 62, 80) 57px 57px,\n    rgb(44, 62, 80) 58px 58px,\n    rgb(44, 62, 80) 59px 59px,\n    rgb(44, 62, 80) 60px 60px,\n    rgb(44, 62, 80) 61px 61px,\n    rgb(44, 62, 80) 62px 62px,\n    rgb(44, 62, 80) 63px 63px,\n    rgb(44, 62, 80) 64px 64px,\n    rgb(44, 62, 80) 65px 65px,\n    rgb(44, 62, 80) 66px 66px,\n    rgb(44, 62, 80) 67px 67px,\n    rgb(44, 62, 80) 68px 68px,\n    rgb(44, 62, 80) 69px 69px,\n    rgb(44, 62, 80) 70px 70px,\n    rgb(44, 62, 80) 71px 71px,\n    rgb(44, 62, 80) 72px 72px,\n    rgb(44, 62, 80) 73px 73px,\n    rgb(44, 62, 80) 74px 74px,\n    rgb(44, 62, 80) 75px 75px,\n    rgb(44, 62, 80) 76px 76px,\n    rgb(44, 62, 80) 77px 77px,\n    rgb(44, 62, 80) 78px 78px,\n    rgb(44, 62, 80) 79px 79px,\n    rgb(44, 62, 80) 80px 80px,\n    rgb(44, 62, 80) 81px 81px,\n    rgb(44, 62, 80) 82px 82px,\n    rgb(44, 62, 80) 83px 83px,\n    rgb(44, 62, 80) 84px 84px,\n    rgb(44, 62, 80) 85px 85px,\n    rgb(44, 62, 80) 86px 86px,\n    rgb(44, 62, 80) 87px 87px,\n    rgb(44, 62, 80) 88px 88px,\n    rgb(44, 62, 80) 89px 89px,\n    rgb(44, 62, 80) 90px 90px,\n    rgb(44, 62, 80) 91px 91px,\n    rgb(44, 62, 80) 92px 92px,\n    rgb(44, 62, 80) 93px 93px,\n    rgb(44, 62, 80) 94px 94px,\n    rgb(44, 62, 80) 95px 95px,\n    rgb(44, 62, 80) 96px 96px,\n    rgb(44, 62, 80) 97px 97px,\n    rgb(44, 62, 80) 98px 98px,\n    rgb(44, 62, 80) 99px 99px,\n    rgb(44, 62, 80) 100px 100px;\n}\n  \n  \n  \n  \n  /********************\n    CSS TRANSITION\n  ********************/\n  .fade-enter{\n    opacity: 0;\n  }\n  .fade-enter-active {\n    opacity: 1;\n    transition: opacity 500ms ease-out;\n  }\n  .fade-leave {\n    opacity: 1;\n  }\n  .fade-leave-active {\n    opacity: 0;\n    transition: opacity 500ms ease-out;\n  }\n\n\n\n.example-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.example-enter.example-enter-active {\n  opacity: 1;\n}\n\n.example-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.example-leave.example-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.example-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.example-appear.example-appear-active {\n  opacity: 1;\n}\n\n\n\n\n\n.slip-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.slip-enter.slip-enter-active {\n  opacity: 1;\n}\n\n.slip-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.slip-leave.slip-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.slip-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.slip-appear.slip-appear-active {\n  opacity: 1;\n}\n\n\n\n  \n  /*********************/\n  .buffer {\n    margin-top: 3rem;\n  }\n  .faq p {\n    line-height: 1.3;\n    padding-left: 1rem;\n    font-family: 'Roboto';\n  }\n  .faq h5 {\n    font-weight: bold;\n  }\n  .faq h6 {\n    font-weight: bold;\n    padding-top: 1rem;\n    color: #5F7187;\n    text-align: center;\n  }\n  \n  .halogen {\n    margin: auto;\n    text-align: center;\n  }\n  .halogen div {\n    width: 100px;\n    height: 100px;\n    position: absolute;\n    top:0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    margin: auto;\n   }\n   .halogen div div{\n    margin: 0 auto;\n  }\n  .callout.large.secondary {\n    padding-top: 1.5rem;\n    /*background-color: #67809F;*/\n    background-color: #5F7187;\n    color: white;\n    margin-bottom: 3rem;\n    padding-bottom: 0rem;\n  }\n  .callout.large.secondary h5 {\n    margin-bottom: 0;\n  }\n  .circle\n  {\n    width:100px;\n    height:100px;\n    border-radius:50px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin-bottom: 1rem;\n  }\n  .sqr\n  {\n    height: 200px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin-bottom: 1rem;\n  }\n  \n  .sqr h1 {\n    font-size: 100px;\n    font-family: \"Lato\";\n    padding-bottom: 0rem;\n    font-weight: 300;\n    position: relative;\n    top: 40%;\n    transform: translateY(-40%);\n  }\n  .space-li li {\n    padding: 2rem;\n    background-color: grey;\n  }\n  .hide {\n    display: none;\n  }\n  .yo {\n    display: block;\n  }\n  .card-grid {\n    \n  }\n  \n  .card-stuff {\n    text-align: center;\n  }\n  .card-stuff h1,h2,h3,h4,h5,h6 {\n    text-align: center;\n    font-family: 'Lato';\n    font-weight: 300;\n  }\n  .card-stuff h2{\n    font-weight: 500;\n    margin-bottom: 0.5rem;\n    line-height: 3rem;\n  }\n  .card-stuff h5{\n    line-height: 1.5rem;\n    color: #DADFE1;\n  }\n  \n  .top-info {\n    margin-bottom: 2rem;\n  }\n  .top-info h2, h3,h4,h5,h6{\n    padding: 0;\n    margin: 0;\n    line-height: 1.5;\n    \n  }\n  \n  .top-info h1 {\n    font-family: 'Lato';\n    font-weight: 300;\n    font-size: 4rem;\n    margin-top: 0;\n    margin-bottom: -0.5rem;\n    \n  }.top-info h6 {\n    margin-bottom: 0.5rem;\n  }\n  .tab-space-border {\n    background-color: #CCCCCC;\n    width: 100%;\n    height: 1px;\n    display: block;\n  }\n  .fakeTable {\n    border-width: 1px;\n    border-style: solid;\n    border-color: #CCCCCC;\n    border-right-width: 0px;\n    border-bottom-width: 0px;\n    overflow: hidden;\n    margin-top: 0.5rem;\n    margin-bottom: 1.0rem;\n  }\n  .tab-header {\n    background-color: #CCCCCC;\n    color: black;\n    font-weight: 700;\n  }\n  .tab-left span{\n    padding-left: 0.5rem;\n    border-left-color: white;\n    border-left-style: solid;\n    border-left-width: 0.1rem;\n  }\n  .tab-row {\n    background-color: #EEEEEE;\n    color: black;\n    font-weight: 300;\n    padding: 1rem;\n    border-right-color: white;\n    border-right-style: solid;\n    border-right-width: 0.2rem;\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n  }\n  .tab-row:nth-child(2) {\n    border-bottom-width: 0;\n  }\n  .tab-row-parent {\n\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n     \n  }\n  .first-td {\n    border-left-width: 0;\n    text-align: center;\n  }\n  .third-td {\n    text-align: center;\n  }\n  td{\n    background-color: #ECECEC;\n    border-bottom-color: white;\n    border-bottom-width: 2px;\n    border-bottom-style: solid;\n    border-left-color: white;\n    border-left-width: 2px;\n    border-left-style: solid;\n  }\n  table{margin-bottom: 0; width: 90%;}\n  .mid-card {\n    box-shadow: 0px 7px 19px 3px rgba(0,0,0,0.39);\n    background-color: white;\n    padding: 0;\n    margin-bottom: 5rem;\n    padding-bottom: 1rem;\n  }\n  .tab-pad {\n    width: 95%;\n    margin: auto;\n  }\n  \n  .tab-row-big-division {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall h1 {\n    \n    text-shadow: 1px 1px rgba(187,187,187, 0.95), 2px 2px rgba(187,187,187, 0.90), 3px 3px rgba(187,187,187, 0.85), 4px 4px rgba(187,187,187, 0.80), 5px 5px rgba(187,187,187, 0.75), 6px 6px rgba(187,187,187, 0.70), 7px 7px rgba(187,187,187, 0.65), 8px 8px rgba(187,187,187, 0.60), 9px 9px rgba(187,187,187, 0.55), 10px 10px rgba(187,187,187, 0.50), 11px 11px rgba(187,187,187, 0.45), 12px 12px rgba(187,187,187, 0.40), 13px 13px rgba(187,187,187, 0.35), 14px 14px rgba(187,187,187, 0.30), 15px 15px rgba(187,187,187, 0.25), 16px 16px rgba(187,187,187, 0.20), 17px 17px rgba(187,187,187, 0.15), 18px 18px rgba(187,187,187, 0.10), 19px 19px rgba(187,187,187, 0.05), 20px 20px rgba(187,187,187, 0.00)\n\n\n  }\n  .tab-entry {\n    overflow: hidden;\n  }\n  .tab-entry span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n  }\n  .tab-entry span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  .tab-entry-two {\n    overflow: hidden;\n  }\n  .tab-entry-two span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n    background-color: #F2F1EF;\n  }\n  .tab-entry-two span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  \n  \n\n  \n  .full-circle {\n   background-color: #5F7187;\n   /*height: 150px;\n   -moz-border-radius:75px;\n   -webkit-border-radius: 75px;\n   width: 150px;*/\n   width: 100*;\n   margin:auto;\n   margin-top: -1rem;\n  }\n  .halfOval { \n     background-color: rgb(44, 62, 80);\n     bottom:150px;\n     height: 50px;\n     margin: auto 0px;\n     border-radius: 50% 50% 0 0/ 100% 100% 0px 0px;\n     z-index: 0; \n}\n.triangle {\n  width: 0;\n    margin: auto;\n    height: 0;\n    border-style: solid;\n    border-width: 0 100px 40px 100px;\n    border-color: transparent transparent rgb(44, 62, 80) transparent;\n}\n\n\n   .backdrop {\n  height: 100px;\n  width: 200px;\n  background: blue;\n  margin-bottom: 50px;\n}\n\n.curtain {\n  height: 100px;\n  width: 200px;\n  position: relative;\n  top: -100px;\n  background-color: green;\n  margin-bottom: -50px;\n}\n.abovehalfOval { \n     width: 150px;\n     height: 150px;\n     background: red;\n    margin-bottom: -40px;\n    z-index: 1;\n}\n  \n  .score {\n    width: 50%;\n    margin: auto;\n  }\n  .full-circle h1 {\n    text-align: center;\n    color: white;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .info h4 {\n    text-align: center;\n    color: white;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .top-bar {\n    box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);\n    z-index: 1;\n  }\n  \n  .callout{\n    /*box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);*/\n    border-top-width: 0px;\n    border-left-width: 0px;\n    border-bottom-width: 0px;\n    border-right-width: 0px;\n    position: relative;\n    z-index: -1;\n    \n  }\n  .overlay-fade-in p  {\n    font-size: 14px;\n  }\n    .image-wrapper {\n  width: 100%;\n  height: 100%;\n  border: 1px solid rgba(0, 0, 0, 0.04);\n  overflow: hidden;\n  position: relative;\n  text-align: center;\n  border-radius: 4px;\n}\n.image-overlay-content h2 {\n font-weight: 800; \n}\n\n.image-overlay-content {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  overflow: hidden;\n  top: 0;\n  left: 0; }\n\n.overlay-fade-in p {\n  letter-spacing: 0.15em;\n  color: #f4f4f4;\n  font-size: 28px;\n  opacity: 0;\n  transition: all 0.2s linear; }\n.overlay-fade-in img {\n  transition: all 0.2s linear; }\n.overlay-fade-in .image-overlay-content {\n  opacity: 0;\n  background-color: rgba(0, 0, 0, 0.4);\n  transition: all 0.4s ease-in-out; }\n.overlay-fade-in h2 {\n  color: #f2f2f2;\n  font-size: 1.8rem;\n  margin-top: 40%;\n  opacity: 0;\n  transition: all 0.2s ease-in-out;\n  background: rgba(0, 0, 0, 0.7); }\n.overlay-fade-in .button {\n  display: inline-block;\n  text-decoration: none;\n  padding: 7px 14px;\n  background: #FFF;\n  color: #222;\n  text-transform: uppercase;\n  box-shadow: 0 0 1px #000;\n  position: relative;\n  border: 1px solid #999;\n  opacity: 0;\n  transition: all 0.2s ease-in-out; }\n  .overlay-fade-in .button:hover {\n    box-shadow: 0 0 5px #000; }\n.overlay-fade-in:hover img {\n  transform: scale(1.2); }\n.overlay-fade-in:hover .image-overlay-content {\n  opacity: 1; }\n.overlay-fade-in:hover h2, .overlay-fade-in p, .overlay-fade-in .button {\n  opacity: 1; }\n.overlay-fade-in:hover p {\n  transition-delay: 0.1s; }\n.overlay-fade-in:hover .button {\n  transition-delay: 0.2s; }\n\n/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/\n\n.fight-card {\n  /*padding: 1rem;*/\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  background-color: #fff;\n  width: 50%;\n  margin: auto;\n  margin-bottom: 1rem;\n  overflow: hidden;\n}\n.fight-col {\n  padding-left: 0;\n  padding-right: 0;\n}\n.fight-col .row {\n  margin-left: 0;\n  margin-right: 0;\n}\n.fight-card-left {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n  border-right-style: solid;\n  border-right-width: 2px;\n  border-right-color: #ecf0f1;\n  background-color: #F7E5BD;\n}\n.fight-card-left span {\n  text-align: center;\n  display: block;\n}\n.fight-card-right span {\n  text-align: left;\n  display: inline;\n}\n.fight-card-data span {\n  float: left;\n}\n\n.fight-card-right {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n}\n.fight-card-title {\n  width: 100%;\n  margin-bottom: 1rem;\n  background-color: rgb(44, 62, 80);\n  color: white;\n}\n.fight-card-title h2 {\n  text-align: center;\n  font-family: 'Lato';\n  font-weight: 300;\n}\n.fight-card-data {\n    \n  }\n  .fight-card-data-header {\n    width: 50%;\n    color: #666666;\n  }\n  .fight-card-data-text {\n    width: 50%;\n    padding-left: 1rem;\n  }\n  .info {\n    /*margin-left: 3rem;*/\n    text-align: center;\n    margin-top: 1rem;\n  }\n  .info h4 {\n    font-weight: 700;\n  }\n  .info p {\n    text-align: center;\n    margin-bottom: 0.05rem;\n  }\n  .info span {\n    display: inline;\n  }\n.clearFix {\n  clear: both;\n  display: block;\n  width: 100%;\n}\n.space {\n  margin-top: 6rem;\n}\n.card-info {\n  margin: auto;\n  text-align: center;\n  margin-top: 1rem;\n}\n.frame-square {\n  background: #fff;\n  /*border: 2px solid #000;*/\n  margin: auto;\n  vertical-align: top;\n  /*padding: 10px;*/\n  width: 200px;\n  height: 200px;\n  margin-top: 1rem;\n}\n\n.crop {\n  height: 100%;\n  overflow: hidden;\n  position: relative;\n}\n  .crop img {\n    display: block;\n    min-width: 100%;\n    min-height: 100%;\n    margin: auto;\n    top: -100%;\n    right: -100%;\n    bottom: -100%;\n    left: -100%;\n  }\n\n.profile-card {\n  padding: 1rem;\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  margin: 2rem 0;\n  background-color: #fff; \n  width: 90%;\n  margin: auto;\n  margin-top: 2rem;\n}\n.profile-card image {\n    overflow: hidden;\n    height: 200px;\n    width: 200px;\n}\n.load-more {\n    display: block;\n    margin: auto;\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n}\n.btnEvents {\n    display: block;\n    margin: auto;\n    margin-top: 2rem;\n    text-align: center;\n}\n.btnEvents a {\n    margin: 1rem;\n}\n.splash-title {\n  margin: auto;\n  text-align: center;\n}\n.splash-title h1 {\n  font-size: 100px;\n  font-weight: 300;\n  font-family: 'Lato';\n  text-align: center;\n  display: inline;\n  margin: auto;\n}\n.splash-title h1 span {\n  color: rgb(44, 62, 80);\n}\n\n  .profile-card img {\n    \n    /*display: block;\n    text-align: center;\n    box-shadow: 2px 2px 5px #888888;\n  \n    margin: auto;*/\n    \n  }\n  .profile-card .profile-info {\n    padding: 1rem; \n    \n  }\n    .profile-card .profile-info h4 {\n      margin-top: 0;\n      text-align: center;\n      text-transform: uppercase; }\n    .profile-card .profile-info p {\n      text-align: center; }\n    .profile-card .profile-info .inline-list {\n      text-align: center;\n      margin-bottom: 1rem; }\n      .profile-card .profile-info .inline-list li {\n        float: none;\n        display: inline-block; }\n      .profile-card .profile-info .inline-list i.fi-social-facebook {\n        font-size: 1.5rem;\n        color: #3b5998; }\n        .profile-card .profile-info .inline-list i.fi-social-facebook:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-twitter {\n        font-size: 1.5rem;\n        color: #55acee; }\n        .profile-card .profile-info .inline-list i.fi-social-twitter:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-linkedin {\n        font-size: 1.5rem;\n        color: #0077b5; }\n        .profile-card .profile-info .inline-list i.fi-social-linkedin:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-github {\n        font-size: 1.5rem;\n        color: #333; }\n        .profile-card .profile-info .inline-list i.fi-social-github:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-youtube {\n        font-size: 1.5rem;\n        color: #cc181e; }\n        .profile-card .profile-info .inline-list i.fi-social-youtube:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 255 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(256);
+	var content = __webpack_require__(258);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(252)(content, {});
+	var update = __webpack_require__(254)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28003,15 +28279,15 @@
 	}
 
 /***/ },
-/* 256 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(251)();
+	exports = module.exports = __webpack_require__(253)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "/*\n==============================================\nCSS3 ANIMATION CHEAT SHEET\n==============================================\n\nMade by Justin Aguilar\n\nwww.justinaguilar.com/animations/\n\nQuestions, comments, concerns, love letters:\njustin@justinaguilar.com\n==============================================\n*/\n\n/*\n==============================================\nslideDown\n==============================================\n*/\n\n\n.slideDown{\n\tanimation-name: slideDown;\n\t-webkit-animation-name: slideDown;\t\n\n\tanimation-duration: 1s;\t\n\t-webkit-animation-duration: 1s;\n\n\tanimation-timing-function: ease;\t\n\t-webkit-animation-timing-function: ease;\t\n\n\tvisibility: visible !important;\t\t\t\t\t\t\n}\n\n@keyframes slideDown {\n\t0% {\n\t\ttransform: translateY(-100%);\n\t}\n\t50%{\n\t\ttransform: translateY(8%);\n\t}\n\t65%{\n\t\ttransform: translateY(-4%);\n\t}\n\t80%{\n\t\ttransform: translateY(4%);\n\t}\n\t95%{\n\t\ttransform: translateY(-2%);\n\t}\t\t\t\n\t100% {\n\t\ttransform: translateY(0%);\n\t}\t\t\n}\n\n@-webkit-keyframes slideDown {\n\t0% {\n\t\t-webkit-transform: translateY(-100%);\n\t}\n\t50%{\n\t\t-webkit-transform: translateY(8%);\n\t}\n\t65%{\n\t\t-webkit-transform: translateY(-4%);\n\t}\n\t80%{\n\t\t-webkit-transform: translateY(4%);\n\t}\n\t95%{\n\t\t-webkit-transform: translateY(-2%);\n\t}\t\t\t\n\t100% {\n\t\t-webkit-transform: translateY(0%);\n\t}\t\n}\n\n/*\n==============================================\nslideUp\n==============================================\n*/\n\n\n.slideUp{\n\tanimation-name: slideUp;\n\t-webkit-animation-name: slideUp;\t\n\n\tanimation-duration: 1s;\t\n\t-webkit-animation-duration: 1s;\n\n\tanimation-timing-function: ease;\t\n\t-webkit-animation-timing-function: ease;\n\n\tvisibility: visible !important;\t\t\t\n}\n\n@keyframes slideUp {\n\t0% {\n\t\ttransform: translateY(100%);\n\t}\n\t50%{\n\t\ttransform: translateY(-8%);\n\t}\n\t65%{\n\t\ttransform: translateY(4%);\n\t}\n\t80%{\n\t\ttransform: translateY(-4%);\n\t}\n\t95%{\n\t\ttransform: translateY(2%);\n\t}\t\t\t\n\t100% {\n\t\ttransform: translateY(0%);\n\t}\t\n}\n\n@-webkit-keyframes slideUp {\n\t0% {\n\t\t-webkit-transform: translateY(100%);\n\t}\n\t50%{\n\t\t-webkit-transform: translateY(-8%);\n\t}\n\t65%{\n\t\t-webkit-transform: translateY(4%);\n\t}\n\t80%{\n\t\t-webkit-transform: translateY(-4%);\n\t}\n\t95%{\n\t\t-webkit-transform: translateY(2%);\n\t}\t\t\t\n\t100% {\n\t\t-webkit-transform: translateY(0%);\n\t}\t\n}\n\n/*\n==============================================\nslideLeft\n==============================================\n*/\n\n\n.slideLeft{\n\tanimation-name: slideLeft;\n\t-webkit-animation-name: slideLeft;\t\n\n\tanimation-duration: 1s;\t\n\t-webkit-animation-duration: 1s;\n\n\tanimation-timing-function: ease-in-out;\t\n\t-webkit-animation-timing-function: ease-in-out;\t\t\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes slideLeft {\n\t0% {\n\t\ttransform: translateX(150%);\n\t}\n\t50%{\n\t\ttransform: translateX(-8%);\n\t}\n\t65%{\n\t\ttransform: translateX(4%);\n\t}\n\t80%{\n\t\ttransform: translateX(-4%);\n\t}\n\t95%{\n\t\ttransform: translateX(2%);\n\t}\t\t\t\n\t100% {\n\t\ttransform: translateX(0%);\n\t}\n}\n\n@-webkit-keyframes slideLeft {\n\t0% {\n\t\t-webkit-transform: translateX(150%);\n\t}\n\t50%{\n\t\t-webkit-transform: translateX(-8%);\n\t}\n\t65%{\n\t\t-webkit-transform: translateX(4%);\n\t}\n\t80%{\n\t\t-webkit-transform: translateX(-4%);\n\t}\n\t95%{\n\t\t-webkit-transform: translateX(2%);\n\t}\t\t\t\n\t100% {\n\t\t-webkit-transform: translateX(0%);\n\t}\n}\n\n/*\n==============================================\nslideRight\n==============================================\n*/\n\n\n.slideRight{\n\tanimation-name: slideRight;\n\t-webkit-animation-name: slideRight;\t\n\n\tanimation-duration: 0.5s;\t\n\t-webkit-animation-duration: 0.5s;\n\n\tanimation-timing-function: ease-in-out;\t\n\t-webkit-animation-timing-function: ease-in-out;\t\t\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes slideRight {\n\t0% {\n\t\ttransform: translateX(-10%);\n\t\topacity: 0;\n\t}\n\t\n\t100% {\n\t\ttransform: translateX(0%);\n\t\topacity: 1;\n\t}\t\n}\n\n@-webkit-keyframes slideRight {\n\t0% {\n\t\t-webkit-transform: translateX(-10%);\n\t}\n\t100% {\n\t\t-webkit-transform: translateX(0%);\n\t}\n}\n\n/*\n==============================================\nslideExpandUp\n==============================================\n*/\n\n\n.slideExpandUp{\n\tanimation-name: slideExpandUp;\n\t-webkit-animation-name: slideExpandUp;\t\n\n\tanimation-duration: 1.6s;\t\n\t-webkit-animation-duration: 1.6s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease -out;\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes slideExpandUp {\n\t0% {\n\t\ttransform: translateY(100%) scaleX(0.5);\n\t}\n\t30%{\n\t\ttransform: translateY(-8%) scaleX(0.5);\n\t}\t\n\t40%{\n\t\ttransform: translateY(2%) scaleX(0.5);\n\t}\n\t50%{\n\t\ttransform: translateY(0%) scaleX(1.1);\n\t}\n\t60%{\n\t\ttransform: translateY(0%) scaleX(0.9);\t\t\n\t}\n\t70% {\n\t\ttransform: translateY(0%) scaleX(1.05);\n\t}\t\t\t\n\t80%{\n\t\ttransform: translateY(0%) scaleX(0.95);\t\t\n\t}\n\t90% {\n\t\ttransform: translateY(0%) scaleX(1.02);\n\t}\t\n\t100%{\n\t\ttransform: translateY(0%) scaleX(1);\t\t\n\t}\n}\n\n@-webkit-keyframes slideExpandUp {\n\t0% {\n\t\t-webkit-transform: translateY(100%) scaleX(0.5);\n\t}\n\t30%{\n\t\t-webkit-transform: translateY(-8%) scaleX(0.5);\n\t}\t\n\t40%{\n\t\t-webkit-transform: translateY(2%) scaleX(0.5);\n\t}\n\t50%{\n\t\t-webkit-transform: translateY(0%) scaleX(1.1);\n\t}\n\t60%{\n\t\t-webkit-transform: translateY(0%) scaleX(0.9);\t\t\n\t}\n\t70% {\n\t\t-webkit-transform: translateY(0%) scaleX(1.05);\n\t}\t\t\t\n\t80%{\n\t\t-webkit-transform: translateY(0%) scaleX(0.95);\t\t\n\t}\n\t90% {\n\t\t-webkit-transform: translateY(0%) scaleX(1.02);\n\t}\t\n\t100%{\n\t\t-webkit-transform: translateY(0%) scaleX(1);\t\t\n\t}\n}\n\n/*\n==============================================\nexpandUp\n==============================================\n*/\n\n\n.expandUp{\n\tanimation-name: expandUp;\n\t-webkit-animation-name: expandUp;\t\n\n\tanimation-duration: 0.7s;\t\n\t-webkit-animation-duration: 0.7s;\n\n\tanimation-timing-function: ease;\t\n\t-webkit-animation-timing-function: ease;\t\t\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes expandUp {\n\t0% {\n\t\ttransform: translateY(100%) scale(0.6) scaleY(0.5);\n\t}\n\t60%{\n\t\ttransform: translateY(-7%) scaleY(1.12);\n\t}\n\t75%{\n\t\ttransform: translateY(3%);\n\t}\t\n\t100% {\n\t\ttransform: translateY(0%) scale(1) scaleY(1);\n\t}\t\n}\n\n@-webkit-keyframes expandUp {\n\t0% {\n\t\t-webkit-transform: translateY(100%) scale(0.6) scaleY(0.5);\n\t}\n\t60%{\n\t\t-webkit-transform: translateY(-7%) scaleY(1.12);\n\t}\n\t75%{\n\t\t-webkit-transform: translateY(3%);\n\t}\t\n\t100% {\n\t\t-webkit-transform: translateY(0%) scale(1) scaleY(1);\n\t}\t\n}\n\n/*\n==============================================\nfadeIn\n==============================================\n*/\n\n.fadeIn{\n\tanimation-name: fadeIn;\n\t-webkit-animation-name: fadeIn;\t\n\n\tanimation-duration: 1.0s;\t\n\t-webkit-animation-duration: 1.0s;\n\n\tanimation-timing-function: ease-in-out;\t\n\t-webkit-animation-timing-function: ease-in-out;\t\t\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes fadeIn {\n\t0% {\n\t\ttransform: scale(1);\n\t\topacity: 0.0;\t\t\n\t}\n\t100% {\n\t\ttransform: scale(1);\n\t\topacity: 1;\t\n\t}\t\t\n}\n\n@-webkit-keyframes fadeIn {\n\t0% {\n\t\t-webkit-transform: scale(1);\n\t\topacity: 0.0;\t\t\n\t}\n\t100% {\n\t\t-webkit-transform: scale(1);\n\t\topacity: 1;\t\n\t}\t\t\n}\n\n/*\n==============================================\nexpandOpen\n==============================================\n*/\n\n\n.expandOpen{\n\tanimation-name: expandOpen;\n\t-webkit-animation-name: expandOpen;\t\n\n\tanimation-duration: 1.2s;\t\n\t-webkit-animation-duration: 1.2s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes expandOpen {\n\t0% {\n\t\ttransform: scale(1.8);\t\t\n\t}\n\t50% {\n\t\ttransform: scale(0.95);\n\t}\t\n\t80% {\n\t\ttransform: scale(1.05);\n\t}\n\t90% {\n\t\ttransform: scale(0.98);\n\t}\t\n\t100% {\n\t\ttransform: scale(1);\n\t}\t\t\t\n}\n\n@-webkit-keyframes expandOpen {\n\t0% {\n\t\t-webkit-transform: scale(1.8);\t\t\n\t}\n\t50% {\n\t\t-webkit-transform: scale(0.95);\n\t}\t\n\t80% {\n\t\t-webkit-transform: scale(1.05);\n\t}\n\t90% {\n\t\t-webkit-transform: scale(0.98);\n\t}\t\n\t100% {\n\t\t-webkit-transform: scale(1);\n\t}\t\t\t\t\t\n}\n\n/*\n==============================================\nbigEntrance\n==============================================\n*/\n\n\n.bigEntrance{\n\tanimation-name: bigEntrance;\n\t-webkit-animation-name: bigEntrance;\t\n\n\tanimation-duration: 1.6s;\t\n\t-webkit-animation-duration: 1.6s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\tvisibility: visible !important;\t\t\t\n}\n\n@keyframes bigEntrance {\n\t0% {\n\t\ttransform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n\t\topacity: 0.2;\n\t}\n\t30% {\n\t\ttransform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\t\t\n\t\topacity: 1;\n\t}\n\t45% {\n\t\ttransform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\n\t60% {\n\t\ttransform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\t\t\n\t\topacity: 1;\n\t}\t\n\t75% {\n\t\ttransform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\n\t90% {\n\t\ttransform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\t\t\n\t\topacity: 1;\n\t}\t\n\t100% {\n\t\ttransform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\t\t\n}\n\n@-webkit-keyframes bigEntrance {\n\t0% {\n\t\t-webkit-transform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n\t\topacity: 0.2;\n\t}\n\t30% {\n\t\t-webkit-transform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\t\t\n\t\topacity: 1;\n\t}\n\t45% {\n\t\t-webkit-transform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\n\t60% {\n\t\t-webkit-transform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\t\t\n\t\topacity: 1;\n\t}\t\n\t75% {\n\t\t-webkit-transform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\n\t90% {\n\t\t-webkit-transform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\t\t\n\t\topacity: 1;\n\t}\t\n\t100% {\n\t\t-webkit-transform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\t\t\t\t\n}\n\n/*\n==============================================\nhatch\n==============================================\n*/\n\n.hatch{\n\tanimation-name: hatch;\n\t-webkit-animation-name: hatch;\t\n\n\tanimation-duration: 2s;\t\n\t-webkit-animation-duration: 2s;\n\n\tanimation-timing-function: ease-in-out;\t\n\t-webkit-animation-timing-function: ease-in-out;\n\n\ttransform-origin: 50% 100%;\n\t-ms-transform-origin: 50% 100%;\n\t-webkit-transform-origin: 50% 100%; \n\n\tvisibility: visible !important;\t\t\n}\n\n@keyframes hatch {\n\t0% {\n\t\ttransform: rotate(0deg) scaleY(0.6);\n\t}\n\t20% {\n\t\ttransform: rotate(-2deg) scaleY(1.05);\n\t}\n\t35% {\n\t\ttransform: rotate(2deg) scaleY(1);\n\t}\n\t50% {\n\t\ttransform: rotate(-2deg);\n\t}\t\n\t65% {\n\t\ttransform: rotate(1deg);\n\t}\t\n\t80% {\n\t\ttransform: rotate(-1deg);\n\t}\t\t\n\t100% {\n\t\ttransform: rotate(0deg);\n\t}\t\t\t\t\t\t\t\t\t\n}\n\n@-webkit-keyframes hatch {\n\t0% {\n\t\t-webkit-transform: rotate(0deg) scaleY(0.6);\n\t}\n\t20% {\n\t\t-webkit-transform: rotate(-2deg) scaleY(1.05);\n\t}\n\t35% {\n\t\t-webkit-transform: rotate(2deg) scaleY(1);\n\t}\n\t50% {\n\t\t-webkit-transform: rotate(-2deg);\n\t}\t\n\t65% {\n\t\t-webkit-transform: rotate(1deg);\n\t}\t\n\t80% {\n\t\t-webkit-transform: rotate(-1deg);\n\t}\t\t\n\t100% {\n\t\t-webkit-transform: rotate(0deg);\n\t}\t\t\n}\n\n\n/*\n==============================================\nbounce\n==============================================\n*/\n\n\n.bounce{\n\tanimation-name: bounce;\n\t-webkit-animation-name: bounce;\t\n\n\tanimation-duration: 1.6s;\t\n\t-webkit-animation-duration: 1.6s;\n\n\tanimation-timing-function: ease;\t\n\t-webkit-animation-timing-function: ease;\t\n\t\n\ttransform-origin: 50% 100%;\n\t-ms-transform-origin: 50% 100%;\n\t-webkit-transform-origin: 50% 100%; \t\n}\n\n@keyframes bounce {\n\t0% {\n\t\ttransform: translateY(0%) scaleY(0.6);\n\t}\n\t60%{\n\t\ttransform: translateY(-100%) scaleY(1.1);\n\t}\n\t70%{\n\t\ttransform: translateY(0%) scaleY(0.95) scaleX(1.05);\n\t}\n\t80%{\n\t\ttransform: translateY(0%) scaleY(1.05) scaleX(1);\n\t}\t\n\t90%{\n\t\ttransform: translateY(0%) scaleY(0.95) scaleX(1);\n\t}\t\t\t\t\n\t100%{\n\t\ttransform: translateY(0%) scaleY(1) scaleX(1);\n\t}\t\n}\n\n@-webkit-keyframes bounce {\n\t0% {\n\t\t-webkit-transform: translateY(0%) scaleY(0.6);\n\t}\n\t60%{\n\t\t-webkit-transform: translateY(-100%) scaleY(1.1);\n\t}\n\t70%{\n\t\t-webkit-transform: translateY(0%) scaleY(0.95) scaleX(1.05);\n\t}\n\t80%{\n\t\t-webkit-transform: translateY(0%) scaleY(1.05) scaleX(1);\n\t}\t\n\t90%{\n\t\t-webkit-transform: translateY(0%) scaleY(0.95) scaleX(1);\n\t}\t\t\t\t\n\t100%{\n\t\t-webkit-transform: translateY(0%) scaleY(1) scaleX(1);\n\t}\t\t\n}\n\n\n/*\n==============================================\npulse\n==============================================\n*/\n\n.pulse{\n\tanimation-name: pulse;\n\t-webkit-animation-name: pulse;\t\n\n\tanimation-duration: 1.5s;\t\n\t-webkit-animation-duration: 1.5s;\n\n\tanimation-iteration-count: infinite;\n\t-webkit-animation-iteration-count: infinite;\n}\n\n@keyframes pulse {\n\t0% {\n\t\ttransform: scale(0.9);\n\t\topacity: 0.7;\t\t\n\t}\n\t50% {\n\t\ttransform: scale(1);\n\t\topacity: 1;\t\n\t}\t\n\t100% {\n\t\ttransform: scale(0.9);\n\t\topacity: 0.7;\t\n\t}\t\t\t\n}\n\n@-webkit-keyframes pulse {\n\t0% {\n\t\t-webkit-transform: scale(0.95);\n\t\topacity: 0.7;\t\t\n\t}\n\t50% {\n\t\t-webkit-transform: scale(1);\n\t\topacity: 1;\t\n\t}\t\n\t100% {\n\t\t-webkit-transform: scale(0.95);\n\t\topacity: 0.7;\t\n\t}\t\t\t\n}\n\n/*\n==============================================\nfloating\n==============================================\n*/\n\n.floating{\n\tanimation-name: floating;\n\t-webkit-animation-name: floating;\n\n\tanimation-duration: 1.5s;\t\n\t-webkit-animation-duration: 1.5s;\n\n\tanimation-iteration-count: infinite;\n\t-webkit-animation-iteration-count: infinite;\n}\n\n@keyframes floating {\n\t0% {\n\t\ttransform: translateY(0%);\t\n\t}\n\t50% {\n\t\ttransform: translateY(8%);\t\n\t}\t\n\t100% {\n\t\ttransform: translateY(0%);\n\t}\t\t\t\n}\n\n@-webkit-keyframes floating {\n\t0% {\n\t\t-webkit-transform: translateY(0%);\t\n\t}\n\t50% {\n\t\t-webkit-transform: translateY(8%);\t\n\t}\t\n\t100% {\n\t\t-webkit-transform: translateY(0%);\n\t}\t\t\t\n}\n\n/*\n==============================================\ntossing\n==============================================\n*/\n\n.tossing{\n\tanimation-name: tossing;\n\t-webkit-animation-name: tossing;\t\n\n\tanimation-duration: 2.5s;\t\n\t-webkit-animation-duration: 2.5s;\n\n\tanimation-iteration-count: infinite;\n\t-webkit-animation-iteration-count: infinite;\n}\n\n@keyframes tossing {\n\t0% {\n\t\ttransform: rotate(-4deg);\t\n\t}\n\t50% {\n\t\ttransform: rotate(4deg);\n\t}\n\t100% {\n\t\ttransform: rotate(-4deg);\t\n\t}\t\t\t\t\t\t\n}\n\n@-webkit-keyframes tossing {\n\t0% {\n\t\t-webkit-transform: rotate(-4deg);\t\n\t}\n\t50% {\n\t\t-webkit-transform: rotate(4deg);\n\t}\n\t100% {\n\t\t-webkit-transform: rotate(-4deg);\t\n\t}\t\t\t\t\n}\n\n/*\n==============================================\npullUp\n==============================================\n*/\n\n.pullUp{\n\tanimation-name: pullUp;\n\t-webkit-animation-name: pullUp;\t\n\n\tanimation-duration: 1.1s;\t\n\t-webkit-animation-duration: 1.1s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\ttransform-origin: 50% 100%;\n\t-ms-transform-origin: 50% 100%;\n\t-webkit-transform-origin: 50% 100%; \t\t\n}\n\n@keyframes pullUp {\n\t0% {\n\t\ttransform: scaleY(0.1);\n\t}\n\t40% {\n\t\ttransform: scaleY(1.02);\n\t}\n\t60% {\n\t\ttransform: scaleY(0.98);\n\t}\n\t80% {\n\t\ttransform: scaleY(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleY(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\ttransform: scaleY(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleY(1);\n\t}\t\t\t\t\t\t\t\n}\n\n@-webkit-keyframes pullUp {\n\t0% {\n\t\t-webkit-transform: scaleY(0.1);\n\t}\n\t40% {\n\t\t-webkit-transform: scaleY(1.02);\n\t}\n\t60% {\n\t\t-webkit-transform: scaleY(0.98);\n\t}\n\t80% {\n\t\t-webkit-transform: scaleY(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleY(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\t-webkit-transform: scaleY(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleY(1);\n\t}\t\t\n}\n\n/*\n==============================================\npullDown\n==============================================\n*/\n\n.pullDown{\n\tanimation-name: pullDown;\n\t-webkit-animation-name: pullDown;\t\n\n\tanimation-duration: 1.1s;\t\n\t-webkit-animation-duration: 1.1s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\ttransform-origin: 50% 0%;\n\t-ms-transform-origin: 50% 0%;\n\t-webkit-transform-origin: 50% 0%; \t\t\n}\n\n@keyframes pullDown {\n\t0% {\n\t\ttransform: scaleY(0.1);\n\t}\n\t40% {\n\t\ttransform: scaleY(1.02);\n\t}\n\t60% {\n\t\ttransform: scaleY(0.98);\n\t}\n\t80% {\n\t\ttransform: scaleY(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleY(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\ttransform: scaleY(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleY(1);\n\t}\t\t\t\t\t\t\t\n}\n\n@-webkit-keyframes pullDown {\n\t0% {\n\t\t-webkit-transform: scaleY(0.1);\n\t}\n\t40% {\n\t\t-webkit-transform: scaleY(1.02);\n\t}\n\t60% {\n\t\t-webkit-transform: scaleY(0.98);\n\t}\n\t80% {\n\t\t-webkit-transform: scaleY(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleY(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\t-webkit-transform: scaleY(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleY(1);\n\t}\t\t\n}\n\n/*\n==============================================\nstretchLeft\n==============================================\n*/\n\n.stretchLeft{\n\tanimation-name: stretchLeft;\n\t-webkit-animation-name: stretchLeft;\t\n\n\tanimation-duration: 1.5s;\t\n\t-webkit-animation-duration: 1.5s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\ttransform-origin: 100% 0%;\n\t-ms-transform-origin: 100% 0%;\n\t-webkit-transform-origin: 100% 0%; \n}\n\n@keyframes stretchLeft {\n\t0% {\n\t\ttransform: scaleX(0.3);\n\t}\n\t40% {\n\t\ttransform: scaleX(1.02);\n\t}\n\t60% {\n\t\ttransform: scaleX(0.98);\n\t}\n\t80% {\n\t\ttransform: scaleX(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleX(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\ttransform: scaleX(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleX(1);\n\t}\t\t\t\t\t\t\t\n}\n\n@-webkit-keyframes stretchLeft {\n\t0% {\n\t\t-webkit-transform: scaleX(0.3);\n\t}\n\t40% {\n\t\t-webkit-transform: scaleX(1.02);\n\t}\n\t60% {\n\t\t-webkit-transform: scaleX(0.98);\n\t}\n\t80% {\n\t\t-webkit-transform: scaleX(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleX(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\t-webkit-transform: scaleX(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleX(1);\n\t}\t\t\n}\n\n/*\n==============================================\nstretchRight\n==============================================\n*/\n\n.stretchRight{\n\tanimation-name: stretchRight;\n\t-webkit-animation-name: stretchRight;\t\n\n\tanimation-duration: 1.5s;\t\n\t-webkit-animation-duration: 1.5s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\ttransform-origin: 0% 0%;\n\t-ms-transform-origin: 0% 0%;\n\t-webkit-transform-origin: 0% 0%; \t\t\n}\n\n@keyframes stretchRight {\n\t0% {\n\t\ttransform: scaleX(0.3);\n\t}\n\t40% {\n\t\ttransform: scaleX(1.02);\n\t}\n\t60% {\n\t\ttransform: scaleX(0.98);\n\t}\n\t80% {\n\t\ttransform: scaleX(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleX(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\ttransform: scaleX(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleX(1);\n\t}\t\t\t\t\t\t\t\n}\n\n@-webkit-keyframes stretchRight {\n\t0% {\n\t\t-webkit-transform: scaleX(0.3);\n\t}\n\t40% {\n\t\t-webkit-transform: scaleX(1.02);\n\t}\n\t60% {\n\t\t-webkit-transform: scaleX(0.98);\n\t}\n\t80% {\n\t\t-webkit-transform: scaleX(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleX(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\t-webkit-transform: scaleX(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleX(1);\n\t}\t\t\n}", ""]);
+	exports.push([module.id, "/*\n==============================================\nCSS3 ANIMATION CHEAT SHEET\n==============================================\n\nMade by Justin Aguilar\n\nwww.justinaguilar.com/animations/\n\nQuestions, comments, concerns, love letters:\njustin@justinaguilar.com\n==============================================\n*/\n\n/*\n==============================================\nslideDown\n==============================================\n*/\n\n\n.slideDown{\n\tanimation-name: slideDown;\n\t-webkit-animation-name: slideDown;\t\n\n\tanimation-duration: 1s;\t\n\t-webkit-animation-duration: 1s;\n\n\tanimation-timing-function: ease;\t\n\t-webkit-animation-timing-function: ease;\t\n\n\tvisibility: visible !important;\t\t\t\t\t\t\n}\n\n@keyframes slideDown {\n\t0% {\n\t\ttransform: translateY(-100%);\n\t}\n\t50%{\n\t\ttransform: translateY(8%);\n\t}\n\t65%{\n\t\ttransform: translateY(-4%);\n\t}\n\t80%{\n\t\ttransform: translateY(4%);\n\t}\n\t95%{\n\t\ttransform: translateY(-2%);\n\t}\t\t\t\n\t100% {\n\t\ttransform: translateY(0%);\n\t}\t\t\n}\n\n@-webkit-keyframes slideDown {\n\t0% {\n\t\t-webkit-transform: translateY(-100%);\n\t}\n\t50%{\n\t\t-webkit-transform: translateY(8%);\n\t}\n\t65%{\n\t\t-webkit-transform: translateY(-4%);\n\t}\n\t80%{\n\t\t-webkit-transform: translateY(4%);\n\t}\n\t95%{\n\t\t-webkit-transform: translateY(-2%);\n\t}\t\t\t\n\t100% {\n\t\t-webkit-transform: translateY(0%);\n\t}\t\n}\n\n/*\n==============================================\nslideUp\n==============================================\n*/\n\n\n.slideUp{\n\tanimation-name: slideUp;\n\t-webkit-animation-name: slideUp;\t\n\n\tanimation-duration: 1s;\t\n\t-webkit-animation-duration: 1s;\n\n\tanimation-timing-function: ease;\t\n\t-webkit-animation-timing-function: ease;\n\n\tvisibility: visible !important;\t\t\t\n}\n\n@keyframes slideUp {\n\t0% {\n\t\ttransform: translateY(100%);\n\t}\n\t50%{\n\t\ttransform: translateY(-8%);\n\t}\n\t65%{\n\t\ttransform: translateY(4%);\n\t}\n\t80%{\n\t\ttransform: translateY(-4%);\n\t}\n\t95%{\n\t\ttransform: translateY(2%);\n\t}\t\t\t\n\t100% {\n\t\ttransform: translateY(0%);\n\t}\t\n}\n\n@-webkit-keyframes slideUp {\n\t0% {\n\t\t-webkit-transform: translateY(100%);\n\t}\n\t50%{\n\t\t-webkit-transform: translateY(-8%);\n\t}\n\t65%{\n\t\t-webkit-transform: translateY(4%);\n\t}\n\t80%{\n\t\t-webkit-transform: translateY(-4%);\n\t}\n\t95%{\n\t\t-webkit-transform: translateY(2%);\n\t}\t\t\t\n\t100% {\n\t\t-webkit-transform: translateY(0%);\n\t}\t\n}\n\n/*\n==============================================\nslideLeft\n==============================================\n*/\n\n\n.slideLeft{\n\tanimation-name: slideLeft;\n\t-webkit-animation-name: slideLeft;\t\n\n\tanimation-duration: 0.5s;\t\n\t-webkit-animation-duration: 0.5s;\n\n\tanimation-timing-function: ease-in-out;\t\n\t-webkit-animation-timing-function: ease-in-out;\t\t\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes slideLeft {\n\t0% {\n\t\ttransform: translateX(10%);\n\t}\n\t100% {\n\t\ttransform: translateX(0%);\n\t}\n}\n\n@-webkit-keyframes slideLeft {\n\t0% {\n\t\t-webkit-transform: translateX(10%);\n\t}\n\t100% {\n\t\t-webkit-transform: translateX(0%);\n\t}\n}\n\n/*\n==============================================\nslideRight\n==============================================\n*/\n\n\n.slideRight{\n\tanimation-name: slideRight;\n\t-webkit-animation-name: slideRight;\t\n\n\tanimation-duration: 0.5s;\t\n\t-webkit-animation-duration: 0.5s;\n\n\tanimation-timing-function: ease-in-out;\t\n\t-webkit-animation-timing-function: ease-in-out;\t\t\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes slideRight {\n\t0% {\n\t\ttransform: translateX(-10%);\n\t\topacity: 0;\n\t}\n\t\n\t100% {\n\t\ttransform: translateX(0%);\n\t\topacity: 1;\n\t}\t\n}\n\n@-webkit-keyframes slideRight {\n\t0% {\n\t\t-webkit-transform: translateX(-10%);\n\t}\n\t100% {\n\t\t-webkit-transform: translateX(0%);\n\t}\n}\n\n/*\n==============================================\nslideExpandUp\n==============================================\n*/\n\n\n.slideExpandUp{\n\tanimation-name: slideExpandUp;\n\t-webkit-animation-name: slideExpandUp;\t\n\n\tanimation-duration: 1.6s;\t\n\t-webkit-animation-duration: 1.6s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease -out;\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes slideExpandUp {\n\t0% {\n\t\ttransform: translateY(100%) scaleX(0.5);\n\t}\n\t30%{\n\t\ttransform: translateY(-8%) scaleX(0.5);\n\t}\t\n\t40%{\n\t\ttransform: translateY(2%) scaleX(0.5);\n\t}\n\t50%{\n\t\ttransform: translateY(0%) scaleX(1.1);\n\t}\n\t60%{\n\t\ttransform: translateY(0%) scaleX(0.9);\t\t\n\t}\n\t70% {\n\t\ttransform: translateY(0%) scaleX(1.05);\n\t}\t\t\t\n\t80%{\n\t\ttransform: translateY(0%) scaleX(0.95);\t\t\n\t}\n\t90% {\n\t\ttransform: translateY(0%) scaleX(1.02);\n\t}\t\n\t100%{\n\t\ttransform: translateY(0%) scaleX(1);\t\t\n\t}\n}\n\n@-webkit-keyframes slideExpandUp {\n\t0% {\n\t\t-webkit-transform: translateY(100%) scaleX(0.5);\n\t}\n\t30%{\n\t\t-webkit-transform: translateY(-8%) scaleX(0.5);\n\t}\t\n\t40%{\n\t\t-webkit-transform: translateY(2%) scaleX(0.5);\n\t}\n\t50%{\n\t\t-webkit-transform: translateY(0%) scaleX(1.1);\n\t}\n\t60%{\n\t\t-webkit-transform: translateY(0%) scaleX(0.9);\t\t\n\t}\n\t70% {\n\t\t-webkit-transform: translateY(0%) scaleX(1.05);\n\t}\t\t\t\n\t80%{\n\t\t-webkit-transform: translateY(0%) scaleX(0.95);\t\t\n\t}\n\t90% {\n\t\t-webkit-transform: translateY(0%) scaleX(1.02);\n\t}\t\n\t100%{\n\t\t-webkit-transform: translateY(0%) scaleX(1);\t\t\n\t}\n}\n\n/*\n==============================================\nexpandUp\n==============================================\n*/\n\n\n.expandUp{\n\tanimation-name: expandUp;\n\t-webkit-animation-name: expandUp;\t\n\n\tanimation-duration: 0.7s;\t\n\t-webkit-animation-duration: 0.7s;\n\n\tanimation-timing-function: ease;\t\n\t-webkit-animation-timing-function: ease;\t\t\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes expandUp {\n\t0% {\n\t\ttransform: translateY(100%) scale(0.6) scaleY(0.5);\n\t}\n\t60%{\n\t\ttransform: translateY(-7%) scaleY(1.12);\n\t}\n\t75%{\n\t\ttransform: translateY(3%);\n\t}\t\n\t100% {\n\t\ttransform: translateY(0%) scale(1) scaleY(1);\n\t}\t\n}\n\n@-webkit-keyframes expandUp {\n\t0% {\n\t\t-webkit-transform: translateY(100%) scale(0.6) scaleY(0.5);\n\t}\n\t60%{\n\t\t-webkit-transform: translateY(-7%) scaleY(1.12);\n\t}\n\t75%{\n\t\t-webkit-transform: translateY(3%);\n\t}\t\n\t100% {\n\t\t-webkit-transform: translateY(0%) scale(1) scaleY(1);\n\t}\t\n}\n\n/*\n==============================================\nfadeIn\n==============================================\n*/\n\n.fadeIn{\n\tanimation-name: fadeIn;\n\t-webkit-animation-name: fadeIn;\t\n\n\tanimation-duration: 1.0s;\t\n\t-webkit-animation-duration: 1.0s;\n\n\tanimation-timing-function: ease-in-out;\t\n\t-webkit-animation-timing-function: ease-in-out;\t\t\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes fadeIn {\n\t0% {\n\t\ttransform: scale(1);\n\t\topacity: 0.0;\t\t\n\t}\n\t100% {\n\t\ttransform: scale(1);\n\t\topacity: 1;\t\n\t}\t\t\n}\n\n@-webkit-keyframes fadeIn {\n\t0% {\n\t\t-webkit-transform: scale(1);\n\t\topacity: 0.0;\t\t\n\t}\n\t100% {\n\t\t-webkit-transform: scale(1);\n\t\topacity: 1;\t\n\t}\t\t\n}\n\n/*\n==============================================\nexpandOpen\n==============================================\n*/\n\n\n.expandOpen{\n\tanimation-name: expandOpen;\n\t-webkit-animation-name: expandOpen;\t\n\n\tanimation-duration: 1.2s;\t\n\t-webkit-animation-duration: 1.2s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\tvisibility: visible !important;\t\n}\n\n@keyframes expandOpen {\n\t0% {\n\t\ttransform: scale(1.8);\t\t\n\t}\n\t50% {\n\t\ttransform: scale(0.95);\n\t}\t\n\t80% {\n\t\ttransform: scale(1.05);\n\t}\n\t90% {\n\t\ttransform: scale(0.98);\n\t}\t\n\t100% {\n\t\ttransform: scale(1);\n\t}\t\t\t\n}\n\n@-webkit-keyframes expandOpen {\n\t0% {\n\t\t-webkit-transform: scale(1.8);\t\t\n\t}\n\t50% {\n\t\t-webkit-transform: scale(0.95);\n\t}\t\n\t80% {\n\t\t-webkit-transform: scale(1.05);\n\t}\n\t90% {\n\t\t-webkit-transform: scale(0.98);\n\t}\t\n\t100% {\n\t\t-webkit-transform: scale(1);\n\t}\t\t\t\t\t\n}\n\n/*\n==============================================\nbigEntrance\n==============================================\n*/\n\n\n.bigEntrance{\n\tanimation-name: bigEntrance;\n\t-webkit-animation-name: bigEntrance;\t\n\n\tanimation-duration: 1.6s;\t\n\t-webkit-animation-duration: 1.6s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\tvisibility: visible !important;\t\t\t\n}\n\n@keyframes bigEntrance {\n\t0% {\n\t\ttransform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n\t\topacity: 0.2;\n\t}\n\t30% {\n\t\ttransform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\t\t\n\t\topacity: 1;\n\t}\n\t45% {\n\t\ttransform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\n\t60% {\n\t\ttransform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\t\t\n\t\topacity: 1;\n\t}\t\n\t75% {\n\t\ttransform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\n\t90% {\n\t\ttransform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\t\t\n\t\topacity: 1;\n\t}\t\n\t100% {\n\t\ttransform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\t\t\n}\n\n@-webkit-keyframes bigEntrance {\n\t0% {\n\t\t-webkit-transform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n\t\topacity: 0.2;\n\t}\n\t30% {\n\t\t-webkit-transform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\t\t\n\t\topacity: 1;\n\t}\n\t45% {\n\t\t-webkit-transform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\n\t60% {\n\t\t-webkit-transform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\t\t\n\t\topacity: 1;\n\t}\t\n\t75% {\n\t\t-webkit-transform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\n\t90% {\n\t\t-webkit-transform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\t\t\n\t\topacity: 1;\n\t}\t\n\t100% {\n\t\t-webkit-transform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n\t\topacity: 1;\n\t}\t\t\t\t\n}\n\n/*\n==============================================\nhatch\n==============================================\n*/\n\n.hatch{\n\tanimation-name: hatch;\n\t-webkit-animation-name: hatch;\t\n\n\tanimation-duration: 2s;\t\n\t-webkit-animation-duration: 2s;\n\n\tanimation-timing-function: ease-in-out;\t\n\t-webkit-animation-timing-function: ease-in-out;\n\n\ttransform-origin: 50% 100%;\n\t-ms-transform-origin: 50% 100%;\n\t-webkit-transform-origin: 50% 100%; \n\n\tvisibility: visible !important;\t\t\n}\n\n@keyframes hatch {\n\t0% {\n\t\ttransform: rotate(0deg) scaleY(0.6);\n\t}\n\t20% {\n\t\ttransform: rotate(-2deg) scaleY(1.05);\n\t}\n\t35% {\n\t\ttransform: rotate(2deg) scaleY(1);\n\t}\n\t50% {\n\t\ttransform: rotate(-2deg);\n\t}\t\n\t65% {\n\t\ttransform: rotate(1deg);\n\t}\t\n\t80% {\n\t\ttransform: rotate(-1deg);\n\t}\t\t\n\t100% {\n\t\ttransform: rotate(0deg);\n\t}\t\t\t\t\t\t\t\t\t\n}\n\n@-webkit-keyframes hatch {\n\t0% {\n\t\t-webkit-transform: rotate(0deg) scaleY(0.6);\n\t}\n\t20% {\n\t\t-webkit-transform: rotate(-2deg) scaleY(1.05);\n\t}\n\t35% {\n\t\t-webkit-transform: rotate(2deg) scaleY(1);\n\t}\n\t50% {\n\t\t-webkit-transform: rotate(-2deg);\n\t}\t\n\t65% {\n\t\t-webkit-transform: rotate(1deg);\n\t}\t\n\t80% {\n\t\t-webkit-transform: rotate(-1deg);\n\t}\t\t\n\t100% {\n\t\t-webkit-transform: rotate(0deg);\n\t}\t\t\n}\n\n\n/*\n==============================================\nbounce\n==============================================\n*/\n\n\n.bounce{\n\tanimation-name: bounce;\n\t-webkit-animation-name: bounce;\t\n\n\tanimation-duration: 1.6s;\t\n\t-webkit-animation-duration: 1.6s;\n\n\tanimation-timing-function: ease;\t\n\t-webkit-animation-timing-function: ease;\t\n\t\n\ttransform-origin: 50% 100%;\n\t-ms-transform-origin: 50% 100%;\n\t-webkit-transform-origin: 50% 100%; \t\n}\n\n@keyframes bounce {\n\t0% {\n\t\ttransform: translateY(0%) scaleY(0.6);\n\t}\n\t60%{\n\t\ttransform: translateY(-100%) scaleY(1.1);\n\t}\n\t70%{\n\t\ttransform: translateY(0%) scaleY(0.95) scaleX(1.05);\n\t}\n\t80%{\n\t\ttransform: translateY(0%) scaleY(1.05) scaleX(1);\n\t}\t\n\t90%{\n\t\ttransform: translateY(0%) scaleY(0.95) scaleX(1);\n\t}\t\t\t\t\n\t100%{\n\t\ttransform: translateY(0%) scaleY(1) scaleX(1);\n\t}\t\n}\n\n@-webkit-keyframes bounce {\n\t0% {\n\t\t-webkit-transform: translateY(0%) scaleY(0.6);\n\t}\n\t60%{\n\t\t-webkit-transform: translateY(-100%) scaleY(1.1);\n\t}\n\t70%{\n\t\t-webkit-transform: translateY(0%) scaleY(0.95) scaleX(1.05);\n\t}\n\t80%{\n\t\t-webkit-transform: translateY(0%) scaleY(1.05) scaleX(1);\n\t}\t\n\t90%{\n\t\t-webkit-transform: translateY(0%) scaleY(0.95) scaleX(1);\n\t}\t\t\t\t\n\t100%{\n\t\t-webkit-transform: translateY(0%) scaleY(1) scaleX(1);\n\t}\t\t\n}\n\n\n/*\n==============================================\npulse\n==============================================\n*/\n\n.pulse{\n\tanimation-name: pulse;\n\t-webkit-animation-name: pulse;\t\n\n\tanimation-duration: 1.5s;\t\n\t-webkit-animation-duration: 1.5s;\n\n\tanimation-iteration-count: infinite;\n\t-webkit-animation-iteration-count: infinite;\n}\n\n@keyframes pulse {\n\t0% {\n\t\ttransform: scale(0.9);\n\t\topacity: 0.7;\t\t\n\t}\n\t50% {\n\t\ttransform: scale(1);\n\t\topacity: 1;\t\n\t}\t\n\t100% {\n\t\ttransform: scale(0.9);\n\t\topacity: 0.7;\t\n\t}\t\t\t\n}\n\n@-webkit-keyframes pulse {\n\t0% {\n\t\t-webkit-transform: scale(0.95);\n\t\topacity: 0.7;\t\t\n\t}\n\t50% {\n\t\t-webkit-transform: scale(1);\n\t\topacity: 1;\t\n\t}\t\n\t100% {\n\t\t-webkit-transform: scale(0.95);\n\t\topacity: 0.7;\t\n\t}\t\t\t\n}\n\n/*\n==============================================\nfloating\n==============================================\n*/\n\n.floating{\n\tanimation-name: floating;\n\t-webkit-animation-name: floating;\n\n\tanimation-duration: 1.5s;\t\n\t-webkit-animation-duration: 1.5s;\n\n\tanimation-iteration-count: infinite;\n\t-webkit-animation-iteration-count: infinite;\n}\n\n@keyframes floating {\n\t0% {\n\t\ttransform: translateY(0%);\t\n\t}\n\t50% {\n\t\ttransform: translateY(8%);\t\n\t}\t\n\t100% {\n\t\ttransform: translateY(0%);\n\t}\t\t\t\n}\n\n@-webkit-keyframes floating {\n\t0% {\n\t\t-webkit-transform: translateY(0%);\t\n\t}\n\t50% {\n\t\t-webkit-transform: translateY(8%);\t\n\t}\t\n\t100% {\n\t\t-webkit-transform: translateY(0%);\n\t}\t\t\t\n}\n\n/*\n==============================================\ntossing\n==============================================\n*/\n\n.tossing{\n\tanimation-name: tossing;\n\t-webkit-animation-name: tossing;\t\n\n\tanimation-duration: 2.5s;\t\n\t-webkit-animation-duration: 2.5s;\n\n\tanimation-iteration-count: infinite;\n\t-webkit-animation-iteration-count: infinite;\n}\n\n@keyframes tossing {\n\t0% {\n\t\ttransform: rotate(-4deg);\t\n\t}\n\t50% {\n\t\ttransform: rotate(4deg);\n\t}\n\t100% {\n\t\ttransform: rotate(-4deg);\t\n\t}\t\t\t\t\t\t\n}\n\n@-webkit-keyframes tossing {\n\t0% {\n\t\t-webkit-transform: rotate(-4deg);\t\n\t}\n\t50% {\n\t\t-webkit-transform: rotate(4deg);\n\t}\n\t100% {\n\t\t-webkit-transform: rotate(-4deg);\t\n\t}\t\t\t\t\n}\n\n/*\n==============================================\npullUp\n==============================================\n*/\n\n.pullUp{\n\tanimation-name: pullUp;\n\t-webkit-animation-name: pullUp;\t\n\n\tanimation-duration: 1.1s;\t\n\t-webkit-animation-duration: 1.1s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\ttransform-origin: 50% 100%;\n\t-ms-transform-origin: 50% 100%;\n\t-webkit-transform-origin: 50% 100%; \t\t\n}\n\n@keyframes pullUp {\n\t0% {\n\t\ttransform: scaleY(0.1);\n\t}\n\t40% {\n\t\ttransform: scaleY(1.02);\n\t}\n\t60% {\n\t\ttransform: scaleY(0.98);\n\t}\n\t80% {\n\t\ttransform: scaleY(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleY(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\ttransform: scaleY(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleY(1);\n\t}\t\t\t\t\t\t\t\n}\n\n@-webkit-keyframes pullUp {\n\t0% {\n\t\t-webkit-transform: scaleY(0.1);\n\t}\n\t40% {\n\t\t-webkit-transform: scaleY(1.02);\n\t}\n\t60% {\n\t\t-webkit-transform: scaleY(0.98);\n\t}\n\t80% {\n\t\t-webkit-transform: scaleY(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleY(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\t-webkit-transform: scaleY(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleY(1);\n\t}\t\t\n}\n\n/*\n==============================================\npullDown\n==============================================\n*/\n\n.pullDown{\n\tanimation-name: pullDown;\n\t-webkit-animation-name: pullDown;\t\n\n\tanimation-duration: 1.1s;\t\n\t-webkit-animation-duration: 1.1s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\ttransform-origin: 50% 0%;\n\t-ms-transform-origin: 50% 0%;\n\t-webkit-transform-origin: 50% 0%; \t\t\n}\n\n@keyframes pullDown {\n\t0% {\n\t\ttransform: scaleY(0.1);\n\t}\n\t40% {\n\t\ttransform: scaleY(1.02);\n\t}\n\t60% {\n\t\ttransform: scaleY(0.98);\n\t}\n\t80% {\n\t\ttransform: scaleY(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleY(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\ttransform: scaleY(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleY(1);\n\t}\t\t\t\t\t\t\t\n}\n\n@-webkit-keyframes pullDown {\n\t0% {\n\t\t-webkit-transform: scaleY(0.1);\n\t}\n\t40% {\n\t\t-webkit-transform: scaleY(1.02);\n\t}\n\t60% {\n\t\t-webkit-transform: scaleY(0.98);\n\t}\n\t80% {\n\t\t-webkit-transform: scaleY(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleY(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\t-webkit-transform: scaleY(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleY(1);\n\t}\t\t\n}\n\n/*\n==============================================\nstretchLeft\n==============================================\n*/\n\n.stretchLeft{\n\tanimation-name: stretchLeft;\n\t-webkit-animation-name: stretchLeft;\t\n\n\tanimation-duration: 1.5s;\t\n\t-webkit-animation-duration: 1.5s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\ttransform-origin: 100% 0%;\n\t-ms-transform-origin: 100% 0%;\n\t-webkit-transform-origin: 100% 0%; \n}\n\n@keyframes stretchLeft {\n\t0% {\n\t\ttransform: scaleX(0.3);\n\t}\n\t40% {\n\t\ttransform: scaleX(1.02);\n\t}\n\t60% {\n\t\ttransform: scaleX(0.98);\n\t}\n\t80% {\n\t\ttransform: scaleX(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleX(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\ttransform: scaleX(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleX(1);\n\t}\t\t\t\t\t\t\t\n}\n\n@-webkit-keyframes stretchLeft {\n\t0% {\n\t\t-webkit-transform: scaleX(0.3);\n\t}\n\t40% {\n\t\t-webkit-transform: scaleX(1.02);\n\t}\n\t60% {\n\t\t-webkit-transform: scaleX(0.98);\n\t}\n\t80% {\n\t\t-webkit-transform: scaleX(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleX(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\t-webkit-transform: scaleX(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleX(1);\n\t}\t\t\n}\n\n/*\n==============================================\nstretchRight\n==============================================\n*/\n\n.stretchRight{\n\tanimation-name: stretchRight;\n\t-webkit-animation-name: stretchRight;\t\n\n\tanimation-duration: 1.5s;\t\n\t-webkit-animation-duration: 1.5s;\n\n\tanimation-timing-function: ease-out;\t\n\t-webkit-animation-timing-function: ease-out;\t\n\n\ttransform-origin: 0% 0%;\n\t-ms-transform-origin: 0% 0%;\n\t-webkit-transform-origin: 0% 0%; \t\t\n}\n\n@keyframes stretchRight {\n\t0% {\n\t\ttransform: scaleX(0.3);\n\t}\n\t40% {\n\t\ttransform: scaleX(1.02);\n\t}\n\t60% {\n\t\ttransform: scaleX(0.98);\n\t}\n\t80% {\n\t\ttransform: scaleX(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleX(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\ttransform: scaleX(1.01);\n\t}\n\t100% {\n\t\ttransform: scaleX(1);\n\t}\t\t\t\t\t\t\t\n}\n\n@-webkit-keyframes stretchRight {\n\t0% {\n\t\t-webkit-transform: scaleX(0.3);\n\t}\n\t40% {\n\t\t-webkit-transform: scaleX(1.02);\n\t}\n\t60% {\n\t\t-webkit-transform: scaleX(0.98);\n\t}\n\t80% {\n\t\t-webkit-transform: scaleX(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleX(0.98);\n\t}\t\t\t\t\n\t80% {\n\t\t-webkit-transform: scaleX(1.01);\n\t}\n\t100% {\n\t\t-webkit-transform: scaleX(1);\n\t}\t\t\n}", ""]);
 
 	// exports
 

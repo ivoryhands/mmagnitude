@@ -1,5 +1,6 @@
 var React = require ('react');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+var Nav = require('Nav');
 var About = React.createClass({
    render: function () {
        
@@ -7,16 +8,16 @@ var About = React.createClass({
        
        
         return (
-           
+            <div>
+            
             <div className="row buffer slideRight">
+            
               <div className="small-2 large-2 columns"><p></p></div>
               <div className="small-8 large-8 columns">
                   
                     <div className="row faq ">
                
                         <h5>What is MMA Momentum Gauge?</h5>
-                    
-                        
                         <p>
                             This app analyzes UFC events to determine its' Dwyer Score based upon the fighters who
                             are scheduled to fight on the card.
@@ -63,7 +64,7 @@ var About = React.createClass({
               </div>
               <div className="small-2 large-2 columns"><p></p></div>
             </div>
-           
+        </div> 
         )
    } 
 });

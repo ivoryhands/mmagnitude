@@ -7,9 +7,12 @@ var Nav = React.createClass({
       <div className = "top-bar slideUp">
         <div className = "top-bar-left">
           <ul className = "menu">
-            <li className ="menu-text">MMA Momentum Gauge</li>
+            <li className ="menu-text">MMAGNITUDE</li>
             <li>
-              <IndexLink to="/" activeStyle={{fontWeight: 'bold'}}>Upcoming Events</IndexLink>
+              <IndexLink to="/" activeStyle={{fontWeight: 'bold'}}>Home</IndexLink>
+            </li>
+            <li>
+              <Link to="/upcoming-events" activeStyle={{fontWeight: 'bold'}}>Upcoming Events</Link>
             </li>
             <li>
               <Link to="/past-events" activeStyle={{fontWeight: 'bold'}}>Past Events</Link>

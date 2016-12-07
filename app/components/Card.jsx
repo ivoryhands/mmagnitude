@@ -146,7 +146,7 @@ var Card = React.createClass({
                         <table>
                         <tbody>
                           <tr>
-                            <td rowSpan="2" width="25%" className="first-td"><abbr title={op.division}>{op.divShort}</abbr></td>
+                            <td rowSpan="2" width="25%" className="first-td"><span data-tooltip aria-haspopup="true" class="has-tip" data-disable-hover="false" tabindex="1" title="{op.divison}">{op.divShort}</span></td>
                             <td width="50%">{op.fighterRed}</td>
                             <td width="25%">{op.redScore}</td>
                           </tr>

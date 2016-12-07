@@ -1,13 +1,20 @@
 var React = require ('react');
-var {Link} = require('react-router');
+var {Link, IndexLink} = require('react-router');
 var Halogen = require('halogen/ClipLoader');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 var firebase = require('firebase');
 
+var config = {
+    apiKey: "AIzaSyBQpgPVjQScAtAbgxZZ_BIs3jZhLD38SJY",
+    authDomain: "events-558cd.firebaseapp.com",
+    databaseURL: "https://events-558cd.firebaseio.com",
+    storageBucket: "events-558cd.appspot.com",
+    messagingSenderId: "81048302603"
+};
+firebase.initializeApp(config);
 
-
-var EventDataPast = React.createClass({
+var EventData = React.createClass({
     getInitialState: function () {
         return {
            hot: []
@@ -33,7 +40,7 @@ var EventDataPast = React.createClass({
                     var eventDate = new Date(newtits.date);     //get event date
                     var currentDate = new Date();               //get current date
                     
-                    if (currentDate > eventDate) {              //push only future events
+                    if (currentDate < eventDate) {              //push only future events
                         hotvents.push(newtits);  
                     }
                     that.setState({hot: hotvents});
@@ -41,14 +48,15 @@ var EventDataPast = React.createClass({
             });
 
     },
+    
    render: function () {
-       
-       if (!this.state.hot) {
+        
+        if (!this.state.hot) {
                 return <div><Halogen className = "halogen" color="#5F7187" size="72px" margin="48px"/></div>
             }
         return (
             <div>
-            
+            <Nav/>
             <div className="row small-up-1 medium-up-2 large-up-4">
             
             <ReactCSSTransitionGroup
@@ -77,8 +85,7 @@ var EventDataPast = React.createClass({
             
             </div>
         )
-       
    } 
 });
 
-module.exports = EventDataPast;
+module.exports = EventData;

@@ -1,7 +1,10 @@
 var React = require ('react');
 var {Link, IndexLink} = require('react-router');
 var Halogen = require('halogen/ClipLoader');
+var Nav = require('Nav');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+var InfiniteScroll = require('react-infinite-scroller');
+
 
 var firebase = require('firebase');
 
@@ -14,133 +17,128 @@ var config = {
 };
 firebase.initializeApp(config);
 
+
 var EventData = React.createClass({
+    
     getInitialState: function () {
         return {
-           hot: []
+           events: [],
+           hotLength: 0,
+           eventsDisplay: [],
+           page: 0,
+           previous: false,
+           next: true,
+           isLoading: true,
+           offset: 0,
+           hasMoreItems: true,
+           loadedEvents: false,
+           btnLoadingMsg: 'Load More'
         }
     },
     componentWillMount: function () {
         var allevents = [];
         var events = [];
         var test;
-        console.log(this.props);
+        
+        //console.log(this.props);
         
     },
     componentDidMount: function () {
-            var ref = firebase.database().ref('events');
+        console.log('start!');
+        var that = this;
+        
+        this.initLoad();
+        //this.loadItems();
+            
 
-            ref.on('value', snapshot => {
-                var tits = snapshot.val();
-                var hotvents = [];
-                var that = this;
-
-                snapshot.forEach(function (data) {
-                    var newtits = data.val();
-                    var eventDate = new Date(newtits.date);     //get event date
-                    var currentDate = new Date();               //get current date
-                    
-                    if (currentDate < eventDate) {              //push only future events
-                        hotvents.push(newtits);  
-                    }
-                    that.setState({hot: hotvents});
-                });
-            });
-
+    },
+    loadChunk() {
+        console.log(this.state.events);
+    },
+    initLoad() {
+        console.log(ref, "this is ref!");
+        var ref = firebase.database().ref('events');
+        var that = this;
+        
+        ref.on('value', function(snapshot) {
+          var data = snapshot.val();
+          that.setState({events: data }, function afterChange () {
+             that.loadItems();
+          });
+        }, function(error) {
+          console.error(error);
+        });
+        
+    },
+    loadItems() {
+        const page_size = 6;
+        var length = this.state.events.length;
+        console.log(length,"length");
+        var offset = this.state.offset;
+        console.log(offset,"offset");
+        var limit = page_size + offset;
+        console.log(limit,"limit");
+        if (limit > length) {
+            limit = length;
+            this.setState({btnLoadingMsg: 'All Loaded'});
+        }
+        //console.log("load items!");
+        var loadedEvents = this.state.events;
+        var eventsDisplay = [];
+        
+        for(var i = 0; i < limit; i++) {
+            eventsDisplay.push(loadedEvents[i]);
+            console.log("pushing!")
+        }
+        this.setState({eventsDisplay: eventsDisplay});
+        this.setState({isLoading: false});
+        this.setState({hasMoreItems: false});
+        this.setState({offset: limit});
+        console.log("eventsDisplay",eventsDisplay);
     },
     
    render: function () {
-        
-        if (!this.state.hot) {
+       console.log(this.state.events.length,"events function length",this.state.loadedEvents);
+      
+        if (this.state.isLoading) {
                 return <div><Halogen className = "halogen" color="#5F7187" size="72px" margin="48px"/></div>
             }
+        
+        var events = [];
+        this.state.eventsDisplay.map((card, i) => {
+            events.push(
+                <div className="small-10 large-4 columns slideRight" key={i}>
+                    <div className="profile-card" key={i + "profile"}>
+                        <div className="frame-square">
+                            <div className="crop">
+                                <img src={card.img}/>
+                            </div>
+                        </div>
+                        <div className="card-info">
+                            <h6><Link to ={ '/card/' + card.url }>{card.title}</Link></h6>
+                            <h6>{card.location}</h6>
+                            <h6>{card.date}</h6>
+                        </div>
+                    </div>
+                </div>
+            );
+        });
+            
         return (
             <div>
-            
-            <div className="row small-up-1 medium-up-2 large-up-4">
-            
-            <ReactCSSTransitionGroup
-                transitionName="fade"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={500}>
-                {this.state.hot.map((card,index)=>{
-                    return <div className="small-3 columns end" key={index}>
-                                <div className="profile-card slideRight">
-                                    <div className="image-wrapper overlay-fade-in">
-                                         <img src={card.img} className="thumbnail" alt />
-                                         <div className="image-overlay-content">
-                                            <h2>{card.event_score}</h2>
-                                            <Link to ={ '/card/' + card.url } className="button">Card</Link>
-                                            <p>{card.title}</p>
-                                         </div>
-                                    </div>
-                                    <h5>{card.title}</h5>
-                                    <h6>{card.date}</h6>
-                                </div>
-                            </div>
-                })}
-            </ReactCSSTransitionGroup>
-            
-            </div>
-            
+                <div className="row">
+                    <div className="small-1 large-1 columns"><p></p></div>                
+                    <div className="small-10 large-10 columns">
+                        {events}
+                        
+                    </div>
+                    <div className="small-1 large-1 columns"><p></p></div>
+                    
+                </div>
+                <button className="button load-more" onClick={this.loadItems}>{this.state.btnLoadingMsg}</button>
             </div>
         )
    } 
 });
 
 module.exports = EventData;
-
-/*
-<div className="row small-up-1 medium-up-2 large-up-4">
-                <Link to="/card/">Card</Link>
-                <div className="column">
-                   
-                    <div className="profile-card">
-                        <div className="image-wrapper overlay-fade-in">
-                             <img src="https://upload.wikimedia.org/wikipedia/en/6/69/UFC_Sacramento_poster.jpg" className="thumbnail" alt />
-                             <div className="image-overlay-content">
-                                <h2>{this.state.hot.event_score}</h2>
-                                <Link to ={ '/card/' + this.state.hot.url } className="button">Card</Link>
-                                <p>{this.state.hot.title}</p>
-                             </div>
-                             
-                        </div>
-                        
-                    </div>
-           
-                </div>
-            <ul>
-            {this.state.hot.map(card=>{
-                return <li></li>
-            })
-                
-            }
-            </ul>
-            
-            </div>
-
-
-||||||||||||||||||||||||||||||||||||||||||||||||||
-
-<div className="profile-info"></div>
-
-
-            
-
-
-<a href="/card" className="button">FIGHT CARD</a>
-<div class="image-wrapper overlay-fade-in">
-      
-      <img src="https://tourneau.scene7.com/is/image/tourneau/DEV9900004?hei=450&wid=300&fmt=png-alpha&resMode=bicub&op_sharpen=1" />
-      
-      <div class="image-overlay-content">
-        <h2>.overlay-fade-in</h2>
-        <p class="price">$99.99</p>
-        <a href="#" class="button">Get it</a>
-      </div>
-    
-    </div>
-
-
-
-*/
