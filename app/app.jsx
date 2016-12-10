@@ -12,6 +12,7 @@ var Splash = require('Splash');
 require('style!css!foundation-sites/dist/foundation.css')
 require('style!css!foundation-sites/dist/custom.css')
 require('style!css!foundation-sites/dist/animation.css')
+//require('style!css!foundation-sites/assets/font-awesome-4.7.0/css/font-awesome.css')
 
 ReactDOM.render(
   <Router history={hashHistory}>

@@ -11,8 +11,7 @@ var Splash = React.createClass({
               <div className = "small-2 large-2 columns"><p></p></div>
               <div className = "small-8 large-8 columns">
                 <div className="splash-title slideRight">
-                    <h1><span>MMA</span></h1>
-                    <h1>GNITUDE</h1>
+                    <object type="image/svg+xml" data="images/mmagnitude_animated.svg"></object>
                     <h4>Find event scores and fighter breakdowns for past and future MMA events.</h4>
                 </div>
                 <div className="btnEvents">

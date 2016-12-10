@@ -46,16 +46,14 @@ var Card = React.createClass({
             var hotvents = [];
             var that = this;
             ref.once('value').then((snapshot) => {
-                //console.log('new shit', snapshot.val());
                 var fightevents = snapshot.val();
                 for (var i = 0; i < fightevents.length; i++) {
                     if (fightevents[i].url === event_url) {
-                        //console.log(fightevents[i]);
                         hotvents.push(fightevents[i]);
-                        that.setState({hot: fightevents[i].fights});
-                        that.setState({title: fightevents[i].title, date: fightevents[i].date, location: fightevents[i].location});
                         var fighter_list = [];
                         var fighterList = fightevents[i].fights;
+                        that.setState({hot: fightevents[i].fights});
+                        that.setState({title: fightevents[i].title, date: fightevents[i].date, location: fightevents[i].location});
                         that.setState({fightersCount: fighterList.length});
                         refFighters.once('value').then((snapshotFighters=> {
                             var allFighters = snapshotFighters.val();
@@ -132,9 +130,6 @@ var Card = React.createClass({
             });
     },
     render: function () {
-       
-        //console.log(this.props);
-        //console.log(this.props);
         
         if (!this.state.score) {
                 return <div><Halogen className = "halogen" color="#5F7187" size="72px" margin="48px"/></div>
@@ -142,19 +137,18 @@ var Card = React.createClass({
         
         var fightCardList = this.state.cold.map((op,index) => {
             return  <div className="row tab-row-parent" key={index}>
-            
                         <table>
-                        <tbody>
-                          <tr>
-                            <td rowSpan="2" width="25%" className="first-td"><span data-tooltip aria-haspopup="true" class="has-tip" data-disable-hover="false" tabindex="1" title="{op.divison}">{op.divShort}</span></td>
-                            <td width="50%">{op.fighterRed}</td>
-                            <td width="25%">{op.redScore}</td>
-                          </tr>
-                          <tr>
-                            <td>{op.fighterBlue}</td>
-                            <td>{op.blueScore}</td>
-                          </tr>
-                        </tbody>
+                            <tbody>
+                              <tr>
+                                <td rowSpan="2" width="25%" className="first-td"><span data-tooltip aria-haspopup="true" class="has-tip" data-disable-hover="false" tabindex="1" title="{op.divison}">{op.divShort}</span></td>
+                                <td width="50%">{op.fighterRed}</td>
+                                <td width="25%">{op.redScore}</td>
+                              </tr>
+                              <tr>
+                                <td>{op.fighterBlue}</td>
+                                <td>{op.blueScore}</td>
+                              </tr>
+                            </tbody>
                         </table>
                         
                     </div>
@@ -174,16 +168,15 @@ var Card = React.createClass({
                             
                             <div className="fight-card-title"><h2>FIGHT CARD</h2></div>
                             <div className="column fight-col">
-                                          <table>
+                                            <table>
                                                 <thead>
-                                                <tr>
-                                                  <th width="25%">Division</th>
-                                                  <th width="50%">Fighter</th>
-                                                  <th width="25%">Score</th>
-                                                </tr>
-                                              </thead>
-                                              
-                                              </table>
+                                                    <tr>
+                                                      <th width="25%">Division</th>
+                                                      <th width="50%">Fighter</th>
+                                                      <th width="25%">Score</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
                                 {fightCardList}
                             
                             </div>

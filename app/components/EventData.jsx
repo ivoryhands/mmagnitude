@@ -3,10 +3,14 @@ var {Link, IndexLink} = require('react-router');
 var Halogen = require('halogen/ClipLoader');
 var Nav = require('Nav');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
-var InfiniteScroll = require('react-infinite-scroller');
 
 
 var firebase = require('firebase');
+
+const options = [
+  'one', 'two', 'three'
+]
+const defaultOption = options[0];
 
 var config = {
     apiKey: "AIzaSyBQpgPVjQScAtAbgxZZ_BIs3jZhLD38SJY",
@@ -32,7 +36,10 @@ var EventData = React.createClass({
            offset: 0,
            hasMoreItems: true,
            loadedEvents: false,
-           btnLoadingMsg: 'Load More'
+           btnLoadingMsg: 'Load More',
+           dropdownOptions: 'ddrrrrrop',
+           order: 'ASC',
+           btnSortClass: "fa fa-sort-amount-asc"
         }
     },
     componentWillMount: function () {
@@ -52,9 +59,6 @@ var EventData = React.createClass({
             
 
     },
-    loadChunk() {
-        console.log(this.state.events);
-    },
     initLoad() {
         console.log(ref, "this is ref!");
         var ref = firebase.database().ref('events');
@@ -62,6 +66,7 @@ var EventData = React.createClass({
         
         ref.on('value', function(snapshot) {
           var data = snapshot.val();
+          
           that.setState({events: data }, function afterChange () {
              that.loadItems();
           });
@@ -71,30 +76,115 @@ var EventData = React.createClass({
         
     },
     loadItems() {
+        
+        /*  Show inital batch of items upon loading
+        *   @param page_size - events shown in groups of 6
+        *   @param length - length of all events in this.state.events
+        *   @param offset - keeps track of position in array of this.state.events
+        *   @param limit - ensures end doesn't exceed length
+        */
+        
         const page_size = 6;
         var length = this.state.events.length;
-        console.log(length,"length");
         var offset = this.state.offset;
-        console.log(offset,"offset");
         var limit = page_size + offset;
-        console.log(limit,"limit");
         if (limit > length) {
             limit = length;
             this.setState({btnLoadingMsg: 'All Loaded'});
         }
-        //console.log("load items!");
+        
         var loadedEvents = this.state.events;
         var eventsDisplay = [];
         
         for(var i = 0; i < limit; i++) {
-            eventsDisplay.push(loadedEvents[i]);
-            console.log("pushing!")
+            
+            var eventDate = new Date(loadedEvents[i].date);                 //get event date
+            var currentDate = new Date();                                   //get current date
+            currentDate.setDate(currentDate.getDate() -1);
+            console.log(currentDate.getTime());
+            console.log(eventDate.getTime());
+            if (currentDate.getTime() < eventDate.getTime()) {              //push only future events
+                eventsDisplay.push(loadedEvents[i]);
+                console.log("pushing!")
+            }
         }
-        this.setState({eventsDisplay: eventsDisplay});
+        
         this.setState({isLoading: false});
         this.setState({hasMoreItems: false});
         this.setState({offset: limit});
-        console.log("eventsDisplay",eventsDisplay);
+        
+        
+        /*  Initial Date Sort
+        *   @param sorttable - used to sort date array
+        *   @param newEvents - new array to be displayed
+        */
+        var sortable = [];
+        var newEvents = [];
+        
+        for (var x in eventsDisplay) {
+            var d  = new Date(eventsDisplay[x].date);
+            var dd = d.getTime();
+            sortable.push(dd);
+        }
+        console.log(sortable);
+        sortable.sort();
+        
+        for (let v of sortable) {
+          for (let x of eventsDisplay) {
+              var e = new Date(x.date);
+              if (v === e.getTime()) {
+                newEvents.push(x);
+                console.log("match!");
+                console.log(x.title);
+              }
+          }
+        }
+        
+        this.setState({eventsDisplay: newEvents});
+        
+    },
+    sorter() {
+        console.log('sorter activated');
+        if (this.state.order === "ASC") {
+            this.setState({btnSortClass: "fa fa-sort-amount-asc"});
+        }
+        if (this.state.order === "DESC") {
+            this.setState({btnSortClass: "fa fa-sort-amount-desc"});
+        }
+        var order = this.state.order;
+        this.dateSort(this.state.eventsDisplay, order);
+    },
+    dateSort(events, order) {
+        console.log(order);
+        var sortable = [];
+        var newEvents = [];
+        
+        for (var x in events) {
+            var d = new Date (events[x].date);
+            var dd = d.getTime();
+            sortable.push(dd);
+        }
+        sortable.sort();
+        if (order === "DESC") {
+            sortable.reverse();
+        }
+        
+        for (let v of sortable) {
+          for (let x of events) {
+              var e = new Date(x.date);
+              if (v === e.getTime()) {
+                newEvents.push(x);
+              }
+          }
+        }
+        if (order === "DESC") {
+            this.setState({order: "ASC"});    
+        }
+        else {
+            this.setState({order: "DESC"});
+        }
+        console.log(this.state.order);
+        this.setState({eventsDisplay: newEvents});
     },
     
    render: function () {
@@ -127,8 +217,18 @@ var EventData = React.createClass({
         return (
             <div>
                 <div className="row">
+                    <div className="small-1 large-1 columns"><p></p></div> 
+                    <div className="small-10 large-10 columns">
+                        <button type="button" onClick = {this.sorter} className="secondary button drop-size" href="#"><i className={this.state.btnSortClass} aria-hidden="true"></i></button>
+                    </div>
+                    <div className="small-1 large-1 columns"><p></p></div> 
+                </div>
+                
+                <div className="row">
+                
                     <div className="small-1 large-1 columns"><p></p></div>                
                     <div className="small-10 large-10 columns">
+                    
                         {events}
                         
                     </div>
