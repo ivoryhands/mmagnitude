@@ -22,13 +22,28 @@ var Card = React.createClass({
         //console.log('Hello');
     },
     componentDidMount: function () {
-        function computeScore (recordSplit) {
+        function datePos (dateSplit, cardDate) {
+            var pos = 0;
+            
+            for (let x of dateSplit) {
+                var fightDate = new Date(x);
+                if (fightDate.getTime() < cardDate.getTime()) {
+                    return pos;
+                }
+                pos++;
+            }
+        }
+        function computeScore (recordSplit, dateSplit, cardDate) {
             var RecordScore = 0;
-            for (var i = 0; i < recordSplit.length; i++) {
+            var cardDate = new Date(cardDate);
+            
+            var pos = datePos(dateSplit, cardDate);
+            
+            for (var i = pos; i < recordSplit.length; i++) {
                 if (recordSplit[i] === "o") {
                     return RecordScore;
                 }
-                if (i > 0 && recordSplit[i] !== recordSplit[i-1] && recordSplit[i] !== "d") {
+                if (i > pos && recordSplit[i] !== recordSplit[i-1] && recordSplit[i] !== "d") {
                     return RecordScore;
                 }
                 if (recordSplit[i] === "w") {
@@ -45,22 +60,28 @@ var Card = React.createClass({
             var refFighters = firebase.database().ref('fighters');
             var hotvents = [];
             var that = this;
+            
             ref.once('value').then((snapshot) => {
                 var fightevents = snapshot.val();
+                
                 for (var i = 0; i < fightevents.length; i++) {
                     if (fightevents[i].url === event_url) {
+                        var totalScore = 0;
+                        var firebasePOS = i;
                         hotvents.push(fightevents[i]);
                         var fighter_list = [];
                         var fighterList = fightevents[i].fights;
                         that.setState({hot: fightevents[i].fights});
                         that.setState({title: fightevents[i].title, date: fightevents[i].date, location: fightevents[i].location});
                         that.setState({fightersCount: fighterList.length});
+                        
                         refFighters.once('value').then((snapshotFighters=> {
                             var allFighters = snapshotFighters.val();
                             var redRecordArr = [];
                             var blueRecordArr = [];
                             var zipper = [];
                             var score = 0;
+                            
                             Object.keys(fighterList).map(function(key, index) {
                                 var redRecord = 0;
                                 var blueRecord = 0;
@@ -70,15 +91,12 @@ var Card = React.createClass({
                                 var divShort = fighterList[key].divshort;
                                 var blueRecord;
                                 var redRecord;
-                                for (var n = 0; n < allFighters.length; n++) {
-                                    //console.log(allFighters[n].name);
-                                }
-                                //console.log(allFighters);
+                                
                                 for (var k = 0; k < allFighters.length; k++) {
                                     if (allFighters[k].name === fighterList[key].red) {
-                                        var strRecord = allFighters[k].record;
-                                        var redRecordSplit = strRecord.split(",");
-                                        var redRecord = computeScore(redRecordSplit);
+                                        var redRecordSplit = allFighters[k].record.split(",");
+                                        var redDateSplit = allFighters[k].date.split(",");
+                                        var redRecord = computeScore(redRecordSplit, redDateSplit, that.state.date);
                                         
                                         if (redRecord > 0) {
                                             var redRecordStr = "+"+redRecord;
@@ -86,20 +104,21 @@ var Card = React.createClass({
                                         else {
                                             var redRecordStr = redRecord;
                                         }
-                                        //console.log(redRecord);
                                         that.setState({score: that.state.score + redRecord});
+                                        totalScore = totalScore + redRecord;
                                     }
                                     if (allFighters[k].name === fighterList[key].blue) {
                                         var blueRecordSplit = allFighters[k].record.split(",");
-                                        var blueRecord = computeScore(blueRecordSplit);
+                                        var blueDateSplit = allFighters[k].date.split(",");
+                                        var blueRecord = computeScore(blueRecordSplit, blueDateSplit, that.state.date);
                                         if (blueRecord > 0) {
                                             var blueRecordStr = "+"+blueRecord;
                                         }
                                         else {
                                             var blueRecordStr = blueRecord;
                                         }
-                                        //console.log(blueRecord);
                                         that.setState({score: that.state.score + blueRecord});
+                                        totalScore = totalScore + blueRecord;
                                     }
                                 }
                                 var zip =
@@ -113,16 +132,23 @@ var Card = React.createClass({
                                     };
                                 zipper.push(zip);
                                 that.setState({cold: zipper});
-                                if (that.state.score > 0) {
-                                    var strScore = "+"+that.state.score;
-                                    that.setState({strScore: strScore});
-                                }
-                                else {
-                                    that.setState({strScore: that.state.score});
-                                }
-                            });    
+                                
+                            });
+                            /*  Push Dwyer Score to Firebase
+                            *   @params firebasePath = current events node
+                            *   @params addScoreRef = firebase path
+                            */ 
+                            var firebasePath = "events/"+firebasePOS;
+                            var addScoreRef = firebase.database().ref(firebasePath);
+                            
+                            addScoreRef.update({ event_score: totalScore })
+                              .then(function() {
+                                console.log('Updated score: ', totalScore);
+                              })
+                              .catch(function(error) {
+                                console.log('Synchronization failed');
+                            });
                         }));
-                        
                     }
                 }
             }, (e) => {
@@ -140,7 +166,7 @@ var Card = React.createClass({
                         <table>
                             <tbody>
                               <tr>
-                                <td rowSpan="2" width="25%" className="first-td"><span data-tooltip aria-haspopup="true" class="has-tip" data-disable-hover="false" tabindex="1" title="{op.divison}">{op.divShort}</span></td>
+                                <td rowSpan="2" width="25%" className="first-td"><span data-tooltip aria-haspopup="true" className="has-tip" data-disable-hover="false" tabIndex="1" title={op.divison}>{op.divShort}</span></td>
                                 <td width="50%">{op.fighterRed}</td>
                                 <td width="25%">{op.redScore}</td>
                               </tr>
@@ -192,50 +218,3 @@ var Card = React.createClass({
 });
 
 module.exports = Card;
-
-/*
-<ContentHeader title={this.state.title} date={this.state.date} location={this.state.location}/>
-
-
-
-
-{this.state.hot.map(card=>{
-                                return <div className="profile-card">{card.red}{card.blue}</div>
-                            })}
-<div className="small-5 columns tab-row-big">
-                        <div className="row tab-row">
-                          <div className="small-12 columns">
-                            {op.fighterRed}
-                          </div>
-                        </div>
-                        <div className="row tab-row">
-                          <div className="small-12 columns">
-                            {op.fighterBlue}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="small-3 columns tab-row-big">
-                        <div className="row tab-row">
-                          <div className="small-12 columns">
-                            {op.redScore}
-                          </div>
-                        </div>
-                        <div className="row tab-row">
-                          <div className="small-12 columns">
-                            {op.blueScore}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="small-4 columns tab-row-big-division">
-                        <div className="row tab-row-tall">
-                          
-                            <h1>{op.division}</h1>
-                         
-                        </div>
-                      </div>
-
-
-
-
-*/

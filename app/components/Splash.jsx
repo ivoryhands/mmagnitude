@@ -16,7 +16,7 @@ var Splash = React.createClass({
                 </div>
                 <div className="btnEvents">
                     <Link to="/upcoming-events" className="secondary large button slideLeft">Upcoming Events</Link>
-                    <Link to="/previous-events" className="secondary large button slideLeft">Past Events</Link>
+                    <Link to="/past-events" className="secondary large button slideLeft">Past Events</Link>
                 </div>
               </div>
             <div className = "small-2 large-2 columns"><p></p></div>

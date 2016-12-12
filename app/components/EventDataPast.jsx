@@ -23,8 +23,9 @@ var EventDataPast = React.createClass({
            loadedEvents: false,
            btnLoadingMsg: 'Load More',
            dropdownOptions: 'ddrrrrrop',
-           order: 'ASC',
-           btnSortClass: "fa fa-sort-amount-asc"
+           order: 'DESC',
+           btnSortClass: "fa fa-arrow-down",
+           btnLoadingClassName: "button load-more"
         }
     },
     componentWillMount: function () {
@@ -104,17 +105,14 @@ var EventDataPast = React.createClass({
         *   @param offset - keeps track of position in array of this.state.events
         *   @param limit - ensures end doesn't exceed length
         */
-        console.log(this.state.events);
         const page_size = 6;
         var length = this.state.events.length;
-        console.log(length);
         var offset = this.state.offset;
-        console.log(offset);
         var limit = page_size + offset;
-        console.log(limit);
+    
         if (limit > length) {
             limit = length;
-            this.setState({btnLoadingMsg: 'All Loaded'});
+            this.setState({btnLoadingMsg: 'All Loaded', btnLoadingClassName: 'button load-more hide'});
         }
         
         var loadedEvents = this.state.events;
@@ -130,6 +128,10 @@ var EventDataPast = React.createClass({
         this.setState({hasMoreItems: false});
         this.setState({offset: limit});
         
+        if (pastEvents.length < page_size) {
+            this.setState({btnLoadingMsg: 'All Loaded', btnLoadingClassName: 'button load-more hide'});
+        }
+        
         this.setState({eventsDisplay: pastEvents});
         
         
@@ -137,10 +139,10 @@ var EventDataPast = React.createClass({
     sorter() {
         console.log('sorter activated');
         if (this.state.order === "ASC") {
-            this.setState({btnSortClass: "fa fa-sort-amount-asc"});
+            this.setState({btnSortClass: "fa fa-arrow-down"});
         }
         if (this.state.order === "DESC") {
-            this.setState({btnSortClass: "fa fa-sort-amount-desc"});
+            this.setState({btnSortClass: "fa fa-arrow-up"});
         }
         var order = this.state.order;
         this.dateSort(this.state.eventsDisplay, order);
@@ -151,7 +153,6 @@ var EventDataPast = React.createClass({
         var sortedEvents = [];
         
         for (let x of events) {
-            //console.log(x.date);
             var d = new Date(x.date);
             sortable.push([d.getTime(), x.title]);    
         }
@@ -165,11 +166,9 @@ var EventDataPast = React.createClass({
         }
         for (let v of sortable) {
             for (let x of events) {
-                //console.log(x);
-                //console.log(v);
-                    if (v[1] === x.title) {
-                        sortedEvents.push(x);
-                    }
+                if (v[1] === x.title) {
+                    sortedEvents.push(x);
+                }
             }
         }
         console.log(sortedEvents);
@@ -180,15 +179,12 @@ var EventDataPast = React.createClass({
         else {
             this.setState({order: "DESC"});
         }
-        
-        this.setState({events: sortedEvents }, function afterChange () {
-            this.loadItems();
-        });
+        this.setState({eventsDisplay: sortedEvents});
         
     },
     
    render: function () {
-       console.log(this.state.events.length,"events function length",this.state.loadedEvents);
+       //console.log(this.state.events.length,"events function length",this.state.loadedEvents);
       
         if (this.state.isLoading) {
                 return <div><Halogen className = "halogen" color="#5F7187" size="72px" margin="48px"/></div>
@@ -219,7 +215,7 @@ var EventDataPast = React.createClass({
                 <div className="row">
                     <div className="small-1 large-1 columns"><p></p></div> 
                     <div className="small-10 large-10 columns">
-                        <button type="button" onClick = {this.sorter} className="secondary button drop-size" href="#"><i className={this.state.btnSortClass} aria-hidden="true"></i></button>
+                        <button type="button" onClick = {this.sorter} className="secondary button drop-size" href="#">DATE <i className={this.state.btnSortClass} aria-hidden="true"></i></button>
                     </div>
                     <div className="small-1 large-1 columns"><p></p></div> 
                 </div>
@@ -235,7 +231,7 @@ var EventDataPast = React.createClass({
                     <div className="small-1 large-1 columns"><p></p></div>
                     
                 </div>
-                <button className="button load-more" onClick={this.loadItems}>{this.state.btnLoadingMsg}</button>
+                <button className={this.state.btnLoadingClassName} onClick={this.loadItems}>{this.state.btnLoadingMsg}</button>
             </div>
         )
    } 

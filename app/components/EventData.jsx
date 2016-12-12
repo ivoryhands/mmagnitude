@@ -38,8 +38,9 @@ var EventData = React.createClass({
            loadedEvents: false,
            btnLoadingMsg: 'Load More',
            dropdownOptions: 'ddrrrrrop',
-           order: 'ASC',
-           btnSortClass: "fa fa-sort-amount-asc"
+           order: 'DESC',
+           btnSortClass: "fa fa-arrow-down",
+           btnLoadingClassName: "button load-more"
         }
     },
     componentWillMount: function () {
@@ -55,8 +56,6 @@ var EventData = React.createClass({
         var that = this;
         
         this.initLoad();
-        //this.loadItems();
-            
 
     },
     initLoad() {
@@ -88,9 +87,10 @@ var EventData = React.createClass({
         var length = this.state.events.length;
         var offset = this.state.offset;
         var limit = page_size + offset;
+        console.log(limit, length);
         if (limit > length) {
             limit = length;
-            this.setState({btnLoadingMsg: 'All Loaded'});
+            this.setState({btnLoadingMsg: 'All Loaded', btnLoadingClassName: 'button load-more hide'});
         }
         
         var loadedEvents = this.state.events;
@@ -139,6 +139,9 @@ var EventData = React.createClass({
               }
           }
         }
+        if (eventsDisplay.length < page_size) {
+            this.setState({btnLoadingMsg: 'All Loaded', btnLoadingClassName: 'button load-more hide'});
+        }
         
         this.setState({eventsDisplay: newEvents});
         
@@ -146,10 +149,10 @@ var EventData = React.createClass({
     sorter() {
         console.log('sorter activated');
         if (this.state.order === "ASC") {
-            this.setState({btnSortClass: "fa fa-sort-amount-asc"});
+            this.setState({btnSortClass: "fa fa-arrow-down"});
         }
         if (this.state.order === "DESC") {
-            this.setState({btnSortClass: "fa fa-sort-amount-desc"});
+            this.setState({btnSortClass: "fa fa-arrow-up"});
         }
         var order = this.state.order;
         this.dateSort(this.state.eventsDisplay, order);
@@ -157,7 +160,7 @@ var EventData = React.createClass({
     dateSort(events, order) {
         console.log(order);
         var sortable = [];
-        var newEvents = [];
+        var sortedEvents = [];
         
         for (var x in events) {
             var d = new Date (events[x].date);
@@ -173,7 +176,7 @@ var EventData = React.createClass({
           for (let x of events) {
               var e = new Date(x.date);
               if (v === e.getTime()) {
-                newEvents.push(x);
+                sortedEvents.push(x);
               }
           }
         }
@@ -184,11 +187,10 @@ var EventData = React.createClass({
             this.setState({order: "DESC"});
         }
         console.log(this.state.order);
-        this.setState({eventsDisplay: newEvents});
+        this.setState({eventsDisplay: sortedEvents});
     },
     
    render: function () {
-       console.log(this.state.events.length,"events function length",this.state.loadedEvents);
       
         if (this.state.isLoading) {
                 return <div><Halogen className = "halogen" color="#5F7187" size="72px" margin="48px"/></div>
@@ -219,7 +221,7 @@ var EventData = React.createClass({
                 <div className="row">
                     <div className="small-1 large-1 columns"><p></p></div> 
                     <div className="small-10 large-10 columns">
-                        <button type="button" onClick = {this.sorter} className="secondary button drop-size" href="#"><i className={this.state.btnSortClass} aria-hidden="true"></i></button>
+                        <button type="button" onClick = {this.sorter} className="secondary button drop-size" href="#">DATE <i className={this.state.btnSortClass} aria-hidden="true"></i></button>
                     </div>
                     <div className="small-1 large-1 columns"><p></p></div> 
                 </div>
@@ -235,7 +237,7 @@ var EventData = React.createClass({
                     <div className="small-1 large-1 columns"><p></p></div>
                     
                 </div>
-                <button className="button load-more" onClick={this.loadItems}>{this.state.btnLoadingMsg}</button>
+                <button className={this.state.btnLoadingClassName} onClick={this.loadItems}>{this.state.btnLoadingMsg}</button>
             </div>
         )
    } 
