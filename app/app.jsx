@@ -8,6 +8,7 @@ var EventData = require('EventData');
 var EventDataPast = require('EventDataPast');
 var Nav = require('Nav');
 var Splash = require('Splash');
+var AllEvents = require('AllEvents');
 
 require('style!css!foundation-sites/dist/foundation.css')
 require('style!css!foundation-sites/dist/custom.css')
@@ -22,6 +23,7 @@ ReactDOM.render(
       <Route path ="card/*" component={Card}/>
       <Route path ="past-events" component={EventDataPast}/>
       <Route path ="upcoming-events" component={EventData}/>
+      <Route path ="all-events" component={AllEvents}/>
       <IndexRoute component={Splash}/>
     </Route>
     

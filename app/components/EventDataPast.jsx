@@ -33,17 +33,11 @@ var EventDataPast = React.createClass({
         var events = [];
         var test;
         
-        //console.log(this.props);
-        
     },
     componentDidMount: function () {
-        console.log('start!');
         var that = this;
         
         this.initLoad();
-        //this.loadItems();
-            
-
     },
     
     initLoad() {
@@ -84,7 +78,6 @@ var EventDataPast = React.createClass({
                       i++;
                   }
                 }
-                console.log(oldEvents);
                   
                 that.setState({events: oldEvents }, function afterChange () {
                      that.loadItems();
@@ -122,8 +115,6 @@ var EventDataPast = React.createClass({
             pastEvents.push(loadedEvents[k]);
         }
         
-        console.log(pastEvents);
-        
         this.setState({isLoading: false});
         this.setState({hasMoreItems: false});
         this.setState({offset: limit});
@@ -137,7 +128,6 @@ var EventDataPast = React.createClass({
         
     },
     sorter() {
-        console.log('sorter activated');
         if (this.state.order === "ASC") {
             this.setState({btnSortClass: "fa fa-arrow-down"});
         }
@@ -148,7 +138,6 @@ var EventDataPast = React.createClass({
         this.dateSort(this.state.eventsDisplay, order);
     },
     dateSort(events, order) {
-        console.log(order);
         var sortable = [];
         var sortedEvents = [];
         
@@ -171,7 +160,6 @@ var EventDataPast = React.createClass({
                 }
             }
         }
-        console.log(sortedEvents);
         
         if (order === "DESC") {
             this.setState({order: "ASC"});    
@@ -184,7 +172,6 @@ var EventDataPast = React.createClass({
     },
     
    render: function () {
-       //console.log(this.state.events.length,"events function length",this.state.loadedEvents);
       
         if (this.state.isLoading) {
                 return <div><Halogen className = "halogen" color="#5F7187" size="72px" margin="48px"/></div>

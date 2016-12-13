@@ -18,6 +18,9 @@ var Nav = React.createClass({
               <Link to="/past-events" activeStyle={{fontWeight: 'bold'}}>Past Events</Link>
             </li>
             <li>
+              <Link to="/all-events" activeStyle={{fontWeight: 'bold'}}>All Events</Link>
+            </li>
+            <li>
               <Link to="/about" activeStyle={{fontWeight: 'bold'}}>About</Link>
             </li>
           </ul>

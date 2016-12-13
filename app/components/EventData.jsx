@@ -48,18 +48,14 @@ var EventData = React.createClass({
         var events = [];
         var test;
         
-        //console.log(this.props);
-        
     },
     componentDidMount: function () {
-        console.log('start!');
         var that = this;
         
         this.initLoad();
 
     },
     initLoad() {
-        console.log(ref, "this is ref!");
         var ref = firebase.database().ref('events');
         var that = this;
         
@@ -87,7 +83,6 @@ var EventData = React.createClass({
         var length = this.state.events.length;
         var offset = this.state.offset;
         var limit = page_size + offset;
-        console.log(limit, length);
         if (limit > length) {
             limit = length;
             this.setState({btnLoadingMsg: 'All Loaded', btnLoadingClassName: 'button load-more hide'});
@@ -101,11 +96,8 @@ var EventData = React.createClass({
             var eventDate = new Date(loadedEvents[i].date);                 //get event date
             var currentDate = new Date();                                   //get current date
             currentDate.setDate(currentDate.getDate() -1);
-            console.log(currentDate.getTime());
-            console.log(eventDate.getTime());
             if (currentDate.getTime() < eventDate.getTime()) {              //push only future events
                 eventsDisplay.push(loadedEvents[i]);
-                console.log("pushing!")
             }
         }
         
@@ -126,7 +118,6 @@ var EventData = React.createClass({
             var dd = d.getTime();
             sortable.push(dd);
         }
-        console.log(sortable);
         sortable.sort();
         
         for (let v of sortable) {
@@ -134,8 +125,6 @@ var EventData = React.createClass({
               var e = new Date(x.date);
               if (v === e.getTime()) {
                 newEvents.push(x);
-                console.log("match!");
-                console.log(x.title);
               }
           }
         }
@@ -147,7 +136,6 @@ var EventData = React.createClass({
         
     },
     sorter() {
-        console.log('sorter activated');
         if (this.state.order === "ASC") {
             this.setState({btnSortClass: "fa fa-arrow-down"});
         }
@@ -158,7 +146,6 @@ var EventData = React.createClass({
         this.dateSort(this.state.eventsDisplay, order);
     },
     dateSort(events, order) {
-        console.log(order);
         var sortable = [];
         var sortedEvents = [];
         
@@ -186,7 +173,6 @@ var EventData = React.createClass({
         else {
             this.setState({order: "DESC"});
         }
-        console.log(this.state.order);
         this.setState({eventsDisplay: sortedEvents});
     },
     

@@ -19,7 +19,7 @@ var Card = React.createClass({
         }
     },
     componentWillMount: function () {
-        //console.log('Hello');
+        
     },
     componentDidMount: function () {
         function datePos (dateSplit, cardDate) {
@@ -143,7 +143,7 @@ var Card = React.createClass({
                             
                             addScoreRef.update({ event_score: totalScore })
                               .then(function() {
-                                console.log('Updated score: ', totalScore);
+                                
                               })
                               .catch(function(error) {
                                 console.log('Synchronization failed');

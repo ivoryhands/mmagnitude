@@ -111,10 +111,11 @@
 	var EventDataPast = __webpack_require__(248);
 	var Nav = __webpack_require__(223);
 	var Splash = __webpack_require__(249);
+	var AllEvents = __webpack_require__(250);
 
-	__webpack_require__(250);
-	__webpack_require__(254);
-	__webpack_require__(256);
+	__webpack_require__(251);
+	__webpack_require__(255);
+	__webpack_require__(257);
 	//require('style!css!foundation-sites/assets/font-awesome-4.7.0/css/font-awesome.css')
 
 	ReactDOM.render(React.createElement(
@@ -127,6 +128,7 @@
 	    React.createElement(Route, { path: 'card/*', component: Card }),
 	    React.createElement(Route, { path: 'past-events', component: EventDataPast }),
 	    React.createElement(Route, { path: 'upcoming-events', component: EventData }),
+	    React.createElement(Route, { path: 'all-events', component: AllEvents }),
 	    React.createElement(IndexRoute, { component: Splash })
 	  )
 	), document.getElementById('app'));
@@ -25010,6 +25012,15 @@
 	            null,
 	            React.createElement(
 	              Link,
+	              { to: '/all-events', activeStyle: { fontWeight: 'bold' } },
+	              'All Events'
+	            )
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(
+	              Link,
 	              { to: '/about', activeStyle: { fontWeight: 'bold' } },
 	              'About'
 	            )
@@ -25955,9 +25966,7 @@
 	            fights: "fights"
 	        };
 	    },
-	    componentWillMount: function componentWillMount() {
-	        //console.log('Hello');
-	    },
+	    componentWillMount: function componentWillMount() {},
 	    componentDidMount: function componentDidMount() {
 	        function datePos(dateSplit, cardDate) {
 	            var pos = 0;
@@ -26095,9 +26104,7 @@
 	                        var firebasePath = "events/" + firebasePOS;
 	                        var addScoreRef = firebase.database().ref(firebasePath);
 
-	                        addScoreRef.update({ event_score: totalScore }).then(function () {
-	                            console.log('Updated score: ', totalScore);
-	                        }).catch(function (error) {
+	                        addScoreRef.update({ event_score: totalScore }).then(function () {}).catch(function (error) {
 	                            console.log('Synchronization failed');
 	                        });
 	                    });
@@ -27341,17 +27348,13 @@
 	        var allevents = [];
 	        var events = [];
 	        var test;
-
-	        //console.log(this.props);
 	    },
 	    componentDidMount: function componentDidMount() {
-	        console.log('start!');
 	        var that = this;
 
 	        this.initLoad();
 	    },
 	    initLoad: function initLoad() {
-	        console.log(ref, "this is ref!");
 	        var ref = firebase.database().ref('events');
 	        var that = this;
 
@@ -27378,7 +27381,6 @@
 	        var length = this.state.events.length;
 	        var offset = this.state.offset;
 	        var limit = page_size + offset;
-	        console.log(limit, length);
 	        if (limit > length) {
 	            limit = length;
 	            this.setState({ btnLoadingMsg: 'All Loaded', btnLoadingClassName: 'button load-more hide' });
@@ -27392,12 +27394,9 @@
 	            var eventDate = new Date(loadedEvents[i].date); //get event date
 	            var currentDate = new Date(); //get current date
 	            currentDate.setDate(currentDate.getDate() - 1);
-	            console.log(currentDate.getTime());
-	            console.log(eventDate.getTime());
 	            if (currentDate.getTime() < eventDate.getTime()) {
 	                //push only future events
 	                eventsDisplay.push(loadedEvents[i]);
-	                console.log("pushing!");
 	            }
 	        }
 
@@ -27417,7 +27416,6 @@
 	            var dd = d.getTime();
 	            sortable.push(dd);
 	        }
-	        console.log(sortable);
 	        sortable.sort();
 
 	        var _iteratorNormalCompletion = true;
@@ -27438,8 +27436,6 @@
 	                        var e = new Date(_x.date);
 	                        if (v === e.getTime()) {
 	                            newEvents.push(_x);
-	                            console.log("match!");
-	                            console.log(_x.title);
 	                        }
 	                    }
 	                } catch (err) {
@@ -27479,7 +27475,6 @@
 	        this.setState({ eventsDisplay: newEvents });
 	    },
 	    sorter: function sorter() {
-	        console.log('sorter activated');
 	        if (this.state.order === "ASC") {
 	            this.setState({ btnSortClass: "fa fa-arrow-down" });
 	        }
@@ -27490,7 +27485,6 @@
 	        this.dateSort(this.state.eventsDisplay, order);
 	    },
 	    dateSort: function dateSort(events, order) {
-	        console.log(order);
 	        var sortable = [];
 	        var sortedEvents = [];
 
@@ -27559,7 +27553,6 @@
 	        } else {
 	            this.setState({ order: "DESC" });
 	        }
-	        console.log(this.state.order);
 	        this.setState({ eventsDisplay: sortedEvents });
 	    },
 
@@ -27720,16 +27713,11 @@
 	        var allevents = [];
 	        var events = [];
 	        var test;
-
-	        //console.log(this.props);
 	    },
 	    componentDidMount: function componentDidMount() {
-	        console.log('start!');
 	        var that = this;
 
 	        this.initLoad();
-	        //this.loadItems();
-
 	    },
 
 	    initLoad: function initLoad() {
@@ -27812,8 +27800,6 @@
 	                        }
 	                    }
 
-	                    console.log(oldEvents);
-
 	                    that.setState({ events: oldEvents }, function afterChange() {
 	                        that.loadItems();
 	                    });
@@ -27848,8 +27834,6 @@
 	            pastEvents.push(loadedEvents[k]);
 	        }
 
-	        console.log(pastEvents);
-
 	        this.setState({ isLoading: false });
 	        this.setState({ hasMoreItems: false });
 	        this.setState({ offset: limit });
@@ -27861,7 +27845,6 @@
 	        this.setState({ eventsDisplay: pastEvents });
 	    },
 	    sorter: function sorter() {
-	        console.log('sorter activated');
 	        if (this.state.order === "ASC") {
 	            this.setState({ btnSortClass: "fa fa-arrow-down" });
 	        }
@@ -27872,7 +27855,6 @@
 	        this.dateSort(this.state.eventsDisplay, order);
 	    },
 	    dateSort: function dateSort(events, order) {
-	        console.log(order);
 	        var sortable = [];
 	        var sortedEvents = [];
 
@@ -27959,8 +27941,6 @@
 	            }
 	        }
 
-	        console.log(sortedEvents);
-
 	        if (order === "DESC") {
 	            this.setState({ order: "ASC" });
 	        } else {
@@ -27971,7 +27951,6 @@
 
 
 	    render: function render() {
-	        //console.log(this.state.events.length,"events function length",this.state.loadedEvents);
 
 	        if (this.state.isLoading) {
 	            return React.createElement(
@@ -28152,13 +28131,445 @@
 /* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var React = __webpack_require__(7);
+	var ReactCSSTransitionGroup = __webpack_require__(224);
+
+	var _require = __webpack_require__(165),
+	    Link = _require.Link,
+	    IndexLink = _require.IndexLink;
+
+	var firebase = __webpack_require__(233);
+	var Nav = __webpack_require__(223);
+
+	var AllEvents = React.createClass({
+	    displayName: 'AllEvents',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            eventsDisplay: [],
+	            eventsAll: [],
+	            eventsLength: 1,
+	            eventValue: 'All',
+	            yearValue: 'All',
+	            yearDisplay: ''
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var that = this;
+	        function getAllEvents() {
+	            var ref = firebase.database().ref('events');
+
+	            var sorted = [];
+	            var sortedEvents = [];
+	            ref.once('value').then(function (snapshot) {
+	                var events = snapshot.val();
+	                var _iteratorNormalCompletion = true;
+	                var _didIteratorError = false;
+	                var _iteratorError = undefined;
+
+	                try {
+	                    for (var _iterator = events[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                        var x = _step.value;
+
+	                        sorted.push([x.event_score, x.title]);
+	                    }
+	                } catch (err) {
+	                    _didIteratorError = true;
+	                    _iteratorError = err;
+	                } finally {
+	                    try {
+	                        if (!_iteratorNormalCompletion && _iterator.return) {
+	                            _iterator.return();
+	                        }
+	                    } finally {
+	                        if (_didIteratorError) {
+	                            throw _iteratorError;
+	                        }
+	                    }
+	                }
+
+	                sorted.sort(function (a, b) {
+	                    return b[0] - a[0];
+	                });
+	                var _iteratorNormalCompletion2 = true;
+	                var _didIteratorError2 = false;
+	                var _iteratorError2 = undefined;
+
+	                try {
+	                    for (var _iterator2 = sorted[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	                        var v = _step2.value;
+	                        var _iteratorNormalCompletion3 = true;
+	                        var _didIteratorError3 = false;
+	                        var _iteratorError3 = undefined;
+
+	                        try {
+	                            for (var _iterator3 = events[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	                                var _x = _step3.value;
+
+	                                if (v[1] === _x.title) {
+	                                    sortedEvents.push(_x);
+	                                }
+	                            }
+	                        } catch (err) {
+	                            _didIteratorError3 = true;
+	                            _iteratorError3 = err;
+	                        } finally {
+	                            try {
+	                                if (!_iteratorNormalCompletion3 && _iterator3.return) {
+	                                    _iterator3.return();
+	                                }
+	                            } finally {
+	                                if (_didIteratorError3) {
+	                                    throw _iteratorError3;
+	                                }
+	                            }
+	                        }
+	                    }
+	                } catch (err) {
+	                    _didIteratorError2 = true;
+	                    _iteratorError2 = err;
+	                } finally {
+	                    try {
+	                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	                            _iterator2.return();
+	                        }
+	                    } finally {
+	                        if (_didIteratorError2) {
+	                            throw _iteratorError2;
+	                        }
+	                    }
+	                }
+
+	                that.setState({ eventsDisplay: sortedEvents, eventsAll: sortedEvents, eventsLength: sortedEvents.length });
+	            });
+	        }
+
+	        getAllEvents();
+	    },
+	    yearAndEventFilter: function yearAndEventFilter(year, eventType) {
+
+	        /*  EventType Filter    
+	        *   @params     allEvents = allEvents from Firebase
+	        *   @params     eventsByType = empty array to store filtered type selection
+	        */
+
+	        var allEvents = this.state.eventsAll;
+	        var eventsByType = [];
+
+	        if (eventType != "All") {
+	            //If eventType is not All, find events that match type selected (i.e. PPVs)
+	            var _iteratorNormalCompletion4 = true;
+	            var _didIteratorError4 = false;
+	            var _iteratorError4 = undefined;
+
+	            try {
+	                for (var _iterator4 = allEvents[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+	                    var x = _step4.value;
+
+	                    if (x.event_type === eventType) {
+	                        eventsByType.push(x);
+	                    }
+	                }
+	            } catch (err) {
+	                _didIteratorError4 = true;
+	                _iteratorError4 = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion4 && _iterator4.return) {
+	                        _iterator4.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError4) {
+	                        throw _iteratorError4;
+	                    }
+	                }
+	            }
+	        } else {
+	            //Otherwise, return all events
+	            eventsByType = allEvents;
+	        }
+
+	        /*  Year Filter    
+	        *   @params     eventsByYear = empty array to store filtered year selection
+	        *   @params     d, dd, dStr = convert year in database to string for comparison to select box
+	        */
+
+	        var eventsByYear = [];
+
+	        if (year != "All") {
+	            //If year is not All, find events that match year select (i.e. 2016)
+	            var _iteratorNormalCompletion5 = true;
+	            var _didIteratorError5 = false;
+	            var _iteratorError5 = undefined;
+
+	            try {
+	                for (var _iterator5 = eventsByType[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+	                    var _x2 = _step5.value;
+
+	                    var d = new Date(_x2.date);
+	                    var dd = d.getFullYear();
+	                    var dStr = dd.toString();
+	                    if (dStr === year) {
+	                        eventsByYear.push(_x2);
+	                    }
+	                }
+	            } catch (err) {
+	                _didIteratorError5 = true;
+	                _iteratorError5 = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion5 && _iterator5.return) {
+	                        _iterator5.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError5) {
+	                        throw _iteratorError5;
+	                    }
+	                }
+	            }
+
+	            this.setState({ yearDisplay: 'in ' + year });
+	        } else {
+	            //Otherwise, return all events
+	            eventsByYear = eventsByType;
+	            this.setState({ yearDisplay: '' });
+	        }
+	        this.setState({ eventsDisplay: eventsByYear, eventsLength: eventsByYear.length });
+	    },
+	    yearSelect: function yearSelect(event) {
+	        /*  Year Select Box
+	        *   @params year = target value from select box
+	        *   @params eventType = event select box current selection
+	        */
+	        var year = event.target.value;
+	        var eventType = this.state.eventValue;
+	        this.setState({ yearValue: year });
+	        this.yearAndEventFilter(year, eventType);
+	    },
+	    eventSelect: function eventSelect(event) {
+	        /*  Event Select Box
+	        *   @params year = year select box current selection
+	        *   @params eventType = target value from select box
+	        */
+	        var year = this.state.yearValue;
+	        var eventType = event.target.value;
+	        this.setState({ eventValue: eventType });
+	        this.yearAndEventFilter(year, eventType);
+	    },
+
+	    render: function render() {
+	        var events = [];
+	        var tableDisplay = [];
+	        var noResults = [];
+	        if (this.state.eventsLength > 0) {
+	            tableDisplay.push(React.createElement(
+	                'tr',
+	                { key: '0' },
+	                React.createElement(
+	                    'th',
+	                    { width: '75%' },
+	                    'Event'
+	                ),
+	                React.createElement(
+	                    'th',
+	                    { width: '25%' },
+	                    'Score'
+	                )
+	            ));
+	            this.state.eventsDisplay.map(function (card, i) {
+	                events.push(React.createElement(
+	                    'tr',
+	                    { key: i },
+	                    React.createElement(
+	                        'td',
+	                        null,
+	                        React.createElement(
+	                            Link,
+	                            { to: "/card/" + card.url },
+	                            card.title
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'td',
+	                        null,
+	                        card.event_score
+	                    )
+	                ));
+	            });
+	        } else {
+	            tableDisplay.push(React.createElement(
+	                'div',
+	                { key: '0', className: 'no-result' },
+	                'No Results.'
+	            ));
+	        }
+
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'div',
+	                { className: 'callout large secondary slideRight' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'small-2 large-2 columns' },
+	                        React.createElement('p', null)
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'small-8 large-8 columns' },
+	                        React.createElement(
+	                            'h1',
+	                            null,
+	                            this.state.eventValue,
+	                            ' Events ',
+	                            this.state.yearDisplay,
+	                            ' (',
+	                            this.state.eventsLength,
+	                            ')'
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'small-2 large-2 columns' },
+	                        React.createElement('p', null)
+	                    )
+	                )
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'row' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-1 large-2 columns' },
+	                    React.createElement('p', null)
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-10 large-8 columns' },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'all-events slideRight' },
+	                        React.createElement(
+	                            'label',
+	                            { htmlFor: 'right-label', className: 'text-left' },
+	                            'Events'
+	                        ),
+	                        React.createElement(
+	                            'select',
+	                            { id: 'right-label', onChange: this.eventSelect, value: this.state.eventValue },
+	                            React.createElement(
+	                                'option',
+	                                { value: 'All' },
+	                                'All'
+	                            ),
+	                            React.createElement(
+	                                'option',
+	                                { value: 'PPV' },
+	                                'PPV'
+	                            ),
+	                            React.createElement(
+	                                'option',
+	                                { value: 'Fight Night' },
+	                                'Fight Night'
+	                            ),
+	                            React.createElement(
+	                                'option',
+	                                { value: 'TUF' },
+	                                'TUF Finale'
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'all-events slideRight' },
+	                        React.createElement(
+	                            'label',
+	                            { htmlFor: 'right-label', className: 'text-left' },
+	                            'Year'
+	                        ),
+	                        React.createElement(
+	                            'select',
+	                            { id: 'right-label', className: 'all-events', onChange: this.yearSelect, value: this.state.yearValue },
+	                            React.createElement(
+	                                'option',
+	                                { value: 'All' },
+	                                'All'
+	                            ),
+	                            React.createElement(
+	                                'option',
+	                                { value: '2017' },
+	                                '2017'
+	                            ),
+	                            React.createElement(
+	                                'option',
+	                                { value: '2016' },
+	                                '2016'
+	                            ),
+	                            React.createElement(
+	                                'option',
+	                                { value: '2015' },
+	                                '2015'
+	                            )
+	                        )
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-1 large-2 columns' },
+	                    React.createElement('p', null)
+	                )
+	            ),
+	            React.createElement(
+	                'div',
+	                { className: 'row fadeIn slideUp' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-1 large-2 columns' },
+	                    React.createElement('p', null)
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-10 large-8 columns mid-card' },
+	                    React.createElement(
+	                        'table',
+	                        { className: 'tab-all-events' },
+	                        React.createElement(
+	                            'thead',
+	                            null,
+	                            tableDisplay,
+	                            events
+	                        )
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'small-1 large-2 columns' },
+	                    React.createElement('p', null)
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = AllEvents;
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(251);
+	var content = __webpack_require__(252);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(253)(content, {});
+	var update = __webpack_require__(254)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28175,10 +28586,10 @@
 	}
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(252)();
+	exports = module.exports = __webpack_require__(253)();
 	// imports
 
 
@@ -28189,7 +28600,7 @@
 
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports) {
 
 	/*
@@ -28245,7 +28656,7 @@
 
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28499,16 +28910,16 @@
 
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(255);
+	var content = __webpack_require__(256);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(253)(content, {});
+	var update = __webpack_require__(254)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28525,30 +28936,30 @@
 	}
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(252)();
+	exports = module.exports = __webpack_require__(253)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "  \n.icon {\n    color: #fff;\n    background-color: #F7E5BD; /* teal */\n    line-height: 150px;\n    text-align: center;\n    display: block;\n    overflow: hidden;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    \n    \n    \n    text-shadow: rgb(44, 62, 80) 1px 1px,\n    rgb(44, 62, 80) 2px 2px,\n    rgb(44, 62, 80) 3px 3px,\n    rgb(44, 62, 80) 4px 4px,\n    rgb(44, 62, 80) 5px 5px,\n    rgb(44, 62, 80) 6px 6px,\n    rgb(44, 62, 80) 7px 7px,\n    rgb(44, 62, 80) 8px 8px,\n    rgb(44, 62, 80) 9px 9px,\n    rgb(44, 62, 80) 10px 10px,\n    rgb(44, 62, 80) 11px 11px,\n    rgb(44, 62, 80) 12px 12px,\n    rgb(44, 62, 80) 13px 13px,\n    rgb(44, 62, 80) 14px 14px,\n    rgb(44, 62, 80) 15px 15px,\n    rgb(44, 62, 80) 16px 16px,\n    rgb(44, 62, 80) 17px 17px,\n    rgb(44, 62, 80) 18px 18px,\n    rgb(44, 62, 80) 19px 19px,\n    rgb(44, 62, 80) 20px 20px,\n    rgb(44, 62, 80) 21px 21px,\n    rgb(44, 62, 80) 22px 22px,\n    rgb(44, 62, 80) 23px 23px,\n    rgb(44, 62, 80) 24px 24px,\n    rgb(44, 62, 80) 25px 25px,\n    rgb(44, 62, 80) 26px 26px,\n    rgb(44, 62, 80) 27px 27px,\n    rgb(44, 62, 80) 28px 28px,\n    rgb(44, 62, 80) 29px 29px,\n    rgb(44, 62, 80) 30px 30px,\n    rgb(44, 62, 80) 31px 31px,\n    rgb(44, 62, 80) 32px 32px,\n    rgb(44, 62, 80) 33px 33px,\n    rgb(44, 62, 80) 34px 34px,\n    rgb(44, 62, 80) 35px 35px,\n    rgb(44, 62, 80) 36px 36px,\n    rgb(44, 62, 80) 37px 37px,\n    rgb(44, 62, 80) 38px 38px,\n    rgb(44, 62, 80) 39px 39px,\n    rgb(44, 62, 80) 40px 40px,\n    rgb(44, 62, 80) 41px 41px,\n    rgb(44, 62, 80) 42px 42px,\n    rgb(44, 62, 80) 43px 43px,\n    rgb(44, 62, 80) 44px 44px,\n    rgb(44, 62, 80) 45px 45px,\n    rgb(44, 62, 80) 46px 46px,\n    rgb(44, 62, 80) 47px 47px,\n    rgb(44, 62, 80) 48px 48px,\n    rgb(44, 62, 80) 49px 49px,\n    rgb(44, 62, 80) 50px 50px,\n    rgb(44, 62, 80) 51px 51px,\n    rgb(44, 62, 80) 52px 52px,\n    rgb(44, 62, 80) 53px 53px,\n    rgb(44, 62, 80) 54px 54px,\n    rgb(44, 62, 80) 55px 55px,\n    rgb(44, 62, 80) 56px 56px,\n    rgb(44, 62, 80) 57px 57px,\n    rgb(44, 62, 80) 58px 58px,\n    rgb(44, 62, 80) 59px 59px,\n    rgb(44, 62, 80) 60px 60px,\n    rgb(44, 62, 80) 61px 61px,\n    rgb(44, 62, 80) 62px 62px,\n    rgb(44, 62, 80) 63px 63px,\n    rgb(44, 62, 80) 64px 64px,\n    rgb(44, 62, 80) 65px 65px,\n    rgb(44, 62, 80) 66px 66px,\n    rgb(44, 62, 80) 67px 67px,\n    rgb(44, 62, 80) 68px 68px,\n    rgb(44, 62, 80) 69px 69px,\n    rgb(44, 62, 80) 70px 70px,\n    rgb(44, 62, 80) 71px 71px,\n    rgb(44, 62, 80) 72px 72px,\n    rgb(44, 62, 80) 73px 73px,\n    rgb(44, 62, 80) 74px 74px,\n    rgb(44, 62, 80) 75px 75px,\n    rgb(44, 62, 80) 76px 76px,\n    rgb(44, 62, 80) 77px 77px,\n    rgb(44, 62, 80) 78px 78px,\n    rgb(44, 62, 80) 79px 79px,\n    rgb(44, 62, 80) 80px 80px,\n    rgb(44, 62, 80) 81px 81px,\n    rgb(44, 62, 80) 82px 82px,\n    rgb(44, 62, 80) 83px 83px,\n    rgb(44, 62, 80) 84px 84px,\n    rgb(44, 62, 80) 85px 85px,\n    rgb(44, 62, 80) 86px 86px,\n    rgb(44, 62, 80) 87px 87px,\n    rgb(44, 62, 80) 88px 88px,\n    rgb(44, 62, 80) 89px 89px,\n    rgb(44, 62, 80) 90px 90px,\n    rgb(44, 62, 80) 91px 91px,\n    rgb(44, 62, 80) 92px 92px,\n    rgb(44, 62, 80) 93px 93px,\n    rgb(44, 62, 80) 94px 94px,\n    rgb(44, 62, 80) 95px 95px,\n    rgb(44, 62, 80) 96px 96px,\n    rgb(44, 62, 80) 97px 97px,\n    rgb(44, 62, 80) 98px 98px,\n    rgb(44, 62, 80) 99px 99px,\n    rgb(44, 62, 80) 100px 100px;\n}\n  \n  \n  \n  \n  /********************\n    CSS TRANSITION\n  ********************/\n  .fade-enter{\n    opacity: 0;\n  }\n  .fade-enter-active {\n    opacity: 1;\n    transition: opacity 500ms ease-out;\n  }\n  .fade-leave {\n    opacity: 1;\n  }\n  .fade-leave-active {\n    opacity: 0;\n    transition: opacity 500ms ease-out;\n  }\n\n\n\n.example-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.example-enter.example-enter-active {\n  opacity: 1;\n}\n\n.example-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.example-leave.example-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.example-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.example-appear.example-appear-active {\n  opacity: 1;\n}\n\n\n\n\n\n.slip-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.slip-enter.slip-enter-active {\n  opacity: 1;\n}\n\n.slip-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.slip-leave.slip-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.slip-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.slip-appear.slip-appear-active {\n  opacity: 1;\n}\n\n\n\n  \n  /*********************/\n  .buffer {\n    margin-top: 3rem;\n  }\n  .faq p {\n    line-height: 1.3;\n    padding-left: 1rem;\n    font-family: 'Roboto';\n  }\n  .faq h5 {\n    font-weight: bold;\n  }\n  .faq h6 {\n    font-weight: bold;\n    padding-top: 1rem;\n    color: #5F7187;\n    text-align: center;\n  }\n  \n  .halogen {\n    margin: auto;\n    text-align: center;\n  }\n  .halogen div {\n    width: 100px;\n    height: 100px;\n    position: absolute;\n    top:0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    margin: auto;\n   }\n   .halogen div div{\n    margin: 0 auto;\n  }\n  .callout.large.secondary {\n    padding-top: 1.5rem;\n    /*background-color: #67809F;*/\n    background-color: #5F7187;\n    color: white;\n    margin-bottom: 3rem;\n    padding-bottom: 0rem;\n  }\n  .callout.large.secondary h5 {\n    margin-bottom: 0;\n  }\n  .circle\n  {\n    width:100px;\n    height:100px;\n    border-radius:50px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin-bottom: 1rem;\n  }\n  .sqr\n  {\n    height: 200px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin-bottom: 1rem;\n  }\n  \n  .sqr h1 {\n    font-size: 100px;\n    font-family: \"Lato\";\n    padding-bottom: 0rem;\n    font-weight: 300;\n    position: relative;\n    top: 40%;\n    transform: translateY(-40%);\n  }\n  .space-li li {\n    padding: 2rem;\n    background-color: grey;\n  }\n  .hide {\n    visibility: hidden;\n  }\n  .yo {\n    display: block;\n  }\n  .card-grid {\n    \n  }\n  \n  .card-stuff {\n    text-align: center;\n  }\n  .card-stuff h1,h2,h3,h4,h5,h6 {\n    text-align: center;\n    font-family: 'Lato';\n    font-weight: 300;\n  }\n  .card-stuff h2{\n    font-weight: 500;\n    margin-bottom: 0.5rem;\n    line-height: 3rem;\n  }\n  .card-stuff h5{\n    line-height: 1.5rem;\n    color: #DADFE1;\n  }\n  \n  .top-info {\n    margin-bottom: 2rem;\n  }\n  .top-info h2, h3,h4,h5,h6{\n    padding: 0;\n    margin: 0;\n    line-height: 1.5;\n    \n  }\n  \n  .top-info h1 {\n    font-family: 'Lato';\n    font-weight: 300;\n    font-size: 4rem;\n    margin-top: 0;\n    margin-bottom: -0.5rem;\n    \n  }.top-info h6 {\n    margin-bottom: 0.5rem;\n  }\n  .tab-space-border {\n    background-color: #CCCCCC;\n    width: 100%;\n    height: 1px;\n    display: block;\n  }\n  .fakeTable {\n    border-width: 1px;\n    border-style: solid;\n    border-color: #CCCCCC;\n    border-right-width: 0px;\n    border-bottom-width: 0px;\n    overflow: hidden;\n    margin-top: 0.5rem;\n    margin-bottom: 1.0rem;\n  }\n  .tab-header {\n    background-color: #CCCCCC;\n    color: black;\n    font-weight: 700;\n  }\n  .tab-left span{\n    padding-left: 0.5rem;\n    border-left-color: white;\n    border-left-style: solid;\n    border-left-width: 0.1rem;\n  }\n  .tab-row {\n    background-color: #EEEEEE;\n    color: black;\n    font-weight: 300;\n    padding: 1rem;\n    border-right-color: white;\n    border-right-style: solid;\n    border-right-width: 0.2rem;\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n  }\n  .tab-row:nth-child(2) {\n    border-bottom-width: 0;\n  }\n  .tab-row-parent {\n\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n     \n  }\n  .first-td {\n    border-left-width: 0;\n    text-align: center;\n  }\n  .third-td {\n    text-align: center;\n  }\n  td{\n    background-color: #ECECEC;\n    border-bottom-color: white;\n    border-bottom-width: 2px;\n    border-bottom-style: solid;\n    border-left-color: white;\n    border-left-width: 2px;\n    border-left-style: solid;\n  }\n  table{margin-bottom: 0; width: 90%;}\n  .mid-card {\n    box-shadow: 0px 7px 19px 3px rgba(0,0,0,0.39);\n    background-color: white;\n    padding: 0;\n    margin-bottom: 5rem;\n    padding-bottom: 1rem;\n  }\n  .tab-pad {\n    width: 95%;\n    margin: auto;\n  }\n  \n  .tab-row-big-division {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall h1 {\n    \n    text-shadow: 1px 1px rgba(187,187,187, 0.95), 2px 2px rgba(187,187,187, 0.90), 3px 3px rgba(187,187,187, 0.85), 4px 4px rgba(187,187,187, 0.80), 5px 5px rgba(187,187,187, 0.75), 6px 6px rgba(187,187,187, 0.70), 7px 7px rgba(187,187,187, 0.65), 8px 8px rgba(187,187,187, 0.60), 9px 9px rgba(187,187,187, 0.55), 10px 10px rgba(187,187,187, 0.50), 11px 11px rgba(187,187,187, 0.45), 12px 12px rgba(187,187,187, 0.40), 13px 13px rgba(187,187,187, 0.35), 14px 14px rgba(187,187,187, 0.30), 15px 15px rgba(187,187,187, 0.25), 16px 16px rgba(187,187,187, 0.20), 17px 17px rgba(187,187,187, 0.15), 18px 18px rgba(187,187,187, 0.10), 19px 19px rgba(187,187,187, 0.05), 20px 20px rgba(187,187,187, 0.00)\n\n\n  }\n  .tab-entry {\n    overflow: hidden;\n  }\n  .tab-entry span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n  }\n  .tab-entry span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  .tab-entry-two {\n    overflow: hidden;\n  }\n  .tab-entry-two span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n    background-color: #F2F1EF;\n  }\n  .tab-entry-two span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  \n  \n\n  \n  .full-circle {\n   background-color: #5F7187;\n   /*height: 150px;\n   -moz-border-radius:75px;\n   -webkit-border-radius: 75px;\n   width: 150px;*/\n   width: 100*;\n   margin:auto;\n   margin-top: -1rem;\n  }\n  .halfOval { \n     background-color: rgb(44, 62, 80);\n     bottom:150px;\n     height: 50px;\n     margin: auto 0px;\n     border-radius: 50% 50% 0 0/ 100% 100% 0px 0px;\n     z-index: 0; \n}\n.triangle {\n  width: 0;\n    margin: auto;\n    height: 0;\n    border-style: solid;\n    border-width: 0 100px 40px 100px;\n    border-color: transparent transparent rgb(44, 62, 80) transparent;\n}\n\n\n   .backdrop {\n  height: 100px;\n  width: 200px;\n  background: blue;\n  margin-bottom: 50px;\n}\n\n.curtain {\n  height: 100px;\n  width: 200px;\n  position: relative;\n  top: -100px;\n  background-color: green;\n  margin-bottom: -50px;\n}\n.abovehalfOval { \n     width: 150px;\n     height: 150px;\n     background: red;\n    margin-bottom: -40px;\n    z-index: 1;\n}\n  \n  .score {\n    width: 50%;\n    margin: auto;\n  }\n  .full-circle h1 {\n    text-align: center;\n    color: white;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .info h4 {\n    text-align: center;\n    color: white;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .top-bar {\n    box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);\n    z-index: 1;\n  }\n  \n  .callout{\n    /*box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);*/\n    border-top-width: 0px;\n    border-left-width: 0px;\n    border-bottom-width: 0px;\n    border-right-width: 0px;\n    position: relative;\n    z-index: -1;\n    \n  }\n  .overlay-fade-in p  {\n    font-size: 14px;\n  }\n    .image-wrapper {\n  width: 100%;\n  height: 100%;\n  border: 1px solid rgba(0, 0, 0, 0.04);\n  overflow: hidden;\n  position: relative;\n  text-align: center;\n  border-radius: 4px;\n}\n.image-overlay-content h2 {\n font-weight: 800; \n}\n\n.image-overlay-content {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  overflow: hidden;\n  top: 0;\n  left: 0; }\n\n.overlay-fade-in p {\n  letter-spacing: 0.15em;\n  color: #f4f4f4;\n  font-size: 28px;\n  opacity: 0;\n  transition: all 0.2s linear; }\n.overlay-fade-in img {\n  transition: all 0.2s linear; }\n.overlay-fade-in .image-overlay-content {\n  opacity: 0;\n  background-color: rgba(0, 0, 0, 0.4);\n  transition: all 0.4s ease-in-out; }\n.overlay-fade-in h2 {\n  color: #f2f2f2;\n  font-size: 1.8rem;\n  margin-top: 40%;\n  opacity: 0;\n  transition: all 0.2s ease-in-out;\n  background: rgba(0, 0, 0, 0.7); }\n.overlay-fade-in .button {\n  display: inline-block;\n  text-decoration: none;\n  padding: 7px 14px;\n  background: #FFF;\n  color: #222;\n  text-transform: uppercase;\n  box-shadow: 0 0 1px #000;\n  position: relative;\n  border: 1px solid #999;\n  opacity: 0;\n  transition: all 0.2s ease-in-out; }\n  .overlay-fade-in .button:hover {\n    box-shadow: 0 0 5px #000; }\n.overlay-fade-in:hover img {\n  transform: scale(1.2); }\n.overlay-fade-in:hover .image-overlay-content {\n  opacity: 1; }\n.overlay-fade-in:hover h2, .overlay-fade-in p, .overlay-fade-in .button {\n  opacity: 1; }\n.overlay-fade-in:hover p {\n  transition-delay: 0.1s; }\n.overlay-fade-in:hover .button {\n  transition-delay: 0.2s; }\n\n/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/\n\n.fight-card {\n  /*padding: 1rem;*/\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  background-color: #fff;\n  width: 50%;\n  margin: auto;\n  margin-bottom: 1rem;\n  overflow: hidden;\n}\n.fight-col {\n  padding-left: 0;\n  padding-right: 0;\n}\n.fight-col .row {\n  margin-left: 0;\n  margin-right: 0;\n}\n.fight-card-left {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n  border-right-style: solid;\n  border-right-width: 2px;\n  border-right-color: #ecf0f1;\n  background-color: #F7E5BD;\n}\n.fight-card-left span {\n  text-align: center;\n  display: block;\n}\n.fight-card-right span {\n  text-align: left;\n  display: inline;\n}\n.fight-card-data span {\n  float: left;\n}\n\n.fight-card-right {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n}\n.fight-card-title {\n  width: 100%;\n  margin-bottom: 1rem;\n  background-color: rgb(44, 62, 80);\n  color: white;\n}\n.fight-card-title h2 {\n  text-align: center;\n  font-family: 'Lato';\n  font-weight: 300;\n}\n.fight-card-data {\n    \n  }\n  .fight-card-data-header {\n    width: 50%;\n    color: #666666;\n  }\n  .fight-card-data-text {\n    width: 50%;\n    padding-left: 1rem;\n  }\n  .info {\n    /*margin-left: 3rem;*/\n    text-align: center;\n    margin-top: 1rem;\n  }\n  .info h4 {\n    font-weight: 700;\n  }\n  .info p {\n    text-align: center;\n    margin-bottom: 0.05rem;\n  }\n  .info span {\n    display: inline;\n  }\n.clearFix {\n  clear: both;\n  display: block;\n  width: 100%;\n}\n.space {\n  margin-top: 6rem;\n}\n.card-info {\n  margin: auto;\n  text-align: center;\n  margin-top: 1rem;\n}\n.frame-square {\n  background: #fff;\n  /*border: 2px solid #000;*/\n  margin: auto;\n  vertical-align: top;\n  /*padding: 10px;*/\n  width: 200px;\n  height: 200px;\n  margin-top: 1rem;\n}\n\n.crop {\n  height: 100%;\n  overflow: hidden;\n  position: relative;\n}\n  .crop img {\n    display: block;\n    min-width: 100%;\n    min-height: 100%;\n    margin: auto;\n    top: -100%;\n    right: -100%;\n    bottom: -100%;\n    left: -100%;\n  }\n\n.profile-card {\n  padding: 1rem;\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  margin: 2rem 0;\n  background-color: #fff; \n  width: 90%;\n  margin: auto;\n  margin-top: 2rem;\n}\n.profile-card image {\n    overflow: hidden;\n    height: 200px;\n    width: 200px;\n}\n.drop-size {\n    float: right;\n    margin: 1rem;\n    margin-bottom: 0rem;\n    margin-top: 2rem;\n    font-weight: 700;\n    font-family: 'Lato';\n}\n\n\n\n.load-more {\n    display: block;\n    margin: auto;\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n}\n.btnEvents {\n    display: block;\n    margin: auto;\n    margin-top: 2rem;\n    text-align: center;\n}\n.btnEvents a {\n    margin: 1rem;\n}\n\n\n.splash-title {\n  margin: auto;\n  text-align: center;\n}\n.splash-title h1 {\n  font-size: 100px;\n  font-weight: 300;\n  font-family: 'Lato';\n  text-align: center;\n  display: inline;\n  margin: auto;\n}\n.splash-title h1 span {\n  color: rgb(44, 62, 80);\n}\n\n  .profile-card img {\n    \n    /*display: block;\n    text-align: center;\n    box-shadow: 2px 2px 5px #888888;\n  \n    margin: auto;*/\n    \n  }\n  .profile-card .profile-info {\n    padding: 1rem; \n    \n  }\n    .profile-card .profile-info h4 {\n      margin-top: 0;\n      text-align: center;\n      text-transform: uppercase; }\n    .profile-card .profile-info p {\n      text-align: center; }\n    .profile-card .profile-info .inline-list {\n      text-align: center;\n      margin-bottom: 1rem; }\n      .profile-card .profile-info .inline-list li {\n        float: none;\n        display: inline-block; }\n      .profile-card .profile-info .inline-list i.fi-social-facebook {\n        font-size: 1.5rem;\n        color: #3b5998; }\n        .profile-card .profile-info .inline-list i.fi-social-facebook:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-twitter {\n        font-size: 1.5rem;\n        color: #55acee; }\n        .profile-card .profile-info .inline-list i.fi-social-twitter:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-linkedin {\n        font-size: 1.5rem;\n        color: #0077b5; }\n        .profile-card .profile-info .inline-list i.fi-social-linkedin:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-github {\n        font-size: 1.5rem;\n        color: #333; }\n        .profile-card .profile-info .inline-list i.fi-social-github:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-youtube {\n        font-size: 1.5rem;\n        color: #cc181e; }\n        .profile-card .profile-info .inline-list i.fi-social-youtube:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n", ""]);
+	exports.push([module.id, "  \n.icon {\n    color: #fff;\n    background-color: #F7E5BD; /* teal */\n    line-height: 150px;\n    text-align: center;\n    display: block;\n    overflow: hidden;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    \n    \n    \n    text-shadow: rgb(44, 62, 80) 1px 1px,\n    rgb(44, 62, 80) 2px 2px,\n    rgb(44, 62, 80) 3px 3px,\n    rgb(44, 62, 80) 4px 4px,\n    rgb(44, 62, 80) 5px 5px,\n    rgb(44, 62, 80) 6px 6px,\n    rgb(44, 62, 80) 7px 7px,\n    rgb(44, 62, 80) 8px 8px,\n    rgb(44, 62, 80) 9px 9px,\n    rgb(44, 62, 80) 10px 10px,\n    rgb(44, 62, 80) 11px 11px,\n    rgb(44, 62, 80) 12px 12px,\n    rgb(44, 62, 80) 13px 13px,\n    rgb(44, 62, 80) 14px 14px,\n    rgb(44, 62, 80) 15px 15px,\n    rgb(44, 62, 80) 16px 16px,\n    rgb(44, 62, 80) 17px 17px,\n    rgb(44, 62, 80) 18px 18px,\n    rgb(44, 62, 80) 19px 19px,\n    rgb(44, 62, 80) 20px 20px,\n    rgb(44, 62, 80) 21px 21px,\n    rgb(44, 62, 80) 22px 22px,\n    rgb(44, 62, 80) 23px 23px,\n    rgb(44, 62, 80) 24px 24px,\n    rgb(44, 62, 80) 25px 25px,\n    rgb(44, 62, 80) 26px 26px,\n    rgb(44, 62, 80) 27px 27px,\n    rgb(44, 62, 80) 28px 28px,\n    rgb(44, 62, 80) 29px 29px,\n    rgb(44, 62, 80) 30px 30px,\n    rgb(44, 62, 80) 31px 31px,\n    rgb(44, 62, 80) 32px 32px,\n    rgb(44, 62, 80) 33px 33px,\n    rgb(44, 62, 80) 34px 34px,\n    rgb(44, 62, 80) 35px 35px,\n    rgb(44, 62, 80) 36px 36px,\n    rgb(44, 62, 80) 37px 37px,\n    rgb(44, 62, 80) 38px 38px,\n    rgb(44, 62, 80) 39px 39px,\n    rgb(44, 62, 80) 40px 40px,\n    rgb(44, 62, 80) 41px 41px,\n    rgb(44, 62, 80) 42px 42px,\n    rgb(44, 62, 80) 43px 43px,\n    rgb(44, 62, 80) 44px 44px,\n    rgb(44, 62, 80) 45px 45px,\n    rgb(44, 62, 80) 46px 46px,\n    rgb(44, 62, 80) 47px 47px,\n    rgb(44, 62, 80) 48px 48px,\n    rgb(44, 62, 80) 49px 49px,\n    rgb(44, 62, 80) 50px 50px,\n    rgb(44, 62, 80) 51px 51px,\n    rgb(44, 62, 80) 52px 52px,\n    rgb(44, 62, 80) 53px 53px,\n    rgb(44, 62, 80) 54px 54px,\n    rgb(44, 62, 80) 55px 55px,\n    rgb(44, 62, 80) 56px 56px,\n    rgb(44, 62, 80) 57px 57px,\n    rgb(44, 62, 80) 58px 58px,\n    rgb(44, 62, 80) 59px 59px,\n    rgb(44, 62, 80) 60px 60px,\n    rgb(44, 62, 80) 61px 61px,\n    rgb(44, 62, 80) 62px 62px,\n    rgb(44, 62, 80) 63px 63px,\n    rgb(44, 62, 80) 64px 64px,\n    rgb(44, 62, 80) 65px 65px,\n    rgb(44, 62, 80) 66px 66px,\n    rgb(44, 62, 80) 67px 67px,\n    rgb(44, 62, 80) 68px 68px,\n    rgb(44, 62, 80) 69px 69px,\n    rgb(44, 62, 80) 70px 70px,\n    rgb(44, 62, 80) 71px 71px,\n    rgb(44, 62, 80) 72px 72px,\n    rgb(44, 62, 80) 73px 73px,\n    rgb(44, 62, 80) 74px 74px,\n    rgb(44, 62, 80) 75px 75px,\n    rgb(44, 62, 80) 76px 76px,\n    rgb(44, 62, 80) 77px 77px,\n    rgb(44, 62, 80) 78px 78px,\n    rgb(44, 62, 80) 79px 79px,\n    rgb(44, 62, 80) 80px 80px,\n    rgb(44, 62, 80) 81px 81px,\n    rgb(44, 62, 80) 82px 82px,\n    rgb(44, 62, 80) 83px 83px,\n    rgb(44, 62, 80) 84px 84px,\n    rgb(44, 62, 80) 85px 85px,\n    rgb(44, 62, 80) 86px 86px,\n    rgb(44, 62, 80) 87px 87px,\n    rgb(44, 62, 80) 88px 88px,\n    rgb(44, 62, 80) 89px 89px,\n    rgb(44, 62, 80) 90px 90px,\n    rgb(44, 62, 80) 91px 91px,\n    rgb(44, 62, 80) 92px 92px,\n    rgb(44, 62, 80) 93px 93px,\n    rgb(44, 62, 80) 94px 94px,\n    rgb(44, 62, 80) 95px 95px,\n    rgb(44, 62, 80) 96px 96px,\n    rgb(44, 62, 80) 97px 97px,\n    rgb(44, 62, 80) 98px 98px,\n    rgb(44, 62, 80) 99px 99px,\n    rgb(44, 62, 80) 100px 100px;\n}\n  \n  \n  \n  \n  /********************\n    CSS TRANSITION\n  ********************/\n  .fade-enter{\n    opacity: 0;\n  }\n  .fade-enter-active {\n    opacity: 1;\n    transition: opacity 500ms ease-out;\n  }\n  .fade-leave {\n    opacity: 1;\n  }\n  .fade-leave-active {\n    opacity: 0;\n    transition: opacity 500ms ease-out;\n  }\n\n\n\n.example-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.example-enter.example-enter-active {\n  opacity: 1;\n}\n\n.example-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.example-leave.example-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.example-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.example-appear.example-appear-active {\n  opacity: 1;\n}\n\n\n\n\n\n.slip-enter {\n  opacity: 0.01;\n  transition: opacity .5s ease-in;\n}\n\n.slip-enter.slip-enter-active {\n  opacity: 1;\n}\n\n.slip-leave {\n  opacity: 1;\n  transition: opacity 1s ease-in;\n}\n\n.slip-leave.slip-leave-active {\n  opacity: 0.01;\n  transition: opacity 300ms ease-in;\n}\n\n.slip-appear {\n  opacity: 0.01;\n  transition: opacity 1s ease-in;\n}\n\n.slip-appear.slip-appear-active {\n  opacity: 1;\n}\n\n\n\n  \n  /*********************/\n  .buffer {\n    margin-top: 3rem;\n  }\n  .faq p {\n    line-height: 1.3;\n    padding-left: 1rem;\n    font-family: 'Roboto';\n  }\n  .faq h5 {\n    font-weight: bold;\n  }\n  .faq h6 {\n    font-weight: bold;\n    padding-top: 1rem;\n    color: #5F7187;\n    text-align: center;\n  }\n  \n  .halogen {\n    margin: auto;\n    text-align: center;\n  }\n  .halogen div {\n    width: 100px;\n    height: 100px;\n    position: absolute;\n    top:0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    margin: auto;\n   }\n   .halogen div div{\n    margin: 0 auto;\n  }\n  .callout.large.secondary {\n    padding-top: 1.5rem;\n    /*background-color: #67809F;*/\n    background-color: #5F7187;\n    color: white;\n    margin-bottom: 3rem;\n    padding-bottom: 0rem;\n  }\n  .callout.large.secondary h5 {\n    margin-bottom: 0;\n  }\n  .circle\n  {\n    width:100px;\n    height:100px;\n    border-radius:50px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin-bottom: 1rem;\n  }\n  .sqr\n  {\n    height: 200px;\n    font-size:14px;\n    background-color:rgb(44, 62, 80);\n    line-height:100px;\n    text-align:center;\n    color: white;\n    margin-bottom: 1rem;\n  }\n  \n  .sqr h1 {\n    font-size: 100px;\n    font-family: \"Lato\";\n    padding-bottom: 0rem;\n    font-weight: 300;\n    position: relative;\n    top: 40%;\n    transform: translateY(-40%);\n  }\n  .space-li li {\n    padding: 2rem;\n    background-color: grey;\n  }\n  .hide {\n    visibility: hidden;\n  }\n  .yo {\n    display: block;\n  }\n  .card-grid {\n    \n  }\n  \n  .card-stuff {\n    text-align: center;\n  }\n  .card-stuff h1,h2,h3,h4,h5,h6 {\n    text-align: center;\n    font-family: 'Lato';\n    font-weight: 300;\n  }\n  .card-stuff h2{\n    font-weight: 500;\n    margin-bottom: 0.5rem;\n    line-height: 3rem;\n  }\n  .card-stuff h5{\n    line-height: 1.5rem;\n    color: #DADFE1;\n  }\n  \n  .top-info {\n    margin-bottom: 2rem;\n  }\n  .top-info h2, h3,h4,h5,h6{\n    padding: 0;\n    margin: 0;\n    line-height: 1.5;\n    \n  }\n  \n  .top-info h1 {\n    font-family: 'Lato';\n    font-weight: 300;\n    font-size: 4rem;\n    margin-top: 0;\n    margin-bottom: -0.5rem;\n    \n  }.top-info h6 {\n    margin-bottom: 0.5rem;\n  }\n  .tab-space-border {\n    background-color: #CCCCCC;\n    width: 100%;\n    height: 1px;\n    display: block;\n  }\n  .fakeTable {\n    border-width: 1px;\n    border-style: solid;\n    border-color: #CCCCCC;\n    border-right-width: 0px;\n    border-bottom-width: 0px;\n    overflow: hidden;\n    margin-top: 0.5rem;\n    margin-bottom: 1.0rem;\n  }\n  .tab-header {\n    background-color: #CCCCCC;\n    color: black;\n    font-weight: 700;\n  }\n  .tab-left span{\n    padding-left: 0.5rem;\n    border-left-color: white;\n    border-left-style: solid;\n    border-left-width: 0.1rem;\n  }\n  .tab-row {\n    background-color: #EEEEEE;\n    color: black;\n    font-weight: 300;\n    padding: 1rem;\n    border-right-color: white;\n    border-right-style: solid;\n    border-right-width: 0.2rem;\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n  }\n  .tab-row:nth-child(2) {\n    border-bottom-width: 0;\n  }\n  .tab-row-parent {\n\n    border-bottom-color: white;\n    border-bottom-style: solid;\n    border-bottom-width: 0.2rem;\n     \n  }\n  .first-td {\n    border-left-width: 0;\n    text-align: center;\n  }\n  .third-td {\n    text-align: center;\n  }\n  td{\n    background-color: #ECECEC;\n    border-bottom-color: white;\n    border-bottom-width: 2px;\n    border-bottom-style: solid;\n    border-left-color: white;\n    border-left-width: 2px;\n    border-left-style: solid;\n  }\n  table{margin-bottom: 0; width: 90%;}\n  .mid-card {\n    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.20);\n    background-color: white;\n    padding: 0;\n    margin-bottom: 5rem;\n    padding-bottom: 1rem;\n  }\n  .tab-pad {\n    width: 95%;\n    margin: auto;\n  }\n  \n  .tab-row-big-division {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall {\n    \n    font-weight: 300;\n    font-size: 72px;\n    color: #FEFEFE;\n    text-align: center;\n    font-family: 'Lato';\n    /*background-color: #95A5A6;*/\n\n  }\n  .tab-row-tall h1 {\n    \n    text-shadow: 1px 1px rgba(187,187,187, 0.95), 2px 2px rgba(187,187,187, 0.90), 3px 3px rgba(187,187,187, 0.85), 4px 4px rgba(187,187,187, 0.80), 5px 5px rgba(187,187,187, 0.75), 6px 6px rgba(187,187,187, 0.70), 7px 7px rgba(187,187,187, 0.65), 8px 8px rgba(187,187,187, 0.60), 9px 9px rgba(187,187,187, 0.55), 10px 10px rgba(187,187,187, 0.50), 11px 11px rgba(187,187,187, 0.45), 12px 12px rgba(187,187,187, 0.40), 13px 13px rgba(187,187,187, 0.35), 14px 14px rgba(187,187,187, 0.30), 15px 15px rgba(187,187,187, 0.25), 16px 16px rgba(187,187,187, 0.20), 17px 17px rgba(187,187,187, 0.15), 18px 18px rgba(187,187,187, 0.10), 19px 19px rgba(187,187,187, 0.05), 20px 20px rgba(187,187,187, 0.00)\n\n\n  }\n  .tab-entry {\n    overflow: hidden;\n  }\n  .tab-entry span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n  }\n  .tab-entry span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  .tab-entry-two {\n    overflow: hidden;\n  }\n  .tab-entry-two span {\n    width: 50%;\n    float: left;\n    font-weight: 700;\n    padding-left: 1.5rem;\n    padding-top: 0.5rem;\n    padding-bottom: 0.5rem;\n    border-right-width: 1px;\n    border-right-style: solid;\n    border-right-color: #CCCCCC;\n    background-color: #F2F1EF;\n  }\n  .tab-entry-two span:nth-child(2) {\n    width: 15%;\n    text-align: center;\n    padding-left: 0;\n  }\n  \n  \n\n  \n  .full-circle {\n   background-color: #5F7187;\n   /*height: 150px;\n   -moz-border-radius:75px;\n   -webkit-border-radius: 75px;\n   width: 150px;*/\n   width: 100*;\n   margin:auto;\n   margin-top: -1rem;\n  }\n  .halfOval { \n     background-color: rgb(44, 62, 80);\n     bottom:150px;\n     height: 50px;\n     margin: auto 0px;\n     border-radius: 50% 50% 0 0/ 100% 100% 0px 0px;\n     z-index: 0; \n}\n.triangle {\n  width: 0;\n    margin: auto;\n    height: 0;\n    border-style: solid;\n    border-width: 0 100px 40px 100px;\n    border-color: transparent transparent rgb(44, 62, 80) transparent;\n}\n\n\n   .backdrop {\n  height: 100px;\n  width: 200px;\n  background: blue;\n  margin-bottom: 50px;\n}\n\n.curtain {\n  height: 100px;\n  width: 200px;\n  position: relative;\n  top: -100px;\n  background-color: green;\n  margin-bottom: -50px;\n}\n.abovehalfOval { \n     width: 150px;\n     height: 150px;\n     background: red;\n    margin-bottom: -40px;\n    z-index: 1;\n}\n  \n  .score {\n    width: 50%;\n    margin: auto;\n  }\n  .full-circle h1 {\n    text-align: center;\n    color: white;\n    font-weight: 300;\n    font-size: 100px;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .info h4 {\n    text-align: center;\n    color: white;\n    font-family: 'Lato';\n    position: relative;\n    top: 50%;\n    transform: translateY(-50%);\n    margin-left: -15px;\n  }\n  .top-bar {\n    box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);\n    z-index: 1;\n  }\n  \n  .callout{\n    /*box-shadow: 1px 10px 15px -8px rgba(0,0,0,0.25);*/\n    border-top-width: 0px;\n    border-left-width: 0px;\n    border-bottom-width: 0px;\n    border-right-width: 0px;\n    position: relative;\n    z-index: -1;\n    \n  }\n  .overlay-fade-in p  {\n    font-size: 14px;\n  }\n    .image-wrapper {\n  width: 100%;\n  height: 100%;\n  border: 1px solid rgba(0, 0, 0, 0.04);\n  overflow: hidden;\n  position: relative;\n  text-align: center;\n  border-radius: 4px;\n}\n.image-overlay-content h2 {\n font-weight: 800; \n}\n\n.image-overlay-content {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  overflow: hidden;\n  top: 0;\n  left: 0; }\n\n.overlay-fade-in p {\n  letter-spacing: 0.15em;\n  color: #f4f4f4;\n  font-size: 28px;\n  opacity: 0;\n  transition: all 0.2s linear; }\n.overlay-fade-in img {\n  transition: all 0.2s linear; }\n.overlay-fade-in .image-overlay-content {\n  opacity: 0;\n  background-color: rgba(0, 0, 0, 0.4);\n  transition: all 0.4s ease-in-out; }\n.overlay-fade-in h2 {\n  color: #f2f2f2;\n  font-size: 1.8rem;\n  margin-top: 40%;\n  opacity: 0;\n  transition: all 0.2s ease-in-out;\n  background: rgba(0, 0, 0, 0.7); }\n.overlay-fade-in .button {\n  display: inline-block;\n  text-decoration: none;\n  padding: 7px 14px;\n  background: #FFF;\n  color: #222;\n  text-transform: uppercase;\n  box-shadow: 0 0 1px #000;\n  position: relative;\n  border: 1px solid #999;\n  opacity: 0;\n  transition: all 0.2s ease-in-out; }\n  .overlay-fade-in .button:hover {\n    box-shadow: 0 0 5px #000; }\n.overlay-fade-in:hover img {\n  transform: scale(1.2); }\n.overlay-fade-in:hover .image-overlay-content {\n  opacity: 1; }\n.overlay-fade-in:hover h2, .overlay-fade-in p, .overlay-fade-in .button {\n  opacity: 1; }\n.overlay-fade-in:hover p {\n  transition-delay: 0.1s; }\n.overlay-fade-in:hover .button {\n  transition-delay: 0.2s; }\n\n/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/\n\n.fight-card {\n  /*padding: 1rem;*/\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  background-color: #fff;\n  width: 50%;\n  margin: auto;\n  margin-bottom: 1rem;\n  overflow: hidden;\n}\n.fight-col {\n  padding-left: 0;\n  padding-right: 0;\n}\n.fight-col .row {\n  margin-left: 0;\n  margin-right: 0;\n}\n.fight-card-left {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n  border-right-style: solid;\n  border-right-width: 2px;\n  border-right-color: #ecf0f1;\n  background-color: #F7E5BD;\n}\n.fight-card-left span {\n  text-align: center;\n  display: block;\n}\n.fight-card-right span {\n  text-align: left;\n  display: inline;\n}\n.fight-card-data span {\n  float: left;\n}\n\n.fight-card-right {\n  display: block;\n  width: 50%;\n  height: 100%;\n  float: left;\n}\n.fight-card-title {\n  width: 100%;\n  margin-bottom: 1rem;\n  background-color: rgb(44, 62, 80);\n  color: white;\n}\n.fight-card-title h2 {\n  text-align: center;\n  font-family: 'Lato';\n  font-weight: 300;\n}\n.fight-card-data {\n    \n  }\n  .fight-card-data-header {\n    width: 50%;\n    color: #666666;\n  }\n  .fight-card-data-text {\n    width: 50%;\n    padding-left: 1rem;\n  }\n  .info {\n    /*margin-left: 3rem;*/\n    text-align: center;\n    margin-top: 1rem;\n  }\n  .info h4 {\n    font-weight: 700;\n  }\n  .info p {\n    text-align: center;\n    margin-bottom: 0.05rem;\n  }\n  .info span {\n    display: inline;\n  }\n.clearFix {\n  clear: both;\n  display: block;\n  width: 100%;\n}\n.space {\n  margin-top: 6rem;\n}\n.card-info {\n  margin: auto;\n  text-align: center;\n  margin-top: 1rem;\n}\n.frame-square {\n  background: #fff;\n  /*border: 2px solid #000;*/\n  margin: auto;\n  vertical-align: top;\n  /*padding: 10px;*/\n  width: 200px;\n  height: 200px;\n  margin-top: 1rem;\n}\n\n.crop {\n  height: 100%;\n  overflow: hidden;\n  position: relative;\n}\n  .crop img {\n    display: block;\n    min-width: 100%;\n    min-height: 100%;\n    margin: auto;\n    top: -100%;\n    right: -100%;\n    bottom: -100%;\n    left: -100%;\n  }\n\n.profile-card {\n  padding: 1rem;\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n  margin: 2rem 0;\n  background-color: #fff; \n  width: 90%;\n  margin: auto;\n  margin-top: 2rem;\n}\n.profile-card image {\n    overflow: hidden;\n    height: 200px;\n    width: 200px;\n}\n.drop-size {\n    float: right;\n    margin: 1rem;\n    margin-bottom: 0rem;\n    margin-top: 2rem;\n    font-weight: 700;\n    font-family: 'Lato';\n}\n\n.no-result {\n    margin: 2rem;\n}\n.tab-all-events {\n  margin-top: 2rem;\n}\n\n.all-events {\n  width: 200px;\n  margin-right: 1rem;\n  float: left;\n}\n\n.load-more {\n    display: block;\n    margin: auto;\n    margin-top: 2rem;\n    margin-bottom: 2rem;\n}\n.btnEvents {\n    display: block;\n    margin: auto;\n    margin-top: 2rem;\n    text-align: center;\n}\n.btnEvents a {\n    margin: 1rem;\n}\n\n\n.splash-title {\n  margin: auto;\n  text-align: center;\n}\n.splash-title h1 {\n  font-size: 100px;\n  font-weight: 300;\n  font-family: 'Lato';\n  text-align: center;\n  display: inline;\n  margin: auto;\n}\n.splash-title h1 span {\n  color: rgb(44, 62, 80);\n}\n\n  .profile-card img {\n    \n    /*display: block;\n    text-align: center;\n    box-shadow: 2px 2px 5px #888888;\n  \n    margin: auto;*/\n    \n  }\n  .profile-card .profile-info {\n    padding: 1rem; \n    \n  }\n    .profile-card .profile-info h4 {\n      margin-top: 0;\n      text-align: center;\n      text-transform: uppercase; }\n    .profile-card .profile-info p {\n      text-align: center; }\n    .profile-card .profile-info .inline-list {\n      text-align: center;\n      margin-bottom: 1rem; }\n      .profile-card .profile-info .inline-list li {\n        float: none;\n        display: inline-block; }\n      .profile-card .profile-info .inline-list i.fi-social-facebook {\n        font-size: 1.5rem;\n        color: #3b5998; }\n        .profile-card .profile-info .inline-list i.fi-social-facebook:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-twitter {\n        font-size: 1.5rem;\n        color: #55acee; }\n        .profile-card .profile-info .inline-list i.fi-social-twitter:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-linkedin {\n        font-size: 1.5rem;\n        color: #0077b5; }\n        .profile-card .profile-info .inline-list i.fi-social-linkedin:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-github {\n        font-size: 1.5rem;\n        color: #333; }\n        .profile-card .profile-info .inline-list i.fi-social-github:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n      .profile-card .profile-info .inline-list i.fi-social-youtube {\n        font-size: 1.5rem;\n        color: #cc181e; }\n        .profile-card .profile-info .inline-list i.fi-social-youtube:hover {\n          transform: scale(1.5);\n          transition: all .5s ease-in-out; }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(257);
+	var content = __webpack_require__(258);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(253)(content, {});
+	var update = __webpack_require__(254)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28565,10 +28976,10 @@
 	}
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(252)();
+	exports = module.exports = __webpack_require__(253)();
 	// imports
 
 

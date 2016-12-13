@@ -29,7 +29,8 @@ module.exports = {
       EventDataPast: 'app/components/EventDataPast.jsx',
       Card: 'app/components/Card.jsx',
       ContentHeader: 'app/components/ContentHeader.jsx',
-      Splash: 'app/components/Splash.jsx'
+      Splash: 'app/components/Splash.jsx',
+      AllEvents: 'app/components/AllEvents.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },
