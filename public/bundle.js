@@ -28388,7 +28388,9 @@
 	                        React.createElement(
 	                            Link,
 	                            { to: "/card/" + card.url },
-	                            card.title
+	                            card.title,
+	                            ' ',
+	                            card.headliners
 	                        )
 	                    ),
 	                    React.createElement(

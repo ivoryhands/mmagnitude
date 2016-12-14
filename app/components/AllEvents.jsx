@@ -124,7 +124,7 @@ var AllEvents = React.createClass({
             this.state.eventsDisplay.map((card, i) => {
                     events.push(
                         <tr key={i}>
-                            <td><Link to={"/card/"+card.url}>{card.title}</Link></td>
+                            <td><Link to={"/card/"+card.url}>{card.title} {card.headliners}</Link></td>
                             <td>{card.event_score}</td>
                         </tr>
                     );
