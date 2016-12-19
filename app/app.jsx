@@ -9,6 +9,23 @@ var EventDataPast = require('EventDataPast');
 var Nav = require('Nav');
 var Splash = require('Splash');
 var AllEvents = require('AllEvents');
+var firebase = require('firebase');
+
+var config = {
+    apiKey: "AIzaSyBQpgPVjQScAtAbgxZZ_BIs3jZhLD38SJY",
+    authDomain: "events-558cd.firebaseapp.com",
+    databaseURL: "https://events-558cd.firebaseio.com",
+    storageBucket: "events-558cd.appspot.com",
+    messagingSenderId: "81048302603"
+};
+firebase.initializeApp(config);
+
+firebase.auth().signInAnonymously().catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
 
 require('style!css!foundation-sites/dist/foundation.css')
 require('style!css!foundation-sites/dist/custom.css')
@@ -30,16 +47,3 @@ ReactDOM.render(
   </Router>,
   document.getElementById('app')
 );
-
-/*
-  <Router history={hashHistory}>
-    <Route path="/" component={Main}>
-      <Route path="about" component={About}/>
-      <IndexRoute component={Weather}/>
-    </Route>
-  </Router>,
-  document.getElementById('app')
-
-
-
-*/

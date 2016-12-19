@@ -7,20 +7,6 @@ var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 var firebase = require('firebase');
 
-const options = [
-  'one', 'two', 'three'
-]
-const defaultOption = options[0];
-
-var config = {
-    apiKey: "AIzaSyBQpgPVjQScAtAbgxZZ_BIs3jZhLD38SJY",
-    authDomain: "events-558cd.firebaseapp.com",
-    databaseURL: "https://events-558cd.firebaseio.com",
-    storageBucket: "events-558cd.appspot.com",
-    messagingSenderId: "81048302603"
-};
-firebase.initializeApp(config);
-
 
 var EventData = React.createClass({
     
@@ -44,24 +30,20 @@ var EventData = React.createClass({
         }
     },
     componentWillMount: function () {
-        var allevents = [];
-        var events = [];
-        var test;
         
     },
     componentDidMount: function () {
         var that = this;
-        
         this.initLoad();
 
     },
     initLoad() {
+        
         var ref = firebase.database().ref('events');
         var that = this;
         
         ref.on('value', function(snapshot) {
           var data = snapshot.val();
-          
           that.setState({events: data }, function afterChange () {
              that.loadItems();
           });
@@ -92,9 +74,8 @@ var EventData = React.createClass({
         var eventsDisplay = [];
         
         for(var i = 0; i < limit; i++) {
-            
-            var eventDate = new Date(loadedEvents[i].date);                 //get event date
-            var currentDate = new Date();                                   //get current date
+            var eventDate = new Date(loadedEvents[i].date.replace(/-/g, "/"));  //get event date
+            var currentDate = new Date();                                       //get current date
             currentDate.setDate(currentDate.getDate() -1);
             if (currentDate.getTime() < eventDate.getTime()) {              //push only future events
                 eventsDisplay.push(loadedEvents[i]);
@@ -114,7 +95,7 @@ var EventData = React.createClass({
         var newEvents = [];
         
         for (var x in eventsDisplay) {
-            var d  = new Date(eventsDisplay[x].date);
+            var d  = new Date(eventsDisplay[x].date.replace(/-/g,"/"));
             var dd = d.getTime();
             sortable.push(dd);
         }
@@ -122,7 +103,7 @@ var EventData = React.createClass({
         
         for (let v of sortable) {
           for (let x of eventsDisplay) {
-              var e = new Date(x.date);
+              var e = new Date(x.date.replace(/-/g, "/"));
               if (v === e.getTime()) {
                 newEvents.push(x);
               }
@@ -131,7 +112,6 @@ var EventData = React.createClass({
         if (eventsDisplay.length < page_size) {
             this.setState({btnLoadingMsg: 'All Loaded', btnLoadingClassName: 'button load-more hide'});
         }
-        
         this.setState({eventsDisplay: newEvents});
         
     },
@@ -150,7 +130,7 @@ var EventData = React.createClass({
         var sortedEvents = [];
         
         for (var x in events) {
-            var d = new Date (events[x].date);
+            var d = new Date (events[x].date.replace(/-/g, "/"));
             var dd = d.getTime();
             sortable.push(dd);
         }
@@ -161,7 +141,7 @@ var EventData = React.createClass({
         
         for (let v of sortable) {
           for (let x of events) {
-              var e = new Date(x.date);
+              var e = new Date(x.date.replace(/-/g, "/"));
               if (v === e.getTime()) {
                 sortedEvents.push(x);
               }

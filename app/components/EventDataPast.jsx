@@ -29,15 +29,21 @@ var EventDataPast = React.createClass({
         }
     },
     componentWillMount: function () {
-        var allevents = [];
-        var events = [];
-        var test;
+        //var allevents = [];
+        //var events = [];
+        //var test;
         
     },
     componentDidMount: function () {
         var that = this;
         
         this.initLoad();
+        if (this.isMounted) {
+            console.log("mounted!");
+        }
+        else {
+            console.log("not mounted");
+        }
     },
     
     initLoad() {
@@ -57,7 +63,7 @@ var EventDataPast = React.createClass({
           data.forEach( function(element, index) {
               var currentDate = new Date();
               currentDate.setDate(currentDate.getDate() -1);
-              var snapsDate = new Date(element.date);
+              var snapsDate = new Date(element.date.replace(/-/g, "/"));
               if ( currentDate.getTime() > snapsDate.getTime() ) {
                   sortable.push([snapsDate.getTime(), element.title]);
               }
@@ -142,7 +148,7 @@ var EventDataPast = React.createClass({
         var sortedEvents = [];
         
         for (let x of events) {
-            var d = new Date(x.date);
+            var d = new Date(x.date.replace(/-/g, "/"));
             sortable.push([d.getTime(), x.title]);    
         }
         sortable.sort(function(a,b){

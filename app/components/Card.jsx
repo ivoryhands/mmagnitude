@@ -26,7 +26,7 @@ var Card = React.createClass({
             var pos = 0;
             
             for (let x of dateSplit) {
-                var fightDate = new Date(x);
+                var fightDate = new Date(x.replace(/-/g, "/"));
                 if (fightDate.getTime() < cardDate.getTime()) {
                     return pos;
                 }
@@ -35,7 +35,7 @@ var Card = React.createClass({
         }
         function computeScore (recordSplit, dateSplit, cardDate) {
             var RecordScore = 0;
-            var cardDate = new Date(cardDate);
+            var cardDate = new Date(cardDate.replace(/-/g, "/"));
             
             var pos = datePos(dateSplit, cardDate);
             
@@ -138,16 +138,16 @@ var Card = React.createClass({
                             *   @params firebasePath = current events node
                             *   @params addScoreRef = firebase path
                             */ 
-                            var firebasePath = "events/"+firebasePOS;
-                            var addScoreRef = firebase.database().ref(firebasePath);
+                            //var firebasePath = "events/"+firebasePOS;
+                            //var addScoreRef = firebase.database().ref(firebasePath);
                             
-                            addScoreRef.update({ event_score: totalScore })
-                              .then(function() {
+                            //addScoreRef.update({ event_score: totalScore })
+                            //  .then(function() {
                                 
-                              })
-                              .catch(function(error) {
-                                console.log('Synchronization failed');
-                            });
+                            //  })
+                            //  .catch(function(error) {
+                            //    console.log('Synchronization failed');
+                            //});
                         }));
                     }
                 }
