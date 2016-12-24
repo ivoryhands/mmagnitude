@@ -26006,16 +26006,20 @@
 	            }
 	        }
 	        function computeScore(recordSplit, dateSplit, cardDate) {
+	            console.log(recordSplit);
+	            console.log(dateSplit);
 	            var RecordScore = 0;
 	            var cardDate = new Date(cardDate.replace(/-/g, "/"));
 
 	            var pos = datePos(dateSplit, cardDate);
+	            console.log(pos);
 
 	            for (var i = pos; i < recordSplit.length; i++) {
 	                if (recordSplit[i] === "o") {
-	                    return RecordScore;
+	                    //return RecordScore;
+	                    //RecordScore = RecordScore + 0;
 	                }
-	                if (i > pos && recordSplit[i] !== recordSplit[i - 1] && recordSplit[i] !== "d") {
+	                if (i > pos && recordSplit[i] !== recordSplit[i - 1] && recordSplit[i] !== "d" && recordSplit[i - 1] !== "o" && recordSplit[i - 1] !== "d") {
 	                    return RecordScore;
 	                }
 	                if (recordSplit[i] === "w") {
@@ -26025,6 +26029,7 @@
 	                    RecordScore = RecordScore - 1;
 	                }
 	            }
+	            console.log(RecordScore);
 	            return RecordScore;
 	        }
 	        var event_url = this.props.params.splat;
@@ -26071,12 +26076,6 @@
 	                                    var redDateSplit = allFighters[k].date.split(",");
 	                                    var redRecord = computeScore(redRecordSplit, redDateSplit, that.state.date);
 	                                    console.log(redRecord);
-	                                    //if (redRecord > 0) {
-	                                    //    var redRecordStr = "+"+redRecord;
-	                                    //    }
-	                                    // else {
-	                                    //    var redRecordStr = redRecord;
-	                                    //}
 	                                    that.setState({ score: that.state.score + redRecord });
 	                                    totalScore = totalScore + redRecord;
 	                                }
