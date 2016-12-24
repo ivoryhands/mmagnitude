@@ -25961,13 +25961,14 @@
 	        return {
 	            hot: [],
 	            cold: [],
-	            score: 0,
+	            score: false,
 	            strScore: "",
 	            title: "",
 	            date: "",
 	            location: "",
 	            fightersCount: "",
-	            fights: "fights"
+	            fights: "fights",
+	            finished: false
 	        };
 	    },
 	    componentWillMount: function componentWillMount() {},
@@ -26034,7 +26035,7 @@
 
 	        ref.once('value').then(function (snapshot) {
 	            var fightevents = snapshot.val();
-
+	            console.log("refonce");
 	            for (var i = 0; i < fightevents.length; i++) {
 	                if (fightevents[i].url === event_url) {
 	                    var totalScore = 0;
@@ -26062,39 +26063,38 @@
 	                            var divShort = fighterList[key].divshort;
 	                            var blueRecord;
 	                            var redRecord;
-
+	                            var counter = 0;
 	                            for (var k = 0; k < allFighters.length; k++) {
 	                                if (allFighters[k].name === fighterList[key].red) {
+	                                    console.log(allFighters[k].name);
 	                                    var redRecordSplit = allFighters[k].record.split(",");
 	                                    var redDateSplit = allFighters[k].date.split(",");
 	                                    var redRecord = computeScore(redRecordSplit, redDateSplit, that.state.date);
-
-	                                    if (redRecord > 0) {
-	                                        var redRecordStr = "+" + redRecord;
-	                                    } else {
-	                                        var redRecordStr = redRecord;
-	                                    }
+	                                    console.log(redRecord);
+	                                    //if (redRecord > 0) {
+	                                    //    var redRecordStr = "+"+redRecord;
+	                                    //    }
+	                                    // else {
+	                                    //    var redRecordStr = redRecord;
+	                                    //}
 	                                    that.setState({ score: that.state.score + redRecord });
 	                                    totalScore = totalScore + redRecord;
 	                                }
 	                                if (allFighters[k].name === fighterList[key].blue) {
+	                                    console.log(allFighters[k].name);
 	                                    var blueRecordSplit = allFighters[k].record.split(",");
 	                                    var blueDateSplit = allFighters[k].date.split(",");
 	                                    var blueRecord = computeScore(blueRecordSplit, blueDateSplit, that.state.date);
-	                                    if (blueRecord > 0) {
-	                                        var blueRecordStr = "+" + blueRecord;
-	                                    } else {
-	                                        var blueRecordStr = blueRecord;
-	                                    }
 	                                    that.setState({ score: that.state.score + blueRecord });
 	                                    totalScore = totalScore + blueRecord;
 	                                }
 	                            }
+	                            that.setState({ finished: true });
 	                            var zip = {
 	                                fighterRed: red,
 	                                fighterBlue: blue,
-	                                redScore: redRecordStr,
-	                                blueScore: blueRecordStr,
+	                                redScore: redRecord,
+	                                blueScore: blueRecord,
 	                                divShort: divShort,
 	                                division: division
 	                            };
@@ -26123,8 +26123,8 @@
 	        });
 	    },
 	    render: function render() {
-
-	        if (!this.state.score) {
+	        console.log(this.state.finished, "finished");
+	        if (!this.state.finished) {
 	            return React.createElement(
 	                'div',
 	                null,
